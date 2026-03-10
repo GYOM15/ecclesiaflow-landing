@@ -33,7 +33,7 @@ export function SocialProof() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 items-center">
             {CHURCH_LOGOS.map((church) => (
-              <div key={church.name} className="relative flex flex-col items-center gap-1.5 py-4 px-3 rounded-lg border border-slate-200 bg-white transition-all duration-500 hover:scale-105 hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)]">
+              <div key={church.name} className="relative flex flex-col items-center gap-1.5 py-4 px-3 rounded-lg border border-slate-200 bg-white transition-all duration-500 hover:scale-105 hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] cursor-pointer">
                 <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-slate-300" fill="currentColor">
                   <path d="M12 2L14 8H20L15 12L17 18L12 14L7 18L9 12L4 8H10L12 2Z" />
                 </svg>

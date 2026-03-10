@@ -7,8 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { GradientText } from "@/components/decorative/gradient-text";
 import { TICKER_ITEMS } from "@/lib/constants";
 
-const ease = [0.25, 0.1, 0.25, 1.0] as const;
-
 /* Google "G" logo SVG */
 function GoogleLogo({ className }: { className?: string }) {
   return (
@@ -107,6 +105,43 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden pt-32 pb-0 lg:pt-44">
+      {/* CSS keyframe animations — GPU-accelerated for maximum smoothness */}
+      <style>{`
+        @keyframes heroFadeUp {
+          from { opacity: 0; transform: translate3d(0, 16px, 0); }
+          to   { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+        @keyframes heroFadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        .hero-anim-1 {
+          opacity: 0;
+          animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+          will-change: transform, opacity;
+        }
+        .hero-anim-2 {
+          opacity: 0;
+          animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+          will-change: transform, opacity;
+        }
+        .hero-anim-3 {
+          opacity: 0;
+          animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+          will-change: transform, opacity;
+        }
+        .hero-anim-4 {
+          opacity: 0;
+          animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+          will-change: transform, opacity;
+        }
+        .hero-anim-ticker {
+          opacity: 0;
+          animation: heroFadeIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+          will-change: opacity;
+        }
+      `}</style>
+
       {/* Background: animated subtle orbs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <motion.div
@@ -152,23 +187,20 @@ export function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Content — padding preserved, width constrained */}
         <div className="pl-6 lg:pl-16 pb-12 lg:pb-16 max-w-2xl">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease }}>
+          <div className="hero-anim-1">
             <Badge variant="indigo" dot className="mb-5">Bêta ouverte — Accès anticipé</Badge>
-          </motion.div>
+          </div>
 
-          <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.06, ease }}
-            className="text-[1.5rem] sm:text-[1.85rem] lg:text-[2.35rem] font-semibold tracking-[-0.02em] leading-[1.2] text-slate-800 mb-5">
+          <h1 className="hero-anim-2 text-[1.5rem] sm:text-[1.85rem] lg:text-[2.35rem] font-semibold tracking-[-0.02em] leading-[1.2] text-slate-800 mb-5">
             <GradientText from="#6366F1" to="#818CF8">Connectez, servez</GradientText>{" "}
             et faites grandir votre église avec une seule plateforme
-          </motion.h1>
+          </h1>
 
-          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1, ease }}
-            className="text-base sm:text-[1.05rem] text-slate-500 leading-relaxed mb-7">
+          <p className="hero-anim-3 text-base sm:text-[1.05rem] text-slate-500 leading-relaxed mb-7">
             Membres, événements, communication, finances — tout réuni dans une interface unique, moderne et pensée pour les communautés de foi.
-          </motion.p>
+          </p>
 
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16, ease }}
-            className="flex flex-wrap gap-3">
+          <div className="hero-anim-4 flex flex-wrap gap-3">
             <Button size="lg" variant="primary">
               Commencer
               <ArrowRight className="h-4 w-4" />
@@ -177,12 +209,12 @@ export function Hero() {
               <GoogleLogo className="h-4 w-4" />
               S&apos;inscrire avec Google
             </Button>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Ticker strip — white bg, dark text, cross logos */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.3 }}>
+      <div className="hero-anim-ticker">
         <div className="relative bg-white border-t border-slate-200 py-3.5 overflow-hidden">
           <div className="flex animate-marquee whitespace-nowrap">
             {tickerItems.map((item, i) => (
@@ -195,7 +227,7 @@ export function Hero() {
           <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
           <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

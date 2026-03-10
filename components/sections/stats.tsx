@@ -43,7 +43,7 @@ export function Stats() {
             {STATS.map((stat, i) => {
               const meta = statMeta[i];
               return (
-                <div key={stat.label} className={`relative bg-white/[0.06] rounded-xl p-6 lg:p-7 border border-white/[0.08] text-center group hover:bg-white/[0.1] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.25)] transition-all duration-500 border-b-[3px] ${meta.accent}`}>
+                <div key={stat.label} className={`relative bg-white/[0.06] rounded-xl p-6 lg:p-7 border border-white/[0.08] text-center group hover:bg-white/[0.1] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.25)] transition-all duration-500 border-b-[3px] ${meta.accent} cursor-pointer`}>
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${meta.iconBg} mb-4`}>
                     <meta.icon className={`h-5 w-5 ${meta.iconColor}`} />
                   </div>

@@ -25,7 +25,7 @@ function MembersMockup() {
       </div>
       <div className="space-y-2">
         {members.map((m) => (
-          <div key={m.name} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-50 transition-colors">
+          <div key={m.name} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 transition-colors cursor-pointer">
             <div className={`w-9 h-9 rounded-full ${m.color} flex items-center justify-center text-xs font-bold text-white`}>
               {m.name.split(" ").map((n) => n[0]).join("")}
             </div>

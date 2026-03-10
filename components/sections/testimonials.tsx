@@ -39,7 +39,7 @@ export function Testimonials() {
             <div className="space-y-6 lg:space-y-8">
               {TESTIMONIALS.slice(0, 2).map((testimonial, index) => (
                 <ScrollReveal key={testimonial.name} delay={index * 0.1}>
-                  <div className="group relative flex items-stretch rounded-lg bg-white overflow-hidden transition-all duration-500 hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] hover:-translate-y-0.5 h-full shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] border border-slate-200">
+                  <div className="group relative flex items-stretch rounded-lg bg-white overflow-hidden transition-all duration-500 hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] hover:-translate-y-0.5 h-full shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] border border-slate-200 cursor-pointer">
                     {/* Text side */}
                     <div className="flex-1 p-3 lg:p-4 flex flex-col justify-between relative z-10">
                       <div>
@@ -97,7 +97,7 @@ export function Testimonials() {
             <div className="space-y-6 lg:space-y-8 md:mt-12 lg:mt-16">
               {TESTIMONIALS.slice(2, 4).map((testimonial, index) => (
                 <ScrollReveal key={testimonial.name} delay={(index + 2) * 0.1}>
-                  <div className="group relative flex items-stretch rounded-lg bg-white overflow-hidden transition-all duration-500 hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] hover:-translate-y-0.5 h-full shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] border border-slate-200">
+                  <div className="group relative flex items-stretch rounded-lg bg-white overflow-hidden transition-all duration-500 hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] hover:-translate-y-0.5 h-full shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] border border-slate-200 cursor-pointer">
                     {/* Text side */}
                     <div className="flex-1 p-3 lg:p-4 flex flex-col justify-between relative z-10">
                       <div>

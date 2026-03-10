@@ -5,6 +5,30 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { HOW_IT_WORKS } from "@/lib/constants";
 
+const stepStyles = [
+  {
+    numColor: "text-indigo-500",
+    numColorLabel: "text-indigo-500",
+    ripple: "border-indigo-200",
+    ripple2: "border-indigo-100",
+    lightColor: "via-indigo-400",
+  },
+  {
+    numColor: "text-emerald-500",
+    numColorLabel: "text-emerald-500",
+    ripple: "border-emerald-200",
+    ripple2: "border-emerald-100",
+    lightColor: "via-emerald-400",
+  },
+  {
+    numColor: "text-amber-500",
+    numColorLabel: "text-amber-500",
+    ripple: "border-amber-200",
+    ripple2: "border-amber-100",
+    lightColor: "via-amber-400",
+  },
+];
+
 export function HowItWorks() {
   return (
     <section className="relative py-20 lg:py-28 bg-slate-50 overflow-hidden">
@@ -30,43 +54,46 @@ export function HowItWorks() {
         <div className="max-w-4xl mx-auto">
           {HOW_IT_WORKS.map((step, index) => {
             const isLast = index === HOW_IT_WORKS.length - 1;
+            const s = stepStyles[index] ?? stepStyles[0];
+            // The traveling light between dot N and dot N+1 takes the color of the NEXT dot
+            const nextS = stepStyles[index + 1] ?? stepStyles[0];
 
             return (
               <ScrollReveal key={step.step} delay={index * 0.12}>
                 <div className="relative flex gap-6 lg:gap-10">
                   {/* Timeline stem */}
                   <div className="flex flex-col items-center shrink-0">
-                    {/* Pulsing dot with wave ripples — indigo gradient */}
+                    {/* Pulsing dot with wave ripples — colored per step */}
                     <div className="relative z-10 flex items-center justify-center w-10 h-10">
                       {/* Ripple wave 1 */}
                       <motion.div
-                        className="absolute w-10 h-10 rounded-full border border-indigo-200"
+                        className={`absolute w-10 h-10 rounded-full border ${s.ripple}`}
                         animate={{ scale: [1, 2.2], opacity: [0.3, 0] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: index * 0.3 }}
                       />
                       {/* Ripple wave 2 */}
                       <motion.div
-                        className="absolute w-10 h-10 rounded-full border border-indigo-100"
+                        className={`absolute w-10 h-10 rounded-full border ${s.ripple2}`}
                         animate={{ scale: [1, 2.5], opacity: [0.2, 0] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: index * 0.3 + 0.8 }}
                       />
-                      {/* Main dot — indigo gradient */}
+                      {/* Main dot — neutral with colored number */}
                       <motion.div
-                        className="relative z-10 w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-400 flex items-center justify-center shadow-sm shadow-indigo-200/50"
+                        className="relative z-10 w-7 h-7 rounded-full bg-white border border-slate-200 flex items-center justify-center shadow-sm"
                         animate={{ scale: [1, 1.08, 1] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                       >
-                        <span className="text-[10px] font-bold text-white">{step.step}</span>
+                        <span className={`text-[11px] font-bold ${s.numColor}`}>{step.step}</span>
                       </motion.div>
                     </div>
 
-                    {/* Flowing connector with traveling light */}
+                    {/* Flowing connector with traveling light — color transitions to next step */}
                     {!isLast && (
                       <div className="relative w-px flex-1 min-h-[60px]">
                         <div className="absolute inset-0 w-0.5 mx-auto bg-gradient-to-b from-indigo-200 to-slate-200 opacity-40" />
-                        {/* Traveling light pulse */}
+                        {/* Traveling light pulse — takes next step's color */}
                         <motion.div
-                          className="absolute left-1/2 -translate-x-1/2 w-[3px] h-8 rounded-full bg-gradient-to-b from-transparent via-indigo-400 to-transparent opacity-60"
+                          className={`absolute left-1/2 -translate-x-1/2 w-[3px] h-8 rounded-full bg-gradient-to-b from-transparent ${nextS.lightColor} to-transparent opacity-60`}
                           animate={{ top: ["-10%", "110%"] }}
                           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.7 }}
                         />
@@ -86,7 +113,7 @@ export function HowItWorks() {
 
                   {/* Content card */}
                   <div className={`flex-1 ${isLast ? "pb-0" : "pb-12"}`}>
-                    <div className="relative bg-white rounded-xl p-6 lg:p-8 border border-slate-200 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] transition-all duration-500 overflow-hidden group/card">
+                    <div className="relative bg-white rounded-xl p-6 lg:p-8 border border-slate-200 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] transition-all duration-500 overflow-hidden group/card cursor-pointer">
                       {/* Gradient border highlight on hover */}
                       <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-indigo-400/40 via-indigo-200/15 to-slate-300/25 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" aria-hidden="true" />
                       {/* Corner gradient highlight — top-right */}
@@ -95,8 +122,8 @@ export function HowItWorks() {
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-50">
                           <step.icon className="h-4 w-4 text-slate-500" />
                         </div>
-                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                          Étape {step.step}
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                          Étape <span className={`${s.numColor} font-bold`}>{step.step}</span>
                         </span>
                       </div>
 

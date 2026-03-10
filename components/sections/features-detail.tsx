@@ -139,7 +139,7 @@ export function FeaturesDetail() {
                 <h3 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight mb-6 leading-snug">{meta.heading}</h3>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {cat.features.map((feature) => (
-                    <div key={feature.title} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-50 transition-colors">
+                    <div key={feature.title} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 transition-colors cursor-pointer">
                       <div className={`w-8 h-8 rounded-lg ${meta.iconBg} flex items-center justify-center shrink-0`}><feature.icon className="h-4 w-4"/></div>
                       <div><h4 className="text-sm font-semibold text-slate-900 mb-0.5">{feature.title}</h4><p className="text-xs text-slate-500 leading-relaxed">{feature.description}</p></div>
                     </div>

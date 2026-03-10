@@ -28,7 +28,7 @@ function SmsMockup() {
       </div>
       <div className="flex items-center gap-2 mt-3 pt-2 border-t border-slate-100">
         <div className="flex-1 h-7 bg-slate-50 rounded-md border border-slate-100" />
-        <div className="w-7 h-7 rounded-md bg-indigo-500 flex items-center justify-center"><Send className="h-3 w-3 text-white" /></div>
+        <div className="w-7 h-7 rounded-md bg-indigo-500 flex items-center justify-center cursor-pointer"><Send className="h-3 w-3 text-white" /></div>
       </div>
     </div>
   );
@@ -42,11 +42,11 @@ function CalendarMockup() {
         <span className="text-xs font-semibold text-slate-700">Calendrier partagé</span>
       </div>
       <div className="grid grid-cols-7 gap-0.5 text-center mb-2">
-        {["L", "M", "M", "J", "V", "S", "D"].map((d) => (
-          <span key={d} className="text-[8px] text-slate-400 font-medium py-0.5">{d}</span>
+        {["L", "M", "M", "J", "V", "S", "D"].map((d, i) => (
+          <span key={`${d}-${i}`} className="text-[8px] text-slate-400 font-medium py-0.5">{d}</span>
         ))}
         {Array.from({ length: 28 }, (_, i) => i + 1).map((d) => (
-          <div key={d} className={`text-[9px] py-1 rounded-md ${d === 9 ? "bg-indigo-500 text-white font-bold" : d === 12 ? "bg-emerald-100 text-emerald-700 font-medium" : d === 16 ? "bg-amber-100 text-amber-700 font-medium" : "text-slate-600"}`}>
+          <div key={d} className={`text-[9px] py-1 rounded-md cursor-pointer transition-colors duration-200 hover:bg-slate-100 ${d === 9 ? "bg-indigo-500 text-white font-bold hover:bg-indigo-600" : d === 12 ? "bg-emerald-100 text-emerald-700 font-medium" : d === 16 ? "bg-amber-100 text-amber-700 font-medium" : "text-slate-600"}`}>
             {d}
           </div>
         ))}
@@ -56,7 +56,7 @@ function CalendarMockup() {
           { color: "bg-indigo-500", label: "Culte", time: "10h-12h" },
           { color: "bg-emerald-500", label: "Groupe de prière", time: "19h30" },
         ].map((evt) => (
-          <div key={evt.label} className="flex items-center gap-2">
+          <div key={evt.label} className="flex items-center gap-2 cursor-pointer hover:bg-slate-50 rounded-md px-1 py-0.5 transition-colors duration-200">
             <div className={`w-1 h-4 rounded-full ${evt.color}`} />
             <span className="text-[9px] font-medium text-slate-700 flex-1">{evt.label}</span>
             <span className="text-[8px] text-slate-400">{evt.time}</span>
@@ -87,7 +87,7 @@ function PaymentMockup() {
           { name: "PayPal", status: "Connecté", color: "text-emerald-500" },
           { name: "Virement", status: "Actif", color: "text-indigo-500" },
         ].map((p) => (
-          <div key={p.name} className="flex items-center justify-between">
+          <div key={p.name} className="flex items-center justify-between cursor-pointer hover:bg-slate-50 rounded-md px-1 py-0.5 transition-colors duration-200">
             <span className="text-[10px] font-medium text-slate-700">{p.name}</span>
             <span className={`text-[9px] font-medium ${p.color}`}>{p.status}</span>
           </div>
@@ -110,17 +110,23 @@ export function Integrations() {
         {/* Mockups showcase — Linear style */}
         <ScrollReveal>
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16">
-            <div className="relative">
-              <div className="absolute -inset-3 bg-indigo-500/[0.04] rounded-2xl blur-xl" aria-hidden="true" />
-              <div className="relative"><SmsMockup /></div>
+            <div className="relative group cursor-pointer">
+              <div className="absolute -inset-3 bg-indigo-500/[0.04] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+              <div className="relative transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.15)]  rounded-xl">
+                <SmsMockup />
+              </div>
             </div>
-            <div className="relative">
-              <div className="absolute -inset-3 bg-emerald-500/[0.04] rounded-2xl blur-xl" aria-hidden="true" />
-              <div className="relative"><CalendarMockup /></div>
+            <div className="relative group cursor-pointer">
+              <div className="absolute -inset-3 bg-emerald-500/[0.04] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+              <div className="relative transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_36px_-8px_rgba(16,185,129,0.15)] rounded-xl">
+                <CalendarMockup />
+              </div>
             </div>
-            <div className="relative">
-              <div className="absolute -inset-3 bg-violet-500/[0.04] rounded-2xl blur-xl" aria-hidden="true" />
-              <div className="relative"><PaymentMockup /></div>
+            <div className="relative group cursor-pointer">
+              <div className="absolute -inset-3 bg-violet-500/[0.04] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+              <div className="relative transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_36px_-8px_rgba(139,92,246,0.15)] rounded-xl">
+                <PaymentMockup />
+              </div>
             </div>
           </div>
         </ScrollReveal>
@@ -138,34 +144,15 @@ export function Integrations() {
                   "bg-blue-50 text-blue-500", "bg-orange-50 text-orange-500",
                 ];
                 return (
-                  <div key={integration.name} className="flex flex-col items-center gap-2 group">
-                    <div className={`w-12 h-12 rounded-xl ${colors[i]} flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
+                  <div key={integration.name} className="flex flex-col items-center gap-2 group cursor-pointer">
+                    <div className={`w-12 h-12 rounded-xl ${colors[i]} flex items-center justify-center group-hover:scale-110 group-hover:shadow-md transition-all duration-300`}>
                       <integration.icon className="h-5 w-5" />
                     </div>
-                    <span className="text-[10px] font-medium text-slate-500 text-center leading-tight">{integration.name}</span>
+                    <span className="text-[10px] font-medium text-slate-500 text-center leading-tight group-hover:text-slate-700 transition-colors duration-200">{integration.name}</span>
                   </div>
                 );
               })}
             </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Image placeholder for future screenshots */}
-        <ScrollReveal delay={0.2}>
-          <div className="mt-10 relative rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 p-12 text-center">
-            <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
-              <Image
-                src="/images/integrations-preview.png"
-                alt="Aperçu des intégrations"
-                width={48}
-                height={48}
-                className="opacity-50"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-              />
-              <Smartphone className="h-6 w-6 text-slate-300 absolute" />
-            </div>
-            <p className="text-sm text-slate-400">Emplacement pour capture d&apos;écran des intégrations</p>
-            <p className="text-xs text-slate-300 mt-1">Ajoutez une image dans /public/images/integrations-preview.png</p>
           </div>
         </ScrollReveal>
       </div>

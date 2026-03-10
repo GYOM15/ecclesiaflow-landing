@@ -28,7 +28,7 @@ export function AboutValues() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {VALUES.map((value, i) => (
             <ScrollReveal key={value.title} delay={i * 0.08}>
-              <div className={`relative bg-white rounded-xl p-6 border border-slate-200 border-t-[3px] ${valueColors[i].accent} shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04),4px_4px_12px_-6px_rgba(0,0,0,0.03),-4px_4px_12px_-6px_rgba(0,0,0,0.03)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15),4px_4px_16px_-4px_rgba(0,0,0,0.04),-4px_4px_16px_-4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 transition-all duration-500 h-full overflow-hidden group`}>
+              <div className={`relative bg-white rounded-xl p-6 border border-slate-200 border-t-[3px] ${valueColors[i].accent} shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04),4px_4px_12px_-6px_rgba(0,0,0,0.03),-4px_4px_12px_-6px_rgba(0,0,0,0.03)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15),4px_4px_16px_-4px_rgba(0,0,0,0.04),-4px_4px_16px_-4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 transition-all duration-500 h-full overflow-hidden group cursor-pointer`}>
                 {/* Corner gradient highlight — top-left */}
                 <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-indigo-400/[0.08] via-indigo-300/[0.03] to-transparent rounded-tl-xl pointer-events-none" aria-hidden="true" />
                 {/* Corner gradient highlight — bottom-right */}

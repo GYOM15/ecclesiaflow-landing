@@ -18,7 +18,7 @@ export function AboutTeam() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 max-w-5xl mx-auto">
           {TEAM_MEMBERS.map((member, i) => (
             <ScrollReveal key={member.name} delay={i * 0.1}>
-              <div className="relative bg-white rounded-xl shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] hover:-translate-y-0.5 transition-all duration-300 text-center py-8 px-4 overflow-hidden border border-slate-200">
+              <div className="relative bg-white rounded-xl shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] hover:-translate-y-0.5 transition-all duration-300 text-center py-8 px-4 overflow-hidden border border-slate-200 cursor-pointer">
                 <Avatar
                   name={member.name}
                   size="lg"
@@ -37,7 +37,7 @@ export function AboutTeam() {
                 {/* Social links */}
                 <div className="flex justify-center gap-2 mt-4 pt-3 border-t border-slate-100">
                   {["Twitter", "LinkedIn"].map((social) => (
-                    <a key={social} href="#" className="w-7 h-7 rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center justify-center transition-colors" aria-label={social}>
+                    <a key={social} href="#" className="w-7 h-7 rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center justify-center transition-colors cursor-pointer" aria-label={social}>
                       <svg className="h-3.5 w-3.5 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
                         {social === "Twitter" ? (
                           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />

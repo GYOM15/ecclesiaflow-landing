@@ -50,7 +50,7 @@ export function PricingCards() {
                   planAccents[i].bg,
                   plan.highlighted
                     ? "lg:-mt-4 lg:pb-10 shadow-[0_8px_40px_-8px_rgba(99,102,241,0.15),0_4px_20px_-4px_rgba(0,0,0,0.06)]"
-                    : "shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_-6px_rgba(0,0,0,0.08)] hover:-translate-y-0.5"
+                    : "shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_-6px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 cursor-pointer"
                 )}
               >
                 {plan.highlighted && (
