@@ -1,30 +1,105 @@
 "use client";
 
+import Image from "next/image";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { Card } from "@/components/ui/card";
-import {
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/animation/stagger-container";
+import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { INTEGRATIONS } from "@/lib/constants";
-import { ArrowRight } from "lucide-react";
+import { MessageSquare, Calendar, CreditCard, Mail, Send, Bell, Smartphone, Shield } from "lucide-react";
 
-const iconStyles = [
-  "bg-indigo-50 text-indigo-600",
-  "bg-emerald-50 text-emerald-600",
-  "bg-amber-50 text-amber-600",
-  "bg-violet-50 text-violet-600",
-  "bg-teal-50 text-teal-600",
-  "bg-rose-50 text-rose-600",
-  "bg-blue-50 text-blue-600",
-  "bg-orange-50 text-orange-600",
-];
+/* 3 showcase mockups — minimaliste, avec couleurs subtiles */
 
-const accentColors = ["indigo", "emerald", "amber", "violet", "teal", "rose", "indigo", "amber"] as const;
+function SmsMockup() {
+  return (
+    <div className="bg-white rounded-xl border border-slate-200/50 p-4 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)]">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center"><MessageSquare className="h-3.5 w-3.5 text-indigo-500" /></div>
+        <span className="text-xs font-semibold text-slate-700">SMS & Notifications</span>
+      </div>
+      <div className="space-y-2">
+        <div className="bg-indigo-50 rounded-lg px-3 py-2 max-w-[80%]">
+          <p className="text-[10px] text-indigo-700">Rappel : Culte dominical demain à 10h 🙏</p>
+        </div>
+        <div className="bg-slate-50 rounded-lg px-3 py-2 max-w-[70%] ml-auto">
+          <p className="text-[10px] text-slate-600">Merci ! Je serai là avec ma famille.</p>
+        </div>
+        <div className="bg-emerald-50 rounded-lg px-3 py-2 max-w-[75%]">
+          <p className="text-[10px] text-emerald-700">📅 Groupe de prière — Mer. 19h30 confirmé</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-2 mt-3 pt-2 border-t border-slate-100">
+        <div className="flex-1 h-7 bg-slate-50 rounded-md border border-slate-100" />
+        <div className="w-7 h-7 rounded-md bg-indigo-500 flex items-center justify-center"><Send className="h-3 w-3 text-white" /></div>
+      </div>
+    </div>
+  );
+}
+
+function CalendarMockup() {
+  return (
+    <div className="bg-white rounded-xl border border-slate-200/50 p-4 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)]">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-7 h-7 rounded-lg bg-emerald-50 flex items-center justify-center"><Calendar className="h-3.5 w-3.5 text-emerald-500" /></div>
+        <span className="text-xs font-semibold text-slate-700">Calendrier partagé</span>
+      </div>
+      <div className="grid grid-cols-7 gap-0.5 text-center mb-2">
+        {["L", "M", "M", "J", "V", "S", "D"].map((d) => (
+          <span key={d} className="text-[8px] text-slate-400 font-medium py-0.5">{d}</span>
+        ))}
+        {Array.from({ length: 28 }, (_, i) => i + 1).map((d) => (
+          <div key={d} className={`text-[9px] py-1 rounded-md ${d === 9 ? "bg-indigo-500 text-white font-bold" : d === 12 ? "bg-emerald-100 text-emerald-700 font-medium" : d === 16 ? "bg-amber-100 text-amber-700 font-medium" : "text-slate-600"}`}>
+            {d}
+          </div>
+        ))}
+      </div>
+      <div className="space-y-1.5">
+        {[
+          { color: "bg-indigo-500", label: "Culte", time: "10h-12h" },
+          { color: "bg-emerald-500", label: "Groupe de prière", time: "19h30" },
+        ].map((evt) => (
+          <div key={evt.label} className="flex items-center gap-2">
+            <div className={`w-1 h-4 rounded-full ${evt.color}`} />
+            <span className="text-[9px] font-medium text-slate-700 flex-1">{evt.label}</span>
+            <span className="text-[8px] text-slate-400">{evt.time}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PaymentMockup() {
+  return (
+    <div className="bg-white rounded-xl border border-slate-200/50 p-4 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)]">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-7 h-7 rounded-lg bg-violet-50 flex items-center justify-center"><CreditCard className="h-3.5 w-3.5 text-violet-500" /></div>
+        <span className="text-xs font-semibold text-slate-700">Paiements & Dons</span>
+      </div>
+      <div className="bg-gradient-to-br from-violet-500 to-indigo-600 rounded-lg p-3 mb-3 text-white">
+        <p className="text-[8px] uppercase tracking-wider opacity-70 mb-1">Total des dons</p>
+        <p className="text-lg font-bold">$12,450</p>
+        <div className="flex items-center gap-1 mt-1">
+          <span className="text-[9px] bg-white/20 px-1.5 py-0.5 rounded">+8% ce mois</span>
+        </div>
+      </div>
+      <div className="space-y-1.5">
+        {[
+          { name: "Stripe", status: "Connecté", color: "text-emerald-500" },
+          { name: "PayPal", status: "Connecté", color: "text-emerald-500" },
+          { name: "Virement", status: "Actif", color: "text-indigo-500" },
+        ].map((p) => (
+          <div key={p.name} className="flex items-center justify-between">
+            <span className="text-[10px] font-medium text-slate-700">{p.name}</span>
+            <span className={`text-[9px] font-medium ${p.color}`}>{p.status}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function Integrations() {
   return (
-    <section className="py-20 lg:py-28 bg-white" id="integrations">
+    <section className="py-20 lg:py-28 bg-slate-50/50" id="integrations">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Intégrations"
@@ -32,22 +107,67 @@ export function Integrations() {
           subtitle="Connectez EcclesiaFlow aux services que vous utilisez déjà. Synchronisation automatique, sans friction."
         />
 
-        <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
-          {INTEGRATIONS.map((integration, i) => (
-            <StaggerItem key={integration.name}>
-              <Card variant="feature" accentColor={accentColors[i]} className="text-center py-7 group">
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${iconStyles[i]} mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                  <integration.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-sm font-semibold text-slate-900 mb-1">{integration.name}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed px-2 mb-3">{integration.description}</p>
-                <span className="inline-flex items-center gap-0.5 text-[11px] font-medium text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Configurer <ArrowRight className="h-3 w-3" />
-                </span>
-              </Card>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        {/* Mockups showcase — Linear style */}
+        <ScrollReveal>
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+            <div className="relative">
+              <div className="absolute -inset-3 bg-indigo-500/[0.04] rounded-2xl blur-xl" aria-hidden="true" />
+              <div className="relative"><SmsMockup /></div>
+            </div>
+            <div className="relative">
+              <div className="absolute -inset-3 bg-emerald-500/[0.04] rounded-2xl blur-xl" aria-hidden="true" />
+              <div className="relative"><CalendarMockup /></div>
+            </div>
+            <div className="relative">
+              <div className="absolute -inset-3 bg-violet-500/[0.04] rounded-2xl blur-xl" aria-hidden="true" />
+              <div className="relative"><PaymentMockup /></div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* Icon strip — compact list of all integrations */}
+        <ScrollReveal delay={0.15}>
+          <div className="bg-white rounded-xl border border-slate-200 p-6 lg:p-8">
+            <p className="text-sm font-semibold text-slate-900 mb-5 text-center">Toutes nos intégrations</p>
+            <div className="grid grid-cols-4 sm:grid-cols-8 gap-4">
+              {INTEGRATIONS.map((integration, i) => {
+                const colors = [
+                  "bg-indigo-50 text-indigo-500", "bg-emerald-50 text-emerald-500",
+                  "bg-amber-50 text-amber-500", "bg-violet-50 text-violet-500",
+                  "bg-teal-50 text-teal-500", "bg-rose-50 text-rose-500",
+                  "bg-blue-50 text-blue-500", "bg-orange-50 text-orange-500",
+                ];
+                return (
+                  <div key={integration.name} className="flex flex-col items-center gap-2 group">
+                    <div className={`w-12 h-12 rounded-xl ${colors[i]} flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
+                      <integration.icon className="h-5 w-5" />
+                    </div>
+                    <span className="text-[10px] font-medium text-slate-500 text-center leading-tight">{integration.name}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* Image placeholder for future screenshots */}
+        <ScrollReveal delay={0.2}>
+          <div className="mt-10 relative rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 p-12 text-center">
+            <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
+              <Image
+                src="/images/integrations-preview.png"
+                alt="Aperçu des intégrations"
+                width={48}
+                height={48}
+                className="opacity-50"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+              <Smartphone className="h-6 w-6 text-slate-300 absolute" />
+            </div>
+            <p className="text-sm text-slate-400">Emplacement pour capture d&apos;écran des intégrations</p>
+            <p className="text-xs text-slate-300 mt-1">Ajoutez une image dans /public/images/integrations-preview.png</p>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 
 const planAccents = [
   { check: "text-slate-400", border: "border-slate-200/60", bg: "bg-white" },
-  { check: "text-emerald-500", border: "border-2 border-indigo-500/30", bg: "bg-gradient-to-b from-indigo-50/30 to-white" },
+  { check: "text-emerald-500", border: "border border-indigo-200/60", bg: "bg-gradient-to-b from-indigo-50/20 to-white" },
   { check: "text-indigo-500", border: "border-slate-200/60", bg: "bg-white" },
 ];
 
@@ -45,7 +45,7 @@ export function PricingCards() {
             <StaggerItem key={plan.name}>
               <div
                 className={cn(
-                  "relative rounded-2xl p-6 transition-all duration-300 flex flex-col overflow-hidden",
+                  "relative rounded-xl p-6 transition-all duration-300 flex flex-col overflow-hidden",
                   planAccents[i].border,
                   planAccents[i].bg,
                   plan.highlighted
@@ -54,13 +54,15 @@ export function PricingCards() {
                 )}
               >
                 {plan.highlighted && (
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500" />
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500 rounded-t-xl" />
                 )}
                 {plan.badge && (
-                  <Badge variant="amber" className="absolute -top-3 left-6 shadow-sm">
-                    <Sparkles className="h-3 w-3 mr-0.5" />
-                    {plan.badge}
-                  </Badge>
+                  <div className="mb-4">
+                    <Badge variant="amber" className="shadow-sm">
+                      <Sparkles className="h-3 w-3 mr-0.5" />
+                      {plan.badge}
+                    </Badge>
+                  </div>
                 )}
 
                 <div className="mb-6">
@@ -72,7 +74,7 @@ export function PricingCards() {
                   {plan.monthlyPrice !== null ? (
                     <div className="flex items-baseline gap-1">
                       <span className="text-4xl font-bold text-slate-900">
-                        {yearly ? plan.yearlyPrice : plan.monthlyPrice}€
+                        ${yearly ? plan.yearlyPrice : plan.monthlyPrice}
                       </span>
                       <span className="text-slate-400 text-sm">/{yearly ? "an" : "mois"}</span>
                     </div>
@@ -81,7 +83,7 @@ export function PricingCards() {
                   )}
                   {plan.monthlyPrice !== null && yearly === 1 && plan.monthlyPrice > 0 && (
                     <p className="text-xs text-slate-400 mt-1">
-                      soit {Math.round((plan.yearlyPrice || 0) / 12)}€/mois facturé annuellement
+                      soit ${Math.round((plan.yearlyPrice || 0) / 12)}/mois facturé annuellement
                     </p>
                   )}
                 </div>

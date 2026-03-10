@@ -3,6 +3,7 @@ import { AboutHero } from "@/components/sections/about-hero";
 import { AboutStory } from "@/components/sections/about-story";
 import { AboutValues } from "@/components/sections/about-values";
 import { AboutTeam } from "@/components/sections/about-team";
+import { ImageGallery } from "@/components/sections/image-gallery";
 import { AboutVerse } from "@/components/sections/about-verse";
 import { CtaSection } from "@/components/sections/cta-section";
 
@@ -19,6 +20,7 @@ export default function AboutPage() {
       <AboutStory />
       <AboutValues />
       <AboutTeam />
+      <ImageGallery variant="about" />
       <AboutVerse />
       <CtaSection />
     </>

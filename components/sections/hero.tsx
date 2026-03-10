@@ -1,238 +1,201 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Play,
-  Users,
-  Calendar,
-  TrendingUp,
-  CreditCard,
-  Bell,
-  Search,
-  ChevronRight,
-  BarChart3,
-  MessageSquare,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GradientText } from "@/components/decorative/gradient-text";
+import { TICKER_ITEMS } from "@/lib/constants";
 
-const statsCards = [
-  { label: "Membres actifs", value: "847", change: "+12", icon: Users, accent: "border-l-indigo-500", iconBg: "bg-indigo-50", iconColor: "text-indigo-500" },
-  { label: "Présence dimanche", value: "623", change: "+5%", icon: BarChart3, accent: "border-l-emerald-500", iconBg: "bg-emerald-50", iconColor: "text-emerald-500" },
-  { label: "Nouveaux ce mois", value: "34", change: "+18%", icon: TrendingUp, accent: "border-l-amber-500", iconBg: "bg-amber-50", iconColor: "text-amber-500" },
-  { label: "Dons collectés", value: "12 450€", change: "+8%", icon: CreditCard, accent: "border-l-violet-500", iconBg: "bg-violet-50", iconColor: "text-violet-500" },
-];
+const ease = [0.25, 0.1, 0.25, 1.0] as const;
 
-const memberRows = [
-  { name: "Marie Dupont", ministry: "Louange", group: "Groupe A", status: "Actif", color: "bg-indigo-500" },
-  { name: "Jean-Paul Mbeki", ministry: "Jeunesse", group: "Groupe C", status: "Actif", color: "bg-emerald-500" },
-  { name: "Claire Bonnet", ministry: "Accueil", group: "Groupe B", status: "Nouveau", color: "bg-amber-500" },
-  { name: "Esther Kone", ministry: "Prière", group: "Groupe A", status: "Actif", color: "bg-violet-500" },
-  { name: "Thomas Martin", ministry: "Média", group: "Groupe D", status: "Actif", color: "bg-rose-500" },
-  { name: "Paul Diallo", ministry: "Diaconie", group: "Groupe B", status: "Actif", color: "bg-teal-500" },
-];
+/* Google "G" logo SVG */
+function GoogleLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+    </svg>
+  );
+}
 
-const upcomingEvents = [
-  { name: "Culte dominical", time: "Dim. 10h00", count: 620, color: "bg-indigo-500" },
-  { name: "Groupe de prière", time: "Mer. 19h30", count: 45, color: "bg-emerald-500" },
-  { name: "Répétition louange", time: "Sam. 14h00", count: 18, color: "bg-amber-500" },
-];
+/* Mini cross icon for ticker */
+function MiniCross({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="currentColor">
+      <rect x="6.5" y="1" width="3" height="14" rx="1.5" />
+      <rect x="1" y="5.5" width="14" height="3" rx="1.5" />
+    </svg>
+  );
+}
+
+/* ─── Crown of thorns — procedurally generated SVG paths ─── */
+const CROWN_CX = 230;
+const CROWN_CY = 171;
+
+// Outer thorny ring
+const crownOuter = (() => {
+  const r = 90, n = 24;
+  const pts: string[] = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2;
+    const na = ((i + 0.5) / n) * Math.PI * 2;
+    const rv = r + 3 * Math.sin(i * 2.7);
+    const px = CROWN_CX + rv * Math.cos(a);
+    const py = CROWN_CY + rv * Math.sin(a);
+    const tl = (i % 3 === 0) ? 20 : (i % 2 === 0) ? 14 : 10;
+    const ta = a + ((i % 2 === 0) ? 0.06 : -0.05);
+    const tx = CROWN_CX + (rv + tl) * Math.cos(ta);
+    const ty = CROWN_CY + (rv + tl) * Math.sin(ta);
+    const ra = a + 0.09;
+    const rx = CROWN_CX + (rv - 2) * Math.cos(ra);
+    const ry = CROWN_CY + (rv - 2) * Math.sin(ra);
+    const mx = CROWN_CX + rv * Math.cos(na);
+    const my = CROWN_CY + rv * Math.sin(na);
+    if (i === 0) pts.push(`M${px.toFixed(1)},${py.toFixed(1)}`);
+    pts.push(`L${tx.toFixed(1)},${ty.toFixed(1)}`, `L${rx.toFixed(1)},${ry.toFixed(1)}`, `L${mx.toFixed(1)},${my.toFixed(1)}`);
+  }
+  pts.push("Z");
+  return pts.join(" ");
+})();
+
+// Inner thorny ring (smaller, offset)
+const crownInner = (() => {
+  const r = 78, n = 20;
+  const pts: string[] = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2 + 0.16;
+    const na = ((i + 0.5) / n) * Math.PI * 2 + 0.16;
+    const rv = r + 2 * Math.sin(i * 3.1 + 1);
+    const px = CROWN_CX + rv * Math.cos(a);
+    const py = CROWN_CY + rv * Math.sin(a);
+    const tl = (i % 3 === 1) ? 11 : (i % 2 === 1) ? 8 : 5;
+    const ta = a + ((i % 2 === 1) ? -0.07 : 0.05);
+    const tx = CROWN_CX + (rv - tl) * Math.cos(ta);
+    const ty = CROWN_CY + (rv - tl) * Math.sin(ta);
+    const ra = a + 0.1;
+    const rx = CROWN_CX + (rv + 1) * Math.cos(ra);
+    const ry = CROWN_CY + (rv + 1) * Math.sin(ra);
+    const mx = CROWN_CX + rv * Math.cos(na);
+    const my = CROWN_CY + rv * Math.sin(na);
+    if (i === 0) pts.push(`M${px.toFixed(1)},${py.toFixed(1)}`);
+    pts.push(`L${tx.toFixed(1)},${ty.toFixed(1)}`, `L${rx.toFixed(1)},${ry.toFixed(1)}`, `L${mx.toFixed(1)},${my.toFixed(1)}`);
+  }
+  pts.push("Z");
+  return pts.join(" ");
+})();
+
+// Binding lines — woven branch connections
+const bindingLines = (() => {
+  const rI = 79, rO = 89;
+  const lines: string[] = [];
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2 + 0.08;
+    const x1 = CROWN_CX + rI * Math.cos(a);
+    const y1 = CROWN_CY + rI * Math.sin(a);
+    const x2 = CROWN_CX + rO * Math.cos(a + 0.1);
+    const y2 = CROWN_CY + rO * Math.sin(a + 0.1);
+    lines.push(`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`);
+  }
+  return lines.join(" ");
+})();
 
 export function Hero() {
+  const tickerItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
+
   return (
-    <section className="relative overflow-hidden pt-28 pb-4 lg:pt-36 lg:pb-8">
-      {/* Sunlight radiant background */}
+    <section className="relative overflow-hidden pt-32 pb-0 lg:pt-44">
+      {/* Background: animated subtle orbs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-[30%] -right-[15%] w-[70%] h-[80%] bg-[radial-gradient(ellipse_at_center,rgba(251,191,36,0.08),rgba(251,191,36,0.02)_50%,transparent_80%)] rounded-full blur-3xl" />
-        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.06),rgba(99,102,241,0.01)_50%,transparent_80%)] rounded-full blur-3xl" />
-        <div className="absolute bottom-[10%] left-[20%] w-[40%] h-[30%] bg-[radial-gradient(ellipse_at_center,rgba(251,191,36,0.04),transparent_70%)] rounded-full blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-        <svg className="absolute top-0 right-0 w-[600px] h-[600px] lg:w-[900px] lg:h-[900px] opacity-[0.04]" viewBox="0 0 600 600" fill="none">
-          <g transform="translate(450,120) rotate(15)">
-            {[0, 30, 60, 90, 120, 150].map((angle) => (
-              <rect key={angle} x="-2" y="-300" width="4" height="600" rx="2" fill="#F59E0B" transform={`rotate(${angle})`} />
-            ))}
-            <circle cx="0" cy="0" r="40" fill="#F59E0B" opacity="0.5" />
-            <circle cx="0" cy="0" r="80" stroke="#F59E0B" strokeWidth="1" fill="none" opacity="0.3" />
-          </g>
+        <motion.div
+          className="absolute -top-[15%] right-[5%] w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.04),transparent_70%)] rounded-full blur-3xl"
+          animate={{ x: [0, 20, -10, 0], y: [0, -15, 10, 0], scale: [1, 1.05, 0.97, 1] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-[25%] -left-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.03),transparent_70%)] rounded-full blur-3xl"
+          animate={{ x: [0, 15, -8, 0], y: [0, 10, -12, 0], scale: [1, 0.96, 1.04, 1] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <div className="absolute inset-0 opacity-[0.018]" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
+      </div>
+
+      {/* Cross with rotating crown of thorns */}
+      <div className="absolute right-[4%] lg:right-[7%] top-[10%] w-[320px] h-[360px] lg:w-[460px] lg:h-[520px] pointer-events-none hidden lg:block" aria-hidden="true">
+        <svg
+          viewBox="0 0 460 520"
+          fill="none"
+          className="w-full h-full"
+        >
+          {/* Cross arms — SQUARE corners */}
+          <rect x="214" y="20" width="32" height="480" fill="#6366F1" opacity="0.055" />
+          <rect x="80" y="155" width="300" height="32" fill="#6366F1" opacity="0.055" />
+
+          {/* Rotating crown of thorns */}
+          <motion.g
+            style={{ transformOrigin: `${CROWN_CX}px ${CROWN_CY}px` }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          >
+            {/* Outer thorny ring */}
+            <path d={crownOuter} fill="none" stroke="#64748b" strokeWidth="1.5" opacity="0.22" />
+            {/* Inner thorny ring */}
+            <path d={crownInner} fill="none" stroke="#94a3b8" strokeWidth="1" opacity="0.15" />
+            {/* Woven binding lines */}
+            <path d={bindingLines} fill="none" stroke="#94a3b8" strokeWidth="0.8" opacity="0.12" />
+          </motion.g>
         </svg>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-4xl mx-auto mb-14 lg:mb-20">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <Badge variant="indigo" dot className="mb-6">Maintenant en bêta ouverte</Badge>
+        {/* Content — padding preserved, width constrained */}
+        <div className="pl-6 lg:pl-16 pb-12 lg:pb-16 max-w-2xl">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease }}>
+            <Badge variant="indigo" dot className="mb-5">Bêta ouverte — Accès anticipé</Badge>
           </motion.div>
 
-          <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[1.75rem] sm:text-[2.25rem] lg:text-[2.85rem] font-semibold tracking-tight leading-[1.15] text-slate-900 mb-6">
-            L&apos;infrastructure complète pour gérer, connecter et{" "}
-            <GradientText from="#6366F1" to="#818CF8">faire grandir</GradientText>{" "}
-            votre église — de la première inscription à la millième
+          <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.06, ease }}
+            className="text-[1.5rem] sm:text-[1.85rem] lg:text-[2.35rem] font-semibold tracking-[-0.02em] leading-[1.2] text-slate-800 mb-5">
+            <GradientText from="#6366F1" to="#818CF8">Connectez, servez</GradientText>{" "}
+            et faites grandir votre église avec une seule plateforme
           </motion.h1>
 
-          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto mb-8">
-            EcclesiaFlow réunit la gestion des membres, la communication, les événements et les finances dans une plateforme unique, intuitive et conçue pour les besoins spécifiques de votre église.
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1, ease }}
+            className="text-base sm:text-[1.05rem] text-slate-500 leading-relaxed mb-7">
+            Membres, événements, communication, finances — tout réuni dans une interface unique, moderne et pensée pour les communautés de foi.
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-3 mb-4">
-            <Button size="lg" variant="primary">Démarrer gratuitement<ArrowRight className="h-4 w-4" /></Button>
-            <Button size="lg" variant="outline"><Play className="h-4 w-4" />Voir la démo</Button>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16, ease }}
+            className="flex flex-wrap gap-3">
+            <Button size="lg" variant="primary">
+              Commencer
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+            <Button size="lg" variant="outline">
+              <GoogleLogo className="h-4 w-4" />
+              S&apos;inscrire avec Google
+            </Button>
           </motion.div>
-
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.4 }} className="text-sm text-slate-400">
-            Gratuit pour les petites églises &middot; Aucune carte de crédit requise &middot; Configuration en 5 minutes
-          </motion.p>
         </div>
-
-        {/* Dashboard mockup */}
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="relative">
-          <div className="absolute -inset-6 lg:-inset-10 rounded-3xl bg-gradient-to-b from-indigo-500/[0.07] via-indigo-400/[0.04] to-transparent blur-3xl" aria-hidden="true" />
-          <div className="absolute -inset-4 lg:-inset-8 rounded-3xl bg-gradient-to-br from-amber-400/[0.04] via-transparent to-indigo-400/[0.04] blur-2xl" aria-hidden="true" />
-
-          <div className="relative rounded-xl lg:rounded-2xl overflow-hidden border border-slate-200/80 bg-white shadow-[0_8px_60px_-12px_rgba(99,102,241,0.12),0_4px_30px_-6px_rgba(0,0,0,0.08)]">
-            <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-200">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-300" />
-                <div className="w-3 h-3 rounded-full bg-amber-300" />
-                <div className="w-3 h-3 rounded-full bg-green-300" />
-              </div>
-              <div className="flex-1 mx-4">
-                <div className="bg-white rounded-lg px-4 py-1.5 text-xs text-slate-400 border border-slate-200 max-w-md mx-auto flex items-center gap-2">
-                  <Search className="h-3 w-3" />app.ecclesiaflow.com/dashboard
-                </div>
-              </div>
-            </div>
-
-            <div className="flex min-h-[400px] lg:min-h-[520px]">
-              {/* Sidebar */}
-              <div className="hidden lg:flex flex-col w-52 bg-slate-900 text-white p-4 shrink-0">
-                <div className="flex items-center gap-2 mb-7 px-1">
-                  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
-                    <rect width="24" height="24" rx="6" fill="#6366F1" />
-                    <path d="M10 6a1 1 0 011-1h2a1 1 0 011 1v4h4a1 1 0 011 1v2a1 1 0 01-1 1h-4v4a1 1 0 01-1 1h-2a1 1 0 01-1-1v-4H6a1 1 0 01-1-1v-2a1 1 0 011-1h4V6z" fill="white" opacity="0.9" />
-                  </svg>
-                  <span className="text-sm font-semibold">EcclesiaFlow</span>
-                </div>
-                <nav className="space-y-0.5 flex-1">
-                  {[
-                    { icon: BarChart3, label: "Dashboard", active: true },
-                    { icon: Users, label: "Membres", active: false },
-                    { icon: Calendar, label: "Événements", active: false },
-                    { icon: MessageSquare, label: "Messages", active: false },
-                    { icon: CreditCard, label: "Finances", active: false },
-                  ].map((item) => (
-                    <div key={item.label} className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm ${item.active ? "bg-white/10 text-white font-medium" : "text-slate-400"}`}>
-                      <item.icon className="h-4 w-4" />{item.label}
-                    </div>
-                  ))}
-                </nav>
-                <div className="flex items-center gap-2 px-2 py-2 border-t border-slate-800 pt-4 mt-4">
-                  <div className="w-7 h-7 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] text-white font-semibold">PD</div>
-                  <div>
-                    <p className="text-xs text-white font-medium">Pasteur David</p>
-                    <p className="text-[10px] text-slate-500">Admin</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Main content */}
-              <div className="flex-1 bg-slate-50/50 p-4 sm:p-5 overflow-hidden">
-                <div className="flex items-center justify-between mb-5">
-                  <div>
-                    <h2 className="text-base font-semibold text-slate-900">Bonjour, Pasteur David</h2>
-                    <p className="text-[11px] text-slate-400">Église Nouvelle Vie &middot; Dimanche 9 mars 2025</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="relative"><Bell className="h-4 w-4 text-slate-400" /><div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-red-500" /></div>
-                    <div className="hidden sm:flex items-center gap-1.5 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-[11px] text-slate-400"><Search className="h-3 w-3" />Rechercher...</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-5">
-                  {statsCards.map((stat, i) => (
-                    <div key={i} className={`bg-white rounded-xl p-3.5 border border-slate-100 border-l-[3px] ${stat.accent}`}>
-                      <div className="flex items-center justify-between mb-2">
-                        <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">{stat.label}</p>
-                        <div className={`w-6 h-6 rounded-lg ${stat.iconBg} flex items-center justify-center`}><stat.icon className={`h-3 w-3 ${stat.iconColor}`} /></div>
-                      </div>
-                      <div className="flex items-end gap-2">
-                        <span className="text-lg font-bold text-slate-900">{stat.value}</span>
-                        <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full flex items-center gap-0.5 mb-0.5"><TrendingUp className="h-2.5 w-2.5" />{stat.change}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="grid lg:grid-cols-5 gap-3">
-                  <div className="lg:col-span-3 bg-white rounded-xl border border-slate-100 overflow-hidden">
-                    <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-100">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-semibold text-slate-900">Membres récents</span>
-                        <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-md font-medium">847</span>
-                      </div>
-                      <span className="inline-flex items-center gap-0.5 text-[11px] text-indigo-500 font-medium">Voir tout<ChevronRight className="h-3 w-3" /></span>
-                    </div>
-                    <div className="hidden sm:grid grid-cols-[1fr_80px_80px_60px] px-4 py-1.5 text-[10px] font-medium text-slate-400 uppercase tracking-wider border-b border-slate-50">
-                      <span>Membre</span><span>Ministère</span><span>Groupe</span><span>Statut</span>
-                    </div>
-                    {memberRows.map((member, i) => (
-                      <div key={i} className="grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_80px_80px_60px] items-center px-4 py-2 border-b border-slate-50/80 last:border-0 hover:bg-slate-50/50">
-                        <div className="flex items-center gap-2.5">
-                          <div className={`w-7 h-7 rounded-full ${member.color} flex items-center justify-center text-[10px] font-bold text-white`}>
-                            {member.name.split(" ").map((n) => n[0]).join("")}
-                          </div>
-                          <span className="text-xs font-medium text-slate-800 truncate">{member.name}</span>
-                        </div>
-                        <span className="hidden sm:block text-[11px] text-slate-500">{member.ministry}</span>
-                        <span className="hidden sm:block text-[11px] text-slate-400">{member.group}</span>
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${member.status === "Nouveau" ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"}`}>{member.status}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="lg:col-span-2 space-y-3">
-                    <div className="bg-white rounded-xl border border-slate-100 p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-semibold text-slate-900">Fréquentation</span>
-                        <span className="text-[10px] text-indigo-500 font-medium">Ce mois</span>
-                      </div>
-                      <div className="flex items-end gap-1.5 h-16">
-                        {[45, 62, 55, 78, 65, 82, 70, 88, 75, 92, 80, 85].map((h, i) => (
-                          <div key={i} className="flex-1 flex flex-col justify-end">
-                            <div className={`w-full rounded-sm ${i === 9 ? "bg-indigo-500" : i >= 8 ? "bg-indigo-300" : "bg-indigo-100"}`} style={{ height: `${h}%` }} />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex justify-between mt-1.5"><span className="text-[9px] text-slate-300">Sem 1</span><span className="text-[9px] text-slate-300">Sem 12</span></div>
-                    </div>
-
-                    <div className="bg-white rounded-xl border border-slate-100 overflow-hidden">
-                      <div className="px-4 py-2.5 border-b border-slate-100"><span className="text-xs font-semibold text-slate-900">Prochains événements</span></div>
-                      {upcomingEvents.map((evt, i) => (
-                        <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 border-b border-slate-50 last:border-0">
-                          <div className={`w-1.5 h-8 rounded-full ${evt.color}`} />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-[11px] font-medium text-slate-800 truncate">{evt.name}</p>
-                            <p className="text-[10px] text-slate-400">{evt.time} &middot; {evt.count} pers.</p>
-                          </div>
-                          <CheckCircle2 className="h-3.5 w-3.5 text-slate-200" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent pointer-events-none" />
-        </motion.div>
       </div>
+
+      {/* Ticker strip — white bg, dark text, cross logos */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.3 }}>
+        <div className="relative bg-white border-t border-slate-200 py-3.5 overflow-hidden">
+          <div className="flex animate-marquee whitespace-nowrap">
+            {tickerItems.map((item, i) => (
+              <span key={i} className="inline-flex items-center gap-3 mx-5">
+                <MiniCross className="h-3.5 w-3.5 text-slate-300 shrink-0" />
+                <span className="text-sm font-medium text-slate-800">{item}</span>
+              </span>
+            ))}
+          </div>
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
+        </div>
+      </motion.div>
     </section>
   );
 }

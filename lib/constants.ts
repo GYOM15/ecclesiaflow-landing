@@ -31,7 +31,6 @@ export const NAV_LINKS = [
   { label: "Fonctionnalités", href: "/features" },
   { label: "Tarifs", href: "/pricing" },
   { label: "À propos", href: "/about" },
-  { label: "Aperçu", href: "/preview" },
 ];
 
 // ─── Ticker Strip (église associations) ──────────────────
@@ -76,12 +75,6 @@ export const FEATURES_OVERVIEW: Feature[] = [
       "Envoyez des emails, SMS et notifications push segmentés par groupe, ministère ou événement. Modèles personnalisables.",
   },
   {
-    icon: Calendar,
-    title: "Événements & Planning",
-    description:
-      "Calendrier partagé, inscriptions en ligne, rappels automatiques, gestion des bénévoles et rotation des équipes de service.",
-  },
-  {
     icon: BarChart3,
     title: "Tableaux de bord & Analytics",
     description:
@@ -93,12 +86,6 @@ export const FEATURES_OVERVIEW: Feature[] = [
     title: "Dons & Finances",
     description:
       "Collecte de dons en ligne, suivi des dîmes, reçus fiscaux automatiques, rapports financiers et budgets par département.",
-  },
-  {
-    icon: Shield,
-    title: "Sécurité & Conformité",
-    description:
-      "Chiffrement de bout en bout, conformité RGPD, contrôle d'accès par rôle, journaux d'audit et sauvegarde automatique.",
   },
 ];
 
@@ -166,10 +153,10 @@ export interface Stat {
 }
 
 export const STATS: Stat[] = [
-  { value: 500, suffix: "+", label: "Églises accompagnées" },
-  { value: 50000, suffix: "+", label: "Membres gérés" },
-  { value: 99, suffix: ".9%", label: "Disponibilité garantie" },
-  { value: 4, suffix: ".9/5", label: "Satisfaction client" },
+  { value: 10000, suffix: "+", label: "Églises à équiper" },
+  { value: 1, suffix: "M+", label: "Membres à connecter" },
+  { value: 99, suffix: ".9%", label: "Disponibilité visée" },
+  { value: 5, suffix: "/5", label: "Notre objectif qualité" },
 ];
 
 // ─── Testimonials ────────────────────────────────────────
@@ -302,13 +289,13 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Support par email",
     ],
     highlighted: false,
-    cta: "Commencer gratuitement",
+    cta: "Démarrer",
   },
   {
     name: "Pro",
     description: "Pour les églises en croissance",
     monthlyPrice: 29,
-    yearlyPrice: 245,
+    yearlyPrice: 249,
     features: [
       "Membres illimités",
       "5 administrateurs",
@@ -321,7 +308,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Support prioritaire",
     ],
     highlighted: true,
-    cta: "Démarrer l'essai gratuit",
+    cta: "Démarrer",
     badge: "Populaire",
   },
   {
@@ -688,7 +675,7 @@ export const FEATURES_COMPARISON = [
   {
     feature: "Prix de départ",
     ecclesiaflow: "Gratuit",
-    traditional: "50€/mois",
+    traditional: "$50/mois",
     spreadsheet: "Gratuit",
   },
 ];

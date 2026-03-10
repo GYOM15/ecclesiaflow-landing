@@ -28,10 +28,10 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
           scrolled
-            ? "bg-white/80 backdrop-blur-xl border-b border-slate-200/50 shadow-[var(--shadow-soft)]"
-            : "bg-transparent"
+            ? "bg-white/80 backdrop-blur-xl border-slate-200/50 shadow-[var(--shadow-soft)]"
+            : "bg-transparent border-slate-200/30"
         )}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

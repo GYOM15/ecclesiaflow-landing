@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { VerticalLine } from "@/components/decorative/vertical-line";
 import "./globals.css";
 
 const inter = Inter({
@@ -55,6 +56,7 @@ export default function RootLayout({
         >
           Aller au contenu principal
         </a>
+        <VerticalLine />
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />

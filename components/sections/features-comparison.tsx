@@ -6,7 +6,7 @@ import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { FEATURES_COMPARISON } from "@/lib/constants";
 
 function CellValue({ value }: { value: boolean | string }) {
-  if (value === true) return <Check className="h-5 w-5 text-indigo-500 mx-auto" />;
+  if (value === true) return <Check className="h-5 w-5 text-slate-500 mx-auto" />;
   if (value === false) return <X className="h-5 w-5 text-slate-300 mx-auto" />;
   return <span className="text-sm text-slate-600">{value}</span>;
 }
@@ -22,7 +22,7 @@ export function FeaturesComparison() {
         />
 
         <ScrollReveal>
-          <div className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden shadow-[var(--shadow-card)]">
+          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-[var(--shadow-card)]">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[600px]">
                 <thead>
@@ -30,7 +30,7 @@ export function FeaturesComparison() {
                     <th className="text-left py-4 px-6 text-sm font-semibold text-slate-900">
                       Critère
                     </th>
-                    <th className="text-center py-4 px-4 text-sm font-semibold text-indigo-600 w-32 bg-indigo-50/50">
+                    <th className="text-center py-4 px-4 text-sm font-semibold text-slate-900 w-32 bg-slate-50">
                       EcclesiaFlow
                     </th>
                     <th className="text-center py-4 px-4 text-sm font-semibold text-slate-500 w-32">
@@ -54,7 +54,7 @@ export function FeaturesComparison() {
                       <td className="py-3.5 px-6 text-sm text-slate-600">
                         {row.feature}
                       </td>
-                      <td className="py-3.5 px-4 text-center bg-indigo-50/30">
+                      <td className="py-3.5 px-4 text-center bg-slate-50/50">
                         <CellValue value={row.ecclesiaflow} />
                       </td>
                       <td className="py-3.5 px-4 text-center">

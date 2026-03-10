@@ -7,7 +7,7 @@ import { PRICING_COMPARISON } from "@/lib/constants";
 
 function CellValue({ value }: { value: boolean | string }) {
   if (value === true) {
-    return <Check className="h-5 w-5 text-indigo-500 mx-auto" />;
+    return <Check className="h-5 w-5 text-slate-500 mx-auto" />;
   }
   if (value === false) {
     return <X className="h-5 w-5 text-slate-300 mx-auto" />;
@@ -25,7 +25,11 @@ export function PricingComparison() {
         />
 
         <ScrollReveal>
-          <div className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden shadow-[var(--shadow-card)]">
+          <div className="relative bg-white rounded-xl border border-slate-200 overflow-hidden shadow-[var(--shadow-card)]">
+            {/* Gradient highlight — right border */}
+            <div className="absolute top-0 right-0 bottom-0 w-[2px] bg-gradient-to-b from-indigo-400/30 via-indigo-300/50 to-slate-300/30 pointer-events-none z-10" aria-hidden="true" />
+            {/* Gradient highlight — bottom border */}
+            <div className="absolute left-0 right-0 bottom-0 h-[2px] bg-gradient-to-r from-slate-300/30 via-indigo-300/50 to-indigo-400/30 pointer-events-none z-10" aria-hidden="true" />
             <div className="overflow-x-auto">
               <table className="w-full min-w-[600px]">
                 <thead>
@@ -36,7 +40,7 @@ export function PricingComparison() {
                     <th className="text-center py-4 px-4 text-sm font-semibold text-slate-900 w-28">
                       Gratuit
                     </th>
-                    <th className="text-center py-4 px-4 text-sm font-semibold text-indigo-600 w-28 bg-indigo-50/50">
+                    <th className="text-center py-4 px-4 text-sm font-semibold text-slate-900 w-28 bg-slate-50">
                       Pro
                     </th>
                     <th className="text-center py-4 px-4 text-sm font-semibold text-slate-900 w-28">
@@ -60,7 +64,7 @@ export function PricingComparison() {
                       <td className="py-3.5 px-4 text-center">
                         <CellValue value={row.free} />
                       </td>
-                      <td className="py-3.5 px-4 text-center bg-indigo-50/30">
+                      <td className="py-3.5 px-4 text-center bg-slate-50/50">
                         <CellValue value={row.pro} />
                       </td>
                       <td className="py-3.5 px-4 text-center">

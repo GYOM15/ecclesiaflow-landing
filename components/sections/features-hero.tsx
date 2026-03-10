@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GradientText } from "@/components/decorative/gradient-text";
 import { Badge } from "@/components/ui/badge";
 import { FloatingOrbs } from "@/components/decorative/floating-orbs";
 
@@ -27,9 +26,7 @@ export function FeaturesHero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight leading-tight mb-5"
         >
-          Des outils{" "}
-          <GradientText>puissants et intuitifs</GradientText>{" "}
-          pour chaque aspect de votre ministère
+          Des outils puissants et intuitifs pour chaque aspect de votre ministère
         </motion.h1>
 
         <motion.p

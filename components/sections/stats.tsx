@@ -7,10 +7,10 @@ import { STATS } from "@/lib/constants";
 import { Church, Users, Server, Star } from "lucide-react";
 
 const statMeta = [
-  { icon: Church, iconBg: "bg-indigo-50", iconColor: "text-indigo-500", accent: "border-b-indigo-500" },
-  { icon: Users, iconBg: "bg-emerald-50", iconColor: "text-emerald-500", accent: "border-b-emerald-500" },
-  { icon: Server, iconBg: "bg-amber-50", iconColor: "text-amber-500", accent: "border-b-amber-500" },
-  { icon: Star, iconBg: "bg-violet-50", iconColor: "text-violet-500", accent: "border-b-violet-500" },
+  { icon: Church, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
+  { icon: Users, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
+  { icon: Server, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
+  { icon: Star, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
 ];
 
 export function Stats() {
@@ -31,10 +31,10 @@ export function Stats() {
             En chiffres
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white mb-4">
-            Des centaines d&apos;églises nous font déjà confiance
+            Notre ambition : équiper chaque église
           </h2>
           <p className="text-base text-slate-400 max-w-xl mx-auto">
-            Nous accompagnons des communautés de toutes tailles, partout en France et dans le monde francophone.
+            Nous construisons la plateforme qui accompagnera des milliers de communautés de foi à travers le monde francophone.
           </p>
         </div>
 
@@ -43,7 +43,7 @@ export function Stats() {
             {STATS.map((stat, i) => {
               const meta = statMeta[i];
               return (
-                <div key={stat.label} className={`relative bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 lg:p-7 border border-white/[0.08] text-center group hover:bg-white/[0.1] transition-colors border-b-[3px] ${meta.accent}`}>
+                <div key={stat.label} className={`relative bg-white/[0.06] rounded-xl p-6 lg:p-7 border border-white/[0.08] text-center group hover:bg-white/[0.1] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.25)] transition-all duration-500 border-b-[3px] ${meta.accent}`}>
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${meta.iconBg} mb-4`}>
                     <meta.icon className={`h-5 w-5 ${meta.iconColor}`} />
                   </div>
