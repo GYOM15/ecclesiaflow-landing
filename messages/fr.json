@@ -1,0 +1,86 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "back": "Retour",
+    "submit": "Envoyer",
+    "cancel": "Annuler"
+  },
+  "auth": {
+    "signup": {
+      "title": "Créer votre compte",
+      "subtitle": "Rejoignez des milliers d'églises qui utilisent EcclesiaFlow",
+      "googleButton": "S'inscrire avec Google",
+      "facebookButton": "S'inscrire avec Facebook",
+      "orDivider": "ou",
+      "firstName": "Prénom",
+      "firstNamePlaceholder": "Jean",
+      "lastName": "Nom",
+      "lastNamePlaceholder": "Dupont",
+      "email": "Adresse email",
+      "emailPlaceholder": "jean.dupont@eglise.fr",
+      "address": "Adresse",
+      "addressPlaceholder": "123 Rue de l'Église, 75001 Paris",
+      "phone": "Téléphone (optionnel)",
+      "phonePlaceholder": "+33 6 12 34 56 78",
+      "submit": "Créer mon compte",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "login": "Connexion",
+      "emailExists": "Un compte avec cet email existe déjà",
+      "success": "Compte créé avec succès !"
+    },
+    "emailVerification": {
+      "title": "Vérifiez votre email",
+      "subtitle": "Nous avons envoyé un lien de confirmation à",
+      "instructions": "Cliquez sur le lien dans l'email pour activer votre compte.",
+      "checkSpam": "Vérifiez votre dossier spam si vous ne trouvez pas l'email.",
+      "resend": "Renvoyer l'email",
+      "resendCooldown": "Renvoyer dans {seconds}s",
+      "resendSuccess": "Email renvoyé avec succès"
+    },
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Redirection vers la page de connexion...",
+      "redirecting": "Redirection en cours..."
+    },
+    "confirmation": {
+      "title": "Confirmation",
+      "verifying": "Vérification en cours...",
+      "success": "Votre email a été confirmé !",
+      "invalid": "Ce lien n'est plus valide",
+      "alreadyConfirmed": "Votre compte est déjà confirmé",
+      "expired": "Ce lien a expiré",
+      "resend": "Renvoyer un email de confirmation"
+    },
+    "password": {
+      "title": "Créer votre mot de passe",
+      "subtitle": "Dernière étape ! Choisissez un mot de passe sécurisé.",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Définir le mot de passe",
+      "success": "Mot de passe défini avec succès !",
+      "loginNow": "Se connecter maintenant",
+      "expired": "Session expirée. Veuillez renvoyer un email de confirmation.",
+      "requirements": {
+        "title": "Votre mot de passe doit contenir :",
+        "minLength": "Au moins 8 caractères",
+        "lowercase": "Une lettre minuscule",
+        "uppercase": "Une lettre majuscule",
+        "digit": "Un chiffre",
+        "special": "Un caractère spécial (@$!%*?&)"
+      }
+    },
+    "onboarding": {
+      "title": "Complétez votre profil",
+      "subtitle": "Quelques informations supplémentaires pour finaliser votre inscription.",
+      "emailReadonly": "Vérifié par votre compte social",
+      "submit": "Terminer l'inscription",
+      "success": "Profil créé avec succès !"
+    },
+    "callback": {
+      "processing": "Connexion en cours...",
+      "error": "Erreur de connexion. Veuillez réessayer."
+    }
+  }
+}

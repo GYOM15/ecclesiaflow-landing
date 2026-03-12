@@ -1,0 +1,86 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "auth": {
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Join thousands of churches using EcclesiaFlow",
+      "googleButton": "Sign up with Google",
+      "facebookButton": "Sign up with Facebook",
+      "orDivider": "or",
+      "firstName": "First name",
+      "firstNamePlaceholder": "John",
+      "lastName": "Last name",
+      "lastNamePlaceholder": "Doe",
+      "email": "Email address",
+      "emailPlaceholder": "john.doe@church.com",
+      "address": "Address",
+      "addressPlaceholder": "123 Church Street, City",
+      "phone": "Phone (optional)",
+      "phonePlaceholder": "+1 555 123 4567",
+      "submit": "Create my account",
+      "hasAccount": "Already have an account?",
+      "login": "Log in",
+      "emailExists": "An account with this email already exists",
+      "success": "Account created successfully!"
+    },
+    "emailVerification": {
+      "title": "Check your email",
+      "subtitle": "We sent a confirmation link to",
+      "instructions": "Click the link in the email to activate your account.",
+      "checkSpam": "Check your spam folder if you can't find the email.",
+      "resend": "Resend email",
+      "resendCooldown": "Resend in {seconds}s",
+      "resendSuccess": "Email resent successfully"
+    },
+    "login": {
+      "title": "Login",
+      "subtitle": "Redirecting to login page...",
+      "redirecting": "Redirecting..."
+    },
+    "confirmation": {
+      "title": "Confirmation",
+      "verifying": "Verifying...",
+      "success": "Your email has been confirmed!",
+      "invalid": "This link is no longer valid",
+      "alreadyConfirmed": "Your account is already confirmed",
+      "expired": "This link has expired",
+      "resend": "Resend confirmation email"
+    },
+    "password": {
+      "title": "Create your password",
+      "subtitle": "Last step! Choose a secure password.",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Set password",
+      "success": "Password set successfully!",
+      "loginNow": "Log in now",
+      "expired": "Session expired. Please resend a confirmation email.",
+      "requirements": {
+        "title": "Your password must contain:",
+        "minLength": "At least 8 characters",
+        "lowercase": "A lowercase letter",
+        "uppercase": "An uppercase letter",
+        "digit": "A digit",
+        "special": "A special character (@$!%*?&)"
+      }
+    },
+    "onboarding": {
+      "title": "Complete your profile",
+      "subtitle": "A few more details to finalize your registration.",
+      "emailReadonly": "Verified by your social account",
+      "submit": "Complete registration",
+      "success": "Profile created successfully!"
+    },
+    "callback": {
+      "processing": "Logging in...",
+      "error": "Login error. Please try again."
+    }
+  }
+}
