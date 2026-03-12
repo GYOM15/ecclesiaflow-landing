@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
-import { VerticalLine } from "@/components/decorative/vertical-line";
+import { AuthSessionProvider } from "@/components/providers/session-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -50,16 +48,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <body className="font-sans antialiased bg-white text-slate-900">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-indigo-500 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
-        >
-          Aller au contenu principal
-        </a>
-        <VerticalLine />
-        <Navbar />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>
   );

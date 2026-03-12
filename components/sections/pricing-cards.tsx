@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -88,14 +89,16 @@ export function PricingCards() {
                   )}
                 </div>
 
-                <Button
-                  variant={plan.highlighted ? "primary" : "outline"}
-                  size="lg"
-                  className="w-full mb-6"
-                >
-                  {plan.cta}
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+                <Link href={plan.cta === "Contacter l'équipe" ? "/about" : "/inscription"} className="block">
+                  <Button
+                    variant={plan.highlighted ? "primary" : "outline"}
+                    size="lg"
+                    className="w-full mb-6"
+                  >
+                    {plan.cta}
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
 
                 <div className="border-t border-slate-100 pt-5">
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">

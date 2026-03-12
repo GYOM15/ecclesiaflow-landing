@@ -1,17 +1,18 @@
 import Link from "next/link";
-import { FileQuestion, ArrowLeft } from "lucide-react";
+import { ShieldX, ArrowLeft } from "lucide-react";
 
-export default function NotFound() {
+export default function Forbidden() {
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
       <div className="text-center max-w-md">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50">
-          <FileQuestion className="h-8 w-8 text-indigo-500" />
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-50">
+          <ShieldX className="h-8 w-8 text-rose-500" />
         </div>
 
-        <h1 className="text-2xl font-bold text-slate-900">Page introuvable</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Accès refusé</h1>
         <p className="mt-2 text-sm text-slate-500">
-          La page que vous recherchez n&apos;existe pas ou a été déplacée.
+          Vous n&apos;avez pas les permissions nécessaires pour accéder à cette
+          page.
         </p>
 
         <div className="mt-8">

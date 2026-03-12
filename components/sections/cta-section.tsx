@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/animation/scroll-reveal";
 
@@ -24,10 +25,12 @@ export function CtaSection() {
             pour simplifier leur quotidien et se concentrer sur leur mission.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button size="lg" variant="primary">
-              Démarrer
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+            <Link href="/inscription">
+              <Button size="lg" variant="primary">
+                Démarrer
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
             <Button size="lg" variant="outline">
               Parler à un conseiller
             </Button>

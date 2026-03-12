@@ -3,13 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/lib/constants";
 
 export function Navbar() {
+  const { status } = useSession();
+  const isAuthenticated = status === "authenticated";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -74,12 +77,27 @@ export function Navbar() {
 
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-3">
-              <Button variant="ghost" size="sm">
-                Connexion
-              </Button>
-              <Button variant="primary" size="sm">
-                Démarrer gratuitement
-              </Button>
+              {isAuthenticated ? (
+                <Link href="/dashboard">
+                  <Button variant="primary" size="sm">
+                    <LayoutDashboard className="h-4 w-4" />
+                    Mon espace
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                  <Link href="/connexion">
+                    <Button variant="ghost" size="sm">
+                      Connexion
+                    </Button>
+                  </Link>
+                  <Link href="/inscription">
+                    <Button variant="primary" size="sm">
+                      Démarrer gratuitement
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile hamburger */}
@@ -132,12 +150,27 @@ export function Navbar() {
                   </Link>
                 ))}
                 <div className="pt-4 space-y-2 border-t border-slate-100 mt-4">
-                  <Button variant="outline" size="lg" className="w-full">
-                    Connexion
-                  </Button>
-                  <Button variant="primary" size="lg" className="w-full">
-                    Démarrer gratuitement
-                  </Button>
+                  {isAuthenticated ? (
+                    <Link href="/dashboard" className="block">
+                      <Button variant="primary" size="lg" className="w-full">
+                        <LayoutDashboard className="h-4 w-4" />
+                        Mon espace
+                      </Button>
+                    </Link>
+                  ) : (
+                    <>
+                      <Link href="/connexion" className="block">
+                        <Button variant="outline" size="lg" className="w-full">
+                          Connexion
+                        </Button>
+                      </Link>
+                      <Link href="/inscription" className="block">
+                        <Button variant="primary" size="lg" className="w-full">
+                          Démarrer gratuitement
+                        </Button>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>

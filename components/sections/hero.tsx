@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GradientText } from "@/components/decorative/gradient-text";
 import { TICKER_ITEMS } from "@/lib/constants";
+import { useSocialSignIn } from "@/lib/hooks/use-social-signin";
 
 /* Google "G" logo SVG */
 function GoogleLogo({ className }: { className?: string }) {
@@ -101,6 +103,7 @@ const bindingLines = (() => {
 })();
 
 export function Hero() {
+  const { handleSignIn } = useSocialSignIn();
   const tickerItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
@@ -201,11 +204,17 @@ export function Hero() {
           </p>
 
           <div className="hero-anim-4 flex flex-wrap gap-3">
-            <Button size="lg" variant="primary">
-              Commencer
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline">
+            <Link href="/inscription">
+              <Button size="lg" variant="primary">
+                Commencer
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => handleSignIn("google")}
+            >
               <GoogleLogo className="h-4 w-4" />
               S&apos;inscrire avec Google
             </Button>
