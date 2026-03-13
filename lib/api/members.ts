@@ -18,6 +18,8 @@ export interface SignUpResponse {
   confirmed: boolean;
   createdAt: string;
   confirmedAt?: string;
+  socialProvider?: "GOOGLE" | "MICROSOFT" | "FACEBOOK" | null;
+  hasLocalCredentials?: boolean;
 }
 
 export interface ConfirmationResponse {
@@ -108,14 +110,27 @@ export function updateMyProfile(
   });
 }
 
-export function updateMyEmail(
+export interface EmailChangeResponse {
+  message: string;
+}
+
+export function requestEmailChange(
   accessToken: string,
   email: string
-): Promise<ApiResponse<UpdateProfileResponse>> {
-  return api.patch<UpdateProfileResponse>(
-    "/api/members/me",
+): Promise<ApiResponse<EmailChangeResponse>> {
+  return api.patch<EmailChangeResponse>(
+    "/api/members/me/email",
     { email },
     { Authorization: `Bearer ${accessToken}` }
+  );
+}
+
+export function confirmEmailChange(
+  token: string
+): Promise<ApiResponse<SignUpResponse>> {
+  return api.post<SignUpResponse>(
+    `/api/members/me/email/confirm?token=${encodeURIComponent(token)}`,
+    {}
   );
 }
 
@@ -125,4 +140,14 @@ export function deleteMyAccount(
   return api.delete<{ message: string }>("/api/members/me", {
     Authorization: `Bearer ${accessToken}`,
   });
+}
+
+export function reactivateMyAccount(
+  accessToken: string
+): Promise<ApiResponse<SignUpResponse>> {
+  return api.post<SignUpResponse>(
+    "/api/members/me/reactivate",
+    {},
+    { Authorization: `Bearer ${accessToken}` }
+  );
 }
