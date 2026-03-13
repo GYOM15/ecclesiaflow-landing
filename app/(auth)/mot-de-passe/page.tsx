@@ -76,8 +76,7 @@ export default function MotDePassePage() {
             setError("Impossible de démarrer la session");
             setPageState("form");
           }
-        } catch (signInError) {
-          console.error("signIn error:", signInError);
+        } catch {
           setError("Erreur lors de la connexion automatique");
           setPageState("form");
         }
@@ -95,8 +94,7 @@ export default function MotDePassePage() {
       } else {
         setError(result.message || "Une erreur est survenue");
       }
-    } catch (err) {
-      console.error("Fetch error:", err);
+    } catch {
       setError("Impossible de contacter le serveur");
     }
   }

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
 import {
   LayoutDashboard,
   Users,
@@ -112,8 +111,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {/* Logout */}
         <div className="px-3 py-4 border-t border-slate-100">
           <button
-            onClick={async () => {
-              await signOut({ redirect: false });
+            onClick={() => {
               window.location.href = "/api/auth/federated-signout";
             }}
             className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"

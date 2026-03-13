@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { AlertTriangle, Trash2 } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Spinner } from "@/components/ui/spinner";
@@ -22,8 +22,7 @@ export default function AccountPage() {
     const result = await deleteMyAccount(session.accessToken);
 
     if (result.ok) {
-      await signOut({ redirect: false });
-      window.location.href = "/";
+      window.location.href = "/api/auth/federated-signout";
     } else {
       setError(result.error.message || "Une erreur est survenue.");
       setDeleting(false);
@@ -49,8 +48,9 @@ export default function AccountPage() {
                 Zone dangereuse
               </h2>
               <p className="text-sm text-red-700 mt-1">
-                La suppression de votre compte est irréversible. Toutes vos
-                données seront définitivement supprimées.
+                Votre compte sera désactivé pendant 30 jours puis
+                définitivement supprimé. Vous pourrez le réactiver en vous
+                reconnectant pendant cette période.
               </p>
             </div>
           </div>
