@@ -25,10 +25,10 @@ async function refreshAccessToken(token: any) {
       ...token,
       accessToken: refreshed.access_token,
       refreshToken: refreshed.refresh_token ?? token.refreshToken,
+      idToken: refreshed.id_token ?? token.idToken,
       expiresAt: Math.floor(Date.now() / 1000) + refreshed.expires_in,
     };
-  } catch (error) {
-    console.error("Error refreshing access token");
+  } catch {
     return { ...token, error: "RefreshAccessTokenError" };
   }
 }
@@ -78,6 +78,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // Keycloak OIDC: tokens come from the account object
           token.accessToken = account.access_token;
           token.refreshToken = account.refresh_token;
+          token.idToken = account.id_token ?? undefined;
           token.expiresAt = account.expires_at;
         }
       }
@@ -89,6 +90,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken as string;
+      session.idToken = token.idToken as string | undefined;
       if (token.error === "RefreshAccessTokenError") {
         session.error = "RefreshAccessTokenError";
       }
@@ -102,5 +104,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   pages: {
     signIn: "/connexion",
+    error: "/connexion",
   },
 });
