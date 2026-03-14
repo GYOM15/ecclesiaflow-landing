@@ -47,7 +47,7 @@ export function ImageGallery({ variant = "home" }: ImageGalleryProps) {
   const mainImage = images[mainIndex];
 
   return (
-    <section className="py-20 lg:py-28 bg-white">
+    <section className="py-20 lg:py-28 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge={variant === "about" ? "Notre univers" : "En images"}

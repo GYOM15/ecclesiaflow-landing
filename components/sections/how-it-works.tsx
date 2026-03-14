@@ -7,25 +7,40 @@ import { HOW_IT_WORKS } from "@/lib/constants";
 
 const stepStyles = [
   {
-    numColor: "text-indigo-500",
+    numColor: "text-indigo-600",
     numColorLabel: "text-indigo-500",
     ripple: "border-indigo-200",
     ripple2: "border-indigo-100",
     lightColor: "via-indigo-400",
+    dotBg: "bg-indigo-50",
+    dotBorder: "border-indigo-200",
+    cardAccent: "border-l-[3px] border-l-indigo-500",
+    iconBg: "bg-indigo-50",
+    iconColor: "text-indigo-500",
   },
   {
-    numColor: "text-teal-500",
+    numColor: "text-teal-600",
     numColorLabel: "text-teal-500",
     ripple: "border-teal-200",
     ripple2: "border-teal-100",
     lightColor: "via-teal-400",
+    dotBg: "bg-teal-50",
+    dotBorder: "border-teal-200",
+    cardAccent: "border-l-[3px] border-l-teal-500",
+    iconBg: "bg-teal-50",
+    iconColor: "text-teal-600",
   },
   {
-    numColor: "text-amber-500",
-    numColorLabel: "text-amber-500",
-    ripple: "border-amber-200",
-    ripple2: "border-amber-100",
-    lightColor: "via-amber-400",
+    numColor: "text-indigo-600",
+    numColorLabel: "text-indigo-500",
+    ripple: "border-indigo-200",
+    ripple2: "border-indigo-100",
+    lightColor: "via-indigo-400",
+    dotBg: "bg-indigo-50",
+    dotBorder: "border-indigo-200",
+    cardAccent: "border-l-[3px] border-l-indigo-500",
+    iconBg: "bg-indigo-50",
+    iconColor: "text-indigo-500",
   },
 ];
 
@@ -77,9 +92,9 @@ export function HowItWorks() {
                         animate={{ scale: [1, 2.5], opacity: [0.2, 0] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: index * 0.3 + 0.8 }}
                       />
-                      {/* Main dot — neutral with colored number */}
+                      {/* Main dot — colored background with number */}
                       <motion.div
-                        className="relative z-10 w-7 h-7 rounded-full bg-white border border-slate-200 flex items-center justify-center shadow-sm"
+                        className={`relative z-10 w-7 h-7 rounded-full ${s.dotBg} border ${s.dotBorder} flex items-center justify-center shadow-sm`}
                         animate={{ scale: [1, 1.08, 1] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                       >
@@ -113,14 +128,14 @@ export function HowItWorks() {
 
                   {/* Content card */}
                   <div className={`flex-1 ${isLast ? "pb-0" : "pb-12"}`}>
-                    <div className="relative bg-white rounded-xl p-6 lg:p-8 border border-slate-200 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] transition-all duration-500 overflow-hidden group/card cursor-pointer">
+                    <div className={`relative bg-white rounded-xl p-6 lg:p-8 border border-slate-200 ${s.cardAccent} shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] transition-all duration-500 overflow-hidden group/card cursor-pointer`}>
                       {/* Gradient border highlight on hover */}
                       <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-indigo-400/40 via-indigo-200/15 to-slate-300/25 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" aria-hidden="true" />
                       {/* Corner gradient highlight — top-right */}
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-indigo-400/[0.10] via-indigo-300/[0.03] to-transparent rounded-tr-xl pointer-events-none" aria-hidden="true" />
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-50">
-                          <step.icon className="h-4 w-4 text-slate-500" />
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${s.iconBg}`}>
+                          <step.icon className={`h-4 w-4 ${s.iconColor}`} />
                         </div>
                         <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                           Étape <span className={`${s.numColor} font-bold`}>{step.step}</span>

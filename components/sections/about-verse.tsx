@@ -5,7 +5,7 @@ import { CrossPatternBg } from "@/components/decorative/cross-motif";
 
 export function AboutVerse() {
   return (
-    <section className="relative py-20 lg:py-28 bg-amber-50/30 overflow-hidden">
+    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
       <CrossPatternBg className="opacity-50" />
 
       {/* Subtle warm glow */}
