@@ -1,11 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GradientText } from "@/components/decorative/gradient-text";
+import { VoilesAngulaires, type Panel } from "@/components/auth/voiles-angulaires";
+
+/* Panels shifted right to leave text area clear */
+const HERO_PANELS: Panel[] = [
+  { color: "#C7D2FE", angle: -28, xOff: 0.56, width: 200, speed: 0.4 },  // indigo-200
+  { color: "#A5B4FC", angle: -24, xOff: 0.62, width: 180, speed: 0.6 },  // indigo-300
+  { color: "#818CF8", angle: -32, xOff: 0.68, width: 220, speed: 0.35 }, // indigo-400
+  { color: "#6366F1", angle: -26, xOff: 0.74, width: 250, speed: 0.5 },  // indigo-500
+  { color: "#4F46E5", angle: -30, xOff: 0.80, width: 200, speed: 0.7 },  // indigo-600
+  { color: "#4338CA", angle: -22, xOff: 0.72, width: 170, speed: 0.45 }, // indigo-700
+  { color: "#14B8A6", angle: -20, xOff: 0.86, width: 140, speed: 0.65 }, // teal-500
+];
 import { TICKER_ITEMS } from "@/lib/constants";
 import { useSocialSignIn } from "@/lib/hooks/use-social-signin";
 
@@ -36,7 +47,7 @@ export function Hero() {
   const tickerItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-0 lg:pt-44 bg-white">
+    <section className="relative overflow-hidden pt-24 pb-0 lg:pt-32 bg-white">
       {/* CSS keyframe animations */}
       <style>{`
         @keyframes heroFadeUp {
@@ -72,139 +83,11 @@ export function Hero() {
           animation: heroFadeIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
           will-change: opacity;
         }
-        @keyframes mountainBreathe {
-          0%, 100% { transform: translateY(0); }
-          50%      { transform: translateY(var(--breathe-y)); }
-        }
-        @keyframes mistDrift {
-          0%, 100% { transform: translateX(0); }
-          50%      { transform: translateX(25px); }
-        }
-        .mountain-back {
-          animation: mountainBreathe 12s ease-in-out infinite;
-          --breathe-y: -8px;
-        }
-        .mountain-mid {
-          animation: mountainBreathe 9s ease-in-out infinite;
-          --breathe-y: -14px;
-        }
-        .mountain-front {
-          animation: mountainBreathe 7s ease-in-out infinite;
-          --breathe-y: -18px;
-        }
-        .mountain-mist {
-          animation: mistDrift 12s ease-in-out infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .mountain-back, .mountain-mid, .mountain-front, .mountain-mist {
-            animation: none;
-          }
-        }
       `}</style>
 
-      {/* Background: animated subtle orbs */}
+      {/* Voiles angulaires background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <motion.div
-          className="absolute -top-[15%] right-[5%] w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.06),transparent_70%)] rounded-full blur-3xl"
-          animate={{ x: [0, 20, -10, 0], y: [0, -15, 10, 0], scale: [1, 1.05, 0.97, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute top-[25%] -left-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.05),transparent_70%)] rounded-full blur-3xl"
-          animate={{ x: [0, 15, -8, 0], y: [0, 10, -12, 0], scale: [1, 0.96, 1.04, 1] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
-        <motion.div
-          className="absolute top-[50%] right-[15%] w-[30%] h-[40%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.07),transparent_70%)] rounded-full blur-3xl"
-          animate={{ x: [0, -12, 8, 0], y: [0, -8, 14, 0], scale: [1, 1.03, 0.98, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-        />
-        <motion.div
-          className="absolute bottom-[10%] left-[20%] w-[25%] h-[30%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.05),transparent_70%)] rounded-full blur-3xl"
-          animate={{ x: [0, 10, -6, 0], y: [0, -10, 6, 0], scale: [1, 1.04, 0.97, 1] }}
-          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 6 }}
-        />
-        <div className="absolute inset-0 opacity-[0.018]" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
-      </div>
-
-      {/* Mountains chain + cross — right side, organic */}
-      <div className="absolute inset-0 pointer-events-none hidden lg:block" aria-hidden="true">
-        <svg
-          viewBox="0 0 1440 580"
-          fill="none"
-          preserveAspectRatio="xMidYMax slice"
-          className="absolute bottom-0 left-0 w-full h-full"
-        >
-          <defs>
-            {/* Soft halo behind the cross */}
-            <radialGradient id="crossHalo" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#818CF8" stopOpacity="0.12" />
-              <stop offset="50%" stopColor="#6366F1" stopOpacity="0.05" />
-              <stop offset="100%" stopColor="#6366F1" stopOpacity="0" />
-            </radialGradient>
-            {/* Fade-out mask for the left edge (keeps right side visible for cross) */}
-            <linearGradient id="fadeLeft" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="white" stopOpacity="0" />
-              <stop offset="30%" stopColor="white" stopOpacity="1" />
-              <stop offset="100%" stopColor="white" stopOpacity="1" />
-            </linearGradient>
-            <mask id="mountainFade">
-              <rect x="0" y="0" width="1440" height="580" fill="url(#fadeLeft)" />
-            </mask>
-          </defs>
-
-          {/* Halo glow behind cross intersection */}
-          <circle cx="1100" cy="200" r="120" fill="url(#crossHalo)" />
-
-          {/* Mountain chain — multiple peaks, highest summit under the cross */}
-          <g mask="url(#mountainFade)">
-            {/* Back range — broad, soft peaks, indigo-200 */}
-            <path
-              className="mountain-back"
-              d="M350,580 L380,500 L450,485 L520,475 L570,480 L630,460
-                 L690,465 L750,445 L800,448 L860,425 L920,415 L970,420
-                 L1030,400 L1070,392 L1100,380 L1130,392 L1180,408
-                 L1230,420 L1290,435 L1350,448 L1440,460 L1440,580 Z"
-              fill="#C7D2FE"
-              opacity="0.10"
-            />
-
-            {/* Mid range — defined peaks, main summit under cross, teal */}
-            <path
-              className="mountain-mid"
-              d="M420,580 L450,520 L520,508 L580,500 L630,505 L700,488
-                 L760,492 L820,475 L870,478 L930,458 L990,448 L1040,442
-                 L1100,430 L1140,440 L1200,450 L1260,460 L1320,468
-                 L1400,475 L1440,480 L1440,580 Z"
-              fill="#14B8A6"
-              opacity="0.07"
-            />
-
-            {/* Front range — rolling foothills, amber */}
-            <path
-              className="mountain-front"
-              d="M490,580 L510,540 L570,532 L640,525 L690,528 L760,515
-                 L820,518 L880,505 L930,508 L990,492 L1050,485 L1100,478
-                 L1140,484 L1200,492 L1260,498 L1320,504 L1400,510
-                 L1440,515 L1440,580 Z"
-              fill="#F59E0B"
-              opacity="0.05"
-            />
-
-            {/* Teal mist at the base of the mountains */}
-            <path
-              className="mountain-mist"
-              d="M550,580 L580,548 L700,540 L820,532 L940,525 L1050,522
-                 L1100,520 L1150,523 L1260,530 L1380,538 L1440,542 L1440,580 Z"
-              fill="#14B8A6"
-              opacity="0.04"
-            />
-          </g>
-
-          {/* Cross — planted at highest peak, right side, square corners */}
-          <rect x="1084" y="110" width="32" height="270" fill="#6366F1" opacity="0.10" />
-          <rect x="990" y="185" width="220" height="28" fill="#6366F1" opacity="0.10" />
-        </svg>
+        <VoilesAngulaires bgColor="#FFFFFF" panels={HERO_PANELS} />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
