@@ -132,7 +132,7 @@ const mockups = [MembersMockup, CommunicationMockup, EventsMockup];
 
 export function FeatureDeepDive() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
+    <section className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14">
         {FEATURES_DEEP_DIVE.map((feature, index) => {
           const MockupComponent = mockups[index];
@@ -146,12 +146,12 @@ export function FeatureDeepDive() {
             >
               <ScrollReveal direction={feature.reversed ? "right" : "left"} className={cn(feature.reversed && "lg:order-2")}>
                 <Badge variant="indigo" className="mb-4">{feature.badge}</Badge>
-                <p className="text-sm font-medium text-slate-500 mb-2">{feature.subtitle}</p>
-                <h3 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight mb-4 leading-snug">{feature.title}</h3>
-                <p className="text-slate-500 leading-relaxed mb-6">{feature.description}</p>
+                <p className="text-sm font-medium text-slate-400 mb-2">{feature.subtitle}</p>
+                <h3 className="text-2xl sm:text-3xl font-semibold text-slate-100 tracking-tight mb-4 leading-snug">{feature.title}</h3>
+                <p className="text-slate-400 leading-relaxed mb-6">{feature.description}</p>
                 <ul className="space-y-3">
                   {feature.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-3 text-sm text-slate-600">
+                    <li key={bullet} className="flex items-start gap-3 text-sm text-slate-300">
                       <CheckCircle2 className="h-5 w-5 text-teal-500 shrink-0 mt-0.5" />
                       <span>{bullet}</span>
                     </li>
@@ -162,7 +162,7 @@ export function FeatureDeepDive() {
               <ScrollReveal direction={feature.reversed ? "left" : "right"} delay={0.15} className={cn(feature.reversed && "lg:order-1")}>
                 <div className="relative">
                   {/* Diffuse glow */}
-                  <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-slate-300/[0.06] via-slate-200/[0.03] to-transparent blur-2xl" aria-hidden="true" />
+                  <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-indigo-500/[0.08] via-slate-500/[0.03] to-transparent blur-2xl" aria-hidden="true" />
 
                   {/* Gradient border highlight on select mockups */}
                   {(index === 0 || index === 2) && (
@@ -183,7 +183,7 @@ export function FeatureDeepDive() {
                     <MockupComponent />
                   </div>
                   {/* Bottom diffusion on mockup */}
-                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-2xl" />
+                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none rounded-b-2xl" />
                 </div>
               </ScrollReveal>
             </div>
