@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 import { CheckCircle2, TrendingUp } from "lucide-react";
 
 const categoryMeta = [
-  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-slate-50 text-slate-600", heading: "Connaissez chaque membre, suivez chaque parcours" },
-  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-slate-50 text-slate-600", heading: "Communiquez efficacement, touchez chaque cœur" },
-  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-slate-50 text-slate-600", heading: "Organisez vos événements sans effort" },
-  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-slate-50 text-slate-600", heading: "Gérez vos finances en toute transparence" },
-  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-slate-50 text-slate-600", heading: "Sécurisez et administrez en confiance" },
+  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-indigo-50 text-indigo-500", heading: "Connaissez chaque membre, suivez chaque parcours" },
+  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-teal-50 text-teal-600", heading: "Communiquez efficacement, touchez chaque cœur" },
+  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-amber-50 text-amber-600", heading: "Organisez vos événements sans effort" },
+  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-indigo-50 text-indigo-500", heading: "Gérez vos finances en toute transparence" },
+  { accent: "indigo" as const, gradient: "from-slate-300/[0.06] to-slate-200/[0.02]", iconBg: "bg-teal-50 text-teal-600", heading: "Sécurisez et administrez en confiance" },
 ];
 
 function MembersMock() {
@@ -22,15 +22,15 @@ function MembersMock() {
         <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">847 membres</span>
       </div>
       {[
-        { name: "Marie Dupont", role: "Louange · Famille Dupont", c: "bg-slate-500" },
-        { name: "Jean Mbeki", role: "Jeunesse · Célibataire", c: "bg-slate-600" },
-        { name: "Claire Bonnet", role: "Accueil · Famille Bonnet", c: "bg-slate-400" },
-        { name: "Paul Diallo", role: "Prière · Famille Diallo", c: "bg-slate-500" },
+        { name: "Marie Dupont", role: "Louange · Famille Dupont", c: "bg-indigo-500" },
+        { name: "Jean Mbeki", role: "Jeunesse · Célibataire", c: "bg-teal-500" },
+        { name: "Claire Bonnet", role: "Accueil · Famille Bonnet", c: "bg-amber-500" },
+        { name: "Paul Diallo", role: "Prière · Famille Diallo", c: "bg-indigo-500" },
       ].map((m) => (
         <div key={m.name} className="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl border border-slate-100">
           <div className={`w-8 h-8 rounded-full ${m.c} flex items-center justify-center text-[10px] font-bold text-white`}>{m.name.split(" ").map(n=>n[0]).join("")}</div>
           <div className="flex-1 min-w-0"><p className="text-xs font-medium text-slate-800 truncate">{m.name}</p><p className="text-[10px] text-slate-400">{m.role}</p></div>
-          <div className="text-[9px] bg-slate-50 text-slate-600 px-1.5 py-0.5 rounded-full">Actif</div>
+          <div className="text-[9px] bg-teal-50 text-teal-600 px-1.5 py-0.5 rounded-full">Actif</div>
         </div>
       ))}
     </div>
@@ -49,7 +49,7 @@ function CommunicationMock() {
           <div key={s.l} className="bg-slate-50 rounded-lg p-2 text-center border border-slate-100"><div className="text-xs font-bold text-slate-700">{s.v}</div><div className="text-[9px] text-slate-400">{s.l}</div></div>
         ))}
       </div>
-      {[{ t: "Rappel culte", r: "94%", c: "bg-slate-400" }, { t: "Newsletter", r: "78%", c: "bg-slate-500" }, { t: "Retraite", r: "87%", c: "bg-slate-400" }].map(m => (
+      {[{ t: "Rappel culte", r: "94%", c: "bg-indigo-400" }, { t: "Newsletter", r: "78%", c: "bg-teal-400" }, { t: "Retraite", r: "87%", c: "bg-indigo-400" }].map(m => (
         <div key={m.t} className="mb-2 last:mb-0">
           <div className="flex justify-between mb-1"><span className="text-[11px] font-medium text-slate-700">{m.t}</span><span className="text-[10px] text-slate-500">{m.r}</span></div>
           <div className="h-1 bg-slate-100 rounded-full overflow-hidden"><div className={`h-full ${m.c} rounded-full`} style={{ width: m.r }} /></div>
@@ -68,10 +68,10 @@ function EventsMock() {
       </div>
       <div className="grid grid-cols-7 gap-0.5 mb-3">
         {["L","M","M","J","V","S","D"].map((d,i) => (
-          <div key={d+i} className={cn("h-7 rounded-md flex items-center justify-center text-[9px] font-medium", i===6?"bg-slate-200 text-slate-700":i===2?"bg-slate-100 text-slate-600":"bg-slate-50 text-slate-400")}>{d}</div>
+          <div key={d+i} className={cn("h-7 rounded-md flex items-center justify-center text-[9px] font-medium", i===6?"bg-indigo-100 text-indigo-700":i===2?"bg-teal-50 text-teal-600":"bg-slate-50 text-slate-400")}>{d}</div>
         ))}
       </div>
-      {[{n:"Culte",t:"Dim. 10h",c:"bg-slate-500",p:"620"},{n:"Prière",t:"Mer. 19h30",c:"bg-slate-400",p:"45"},{n:"Louange",t:"Sam. 14h",c:"bg-slate-400",p:"18"}].map(e=>(
+      {[{n:"Culte",t:"Dim. 10h",c:"bg-indigo-500",p:"620"},{n:"Prière",t:"Mer. 19h30",c:"bg-teal-400",p:"45"},{n:"Louange",t:"Sam. 14h",c:"bg-amber-400",p:"18"}].map(e=>(
         <div key={e.n} className="flex items-center gap-2 mb-1.5 last:mb-0 p-2 bg-slate-50 rounded-lg border border-slate-100">
           <div className={`w-1 h-6 rounded-full ${e.c}`}/><div className="flex-1"><span className="text-[11px] font-medium text-slate-800">{e.n}</span><span className="text-[10px] text-slate-400 ml-2">{e.t}</span></div><span className="text-[9px] text-slate-400">{e.p}</span>
         </div>
@@ -93,7 +93,7 @@ function FinanceMock() {
       </div>
       <div className="flex items-end gap-1 h-12 mb-1">
         {[40,55,48,72,60,80,65,85,70,90,75,88].map((h,i)=>(
-          <div key={i} className="flex-1"><div className={`w-full rounded-sm ${i>=10?"bg-slate-500":i>=8?"bg-slate-300":"bg-slate-200"}`} style={{height:`${h}%`}}/></div>
+          <div key={i} className="flex-1"><div className={`w-full rounded-sm ${i>=10?"bg-indigo-500":i>=8?"bg-teal-400":"bg-indigo-200"}`} style={{height:`${h}%`}}/></div>
         ))}
       </div>
     </div>
@@ -114,7 +114,7 @@ function AdminMock() {
         { label: "Audit trail", desc: "Toutes les actions" },
       ].map(s=>(
         <div key={s.label} className="flex items-center gap-2.5 mb-2 last:mb-0 p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div className="w-6 h-6 rounded-lg bg-slate-100 flex items-center justify-center"><CheckCircle2 className="h-3.5 w-3.5 text-slate-500"/></div>
+          <div className="w-6 h-6 rounded-lg bg-teal-50 flex items-center justify-center"><CheckCircle2 className="h-3.5 w-3.5 text-teal-500"/></div>
           <div><div className="text-[11px] font-medium text-slate-800">{s.label}</div><div className="text-[9px] text-slate-400">{s.desc}</div></div>
         </div>
       ))}
@@ -139,7 +139,7 @@ export function FeaturesDetail() {
                 <h3 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight mb-6 leading-snug">{meta.heading}</h3>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {cat.features.map((feature) => (
-                    <div key={feature.title} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 transition-colors cursor-pointer">
+                    <div key={feature.title} className="flex items-start gap-3 p-3 rounded-xl bg-white border border-slate-200/60 hover:border-indigo-200/60 hover:shadow-sm transition-all duration-200 cursor-pointer">
                       <div className={`w-8 h-8 rounded-lg ${meta.iconBg} flex items-center justify-center shrink-0`}><feature.icon className="h-4 w-4"/></div>
                       <div><h4 className="text-sm font-semibold text-slate-900 mb-0.5">{feature.title}</h4><p className="text-xs text-slate-500 leading-relaxed">{feature.description}</p></div>
                     </div>

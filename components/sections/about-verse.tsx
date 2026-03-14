@@ -16,8 +16,8 @@ export function AboutVerse() {
           {/* Decorative cross above */}
           <div className="flex justify-center mb-6" aria-hidden="true">
             <svg viewBox="0 0 40 40" className="w-8 h-8 text-amber-400/40" fill="currentColor">
-              <rect x="17" y="2" width="6" height="36" rx="3" />
-              <rect x="2" y="14" width="36" height="6" rx="3" />
+              <rect x="16" y="1" width="8" height="38" />
+              <rect x="3" y="13" width="34" height="8" />
             </svg>
           </div>
 

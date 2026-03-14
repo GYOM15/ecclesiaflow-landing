@@ -45,7 +45,7 @@ export function Navbar() {
                 <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
                   <rect width="32" height="32" rx="8" fill="#6366F1" />
                   <path
-                    d="M14 8a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-6v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-6H8a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h6V8z"
+                    d="M13 3h6v6h7v6h-7v14h-6V15H6V9h7V3z"
                     fill="white"
                     opacity="0.95"
                   />

@@ -105,7 +105,10 @@ export function HowItWorks() {
                     {/* Flowing connector with traveling light — color transitions to next step */}
                     {!isLast && (
                       <div className="relative w-px flex-1 min-h-[60px]">
-                        <div className="absolute inset-0 w-0.5 mx-auto bg-gradient-to-b from-indigo-200 to-slate-200 opacity-40" />
+                        {/* Dashed line with animated stroke-dashoffset */}
+                        <svg className="absolute left-1/2 -translate-x-1/2 top-0 w-1 h-full" viewBox="0 0 2 100" preserveAspectRatio="none">
+                          <line x1="1" y1="0" x2="1" y2="100" stroke="#C7D2FE" strokeWidth="1.5" strokeDasharray="4 4" className="animate-[dashScroll_3s_linear_infinite]" />
+                        </svg>
                         {/* Traveling light pulse — takes next step's color */}
                         <motion.div
                           className={`absolute left-1/2 -translate-x-1/2 w-[3px] h-8 rounded-full bg-gradient-to-b from-transparent ${nextS.lightColor} to-transparent opacity-60`}
@@ -128,11 +131,9 @@ export function HowItWorks() {
 
                   {/* Content card */}
                   <div className={`flex-1 ${isLast ? "pb-0" : "pb-12"}`}>
-                    <div className={`relative bg-white rounded-xl p-6 lg:p-8 border border-slate-200 ${s.cardAccent} shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.15)] transition-all duration-500 overflow-hidden group/card cursor-pointer`}>
-                      {/* Gradient border highlight on hover */}
+                    <div className={`relative bg-white rounded-xl p-6 lg:p-8 border border-slate-200 ${s.cardAccent} shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] transition-all duration-500 overflow-hidden group/card cursor-pointer`}>
+                      {/* Gradient border highlight on hover — fade in */}
                       <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-indigo-400/40 via-indigo-200/15 to-slate-300/25 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" aria-hidden="true" />
-                      {/* Corner gradient highlight — top-right */}
-                      <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-indigo-400/[0.10] via-indigo-300/[0.03] to-transparent rounded-tr-xl pointer-events-none" aria-hidden="true" />
                       <div className="flex items-center gap-3 mb-3">
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${s.iconBg}`}>
                           <step.icon className={`h-4 w-4 ${s.iconColor}`} />
@@ -150,7 +151,7 @@ export function HowItWorks() {
                         {index === 0 && (
                           <div className="flex items-center gap-3">
                             <div className="flex -space-x-1.5">
-                              {["bg-slate-400", "bg-slate-500", "bg-slate-400", "bg-slate-300"].map((c, j) => (
+                              {["bg-indigo-500", "bg-teal-500", "bg-amber-500", "bg-indigo-400"].map((c, j) => (
                                 <div key={j} className={`w-6 h-6 rounded-full ${c} border-2 border-white flex items-center justify-center text-[8px] font-bold text-white`}>
                                   {["E", "P", "C", "+"][j]}
                                 </div>
@@ -163,9 +164,9 @@ export function HowItWorks() {
                           <div className="flex items-center gap-3">
                             <div className="flex gap-1.5">
                               {[
-                                { label: "Pasteur", bg: "bg-slate-100 text-slate-700" },
-                                { label: "Diacre", bg: "bg-slate-100 text-slate-700" },
-                                { label: "Admin", bg: "bg-slate-100 text-slate-700" },
+                                { label: "Pasteur", bg: "bg-indigo-50 text-indigo-600" },
+                                { label: "Diacre", bg: "bg-teal-50 text-teal-600" },
+                                { label: "Admin", bg: "bg-indigo-50 text-indigo-600" },
                               ].map((role) => (
                                 <span key={role.label} className={`text-[10px] px-2 py-0.5 rounded-md font-medium ${role.bg}`}>
                                   {role.label}
@@ -179,7 +180,7 @@ export function HowItWorks() {
                           <div className="flex items-center gap-3">
                             <div className="flex items-end gap-0.5 h-5">
                               {[35, 50, 45, 65, 55, 75, 60, 85, 70, 90].map((h, j) => (
-                                <div key={j} className="w-1.5 rounded-sm bg-slate-300" style={{ height: `${h}%` }} />
+                                <div key={j} className={`w-1.5 rounded-sm ${j % 2 === 0 ? "bg-indigo-300" : "bg-teal-300"}`} style={{ height: `${h}%` }} />
                               ))}
                             </div>
                             <span className="text-xs text-slate-400">Suivi de croissance en temps réel</span>

@@ -70,9 +70,9 @@ export function VoilesAngulaires() {
 
       // Draw each panel
       PANELS.forEach((panel, i) => {
-        const x = w * panel.xOff + Math.sin(t * 0.005 * panel.speed + i * 0.8) * 60;
-        const rotation = (panel.angle + Math.sin(t * 0.003 + i * 1.2) * 2) * (Math.PI / 180);
-        const opacity = 0.35 + Math.sin(t * 0.004 + i * 0.6) * 0.05;
+        const x = w * panel.xOff + Math.sin(t * 0.0004 * panel.speed + i * 0.8) * 60;
+        const rotation = (panel.angle + Math.sin(t * 0.00025 + i * 1.2) * 2) * (Math.PI / 180);
+        const opacity = 0.35 + Math.sin(t * 0.0003 + i * 0.6) * 0.05;
 
         ctx.save();
         ctx.translate(x, h / 2);

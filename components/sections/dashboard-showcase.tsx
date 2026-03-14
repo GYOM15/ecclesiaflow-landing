@@ -8,16 +8,16 @@ import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const statsCards = [
-  { label: "Membres actifs", value: "847", change: "+12", icon: Users, accent: "border-l-slate-300", iconBg: "bg-slate-50", iconColor: "text-slate-500" },
-  { label: "Présence dimanche", value: "623", change: "+5%", icon: BarChart3, accent: "border-l-slate-300", iconBg: "bg-slate-50", iconColor: "text-slate-500" },
-  { label: "Nouveaux ce mois", value: "34", change: "+18%", icon: TrendingUp, accent: "border-l-slate-300", iconBg: "bg-slate-50", iconColor: "text-slate-500" },
-  { label: "Dons collectés", value: "$12,450", change: "+8%", icon: CreditCard, accent: "border-l-slate-300", iconBg: "bg-slate-50", iconColor: "text-slate-500" },
+  { label: "Membres actifs", value: "847", change: "+12", icon: Users, accent: "border-l-indigo-400", iconBg: "bg-indigo-50", iconColor: "text-indigo-500" },
+  { label: "Présence dimanche", value: "623", change: "+5%", icon: BarChart3, accent: "border-l-teal-400", iconBg: "bg-teal-50", iconColor: "text-teal-500" },
+  { label: "Nouveaux ce mois", value: "34", change: "+18%", icon: TrendingUp, accent: "border-l-indigo-400", iconBg: "bg-indigo-50", iconColor: "text-indigo-500" },
+  { label: "Dons collectés", value: "$12,450", change: "+8%", icon: CreditCard, accent: "border-l-teal-400", iconBg: "bg-teal-50", iconColor: "text-teal-500" },
 ];
 
 const upcomingEvents = [
-  { name: "Culte dominical", time: "Dim. 10h00", count: 620, color: "bg-slate-400" },
-  { name: "Groupe de prière", time: "Mer. 19h30", count: 45, color: "bg-slate-300" },
-  { name: "Répétition louange", time: "Sam. 14h00", count: 18, color: "bg-slate-300" },
+  { name: "Culte dominical", time: "Dim. 10h00", count: 620, color: "bg-indigo-400" },
+  { name: "Groupe de prière", time: "Mer. 19h30", count: 45, color: "bg-teal-400" },
+  { name: "Répétition louange", time: "Sam. 14h00", count: 18, color: "bg-amber-400" },
 ];
 
 const chartPoints = [120, 180, 160, 240, 200, 280, 260, 320, 290, 360, 340, 380];
@@ -35,7 +35,7 @@ const chartAreaPath = `${chartPath} L${chartWidth},${chartHeight} L0,${chartHeig
 
 export function DashboardShowcase() {
   return (
-    <section className="py-14 lg:py-18 bg-white overflow-hidden">
+    <section className="py-14 lg:py-18 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Aperçu"
@@ -67,7 +67,7 @@ export function DashboardShowcase() {
                 {/* Sidebar */}
                 <div className="hidden lg:flex flex-col w-48 bg-slate-900 text-white p-4 shrink-0">
                   <div className="flex items-center gap-2 mb-7 px-1">
-                    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none"><rect width="24" height="24" rx="6" fill="#6366F1" /><path d="M10 6a1 1 0 011-1h2a1 1 0 011 1v4h4a1 1 0 011 1v2a1 1 0 01-1 1h-4v4a1 1 0 01-1 1h-2a1 1 0 01-1-1v-4H6a1 1 0 01-1-1v-2a1 1 0 011-1h4V6z" fill="white" opacity="0.9" /></svg>
+                    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none"><rect width="24" height="24" rx="6" fill="#6366F1" /><path d="M10 2h4v5h5v4h-5v11h-4V11H5V7h5V2z" fill="white" opacity="0.9" /></svg>
                     <span className="text-sm font-semibold">EcclesiaFlow</span>
                   </div>
                   <nav className="space-y-0.5 flex-1">

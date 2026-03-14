@@ -18,7 +18,7 @@ export function AuthCard({ title, subtitle, children, footer, disableHomeLink }:
       <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none">
         <rect width="24" height="24" rx="6" fill="#6366F1" />
         <path
-          d="M10 6a1 1 0 011-1h2a1 1 0 011 1v4h4a1 1 0 011 1v2a1 1 0 01-1 1h-4v4a1 1 0 01-1 1h-2a1 1 0 01-1-1v-4H6a1 1 0 01-1-1v-2a1 1 0 011-1h4V6z"
+          d="M10 2h4v5h5v4h-5v11h-4V11H5V7h5V2z"
           fill="white"
           opacity="0.9"
         />

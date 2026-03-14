@@ -24,7 +24,7 @@ export function CrossMotif({
       style={{ opacity }}
     >
       <path
-        d="M10 3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-7v7a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-7H3a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h7V3z"
+        d="M10 2h4v5h5v4h-5v11h-4V11H5V7h5V2z"
         fill={color}
       />
     </svg>
