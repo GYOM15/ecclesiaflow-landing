@@ -18,16 +18,16 @@ const CONNECTIONS: [number, number][] = [
   [2, 5], [3, 4], [4, 5], [0, 4], [1, 3], [3, 5],
 ];
 
-/* Background dots */
+/* Background dots — scattered star field */
 const BG_DOTS = [
   ...Array.from({ length: 10 }, (_, i) => ({
     x: 0.05 + Math.sin(i * 2.3) * 0.4 + 0.45,
     y: 0.08 + Math.cos(i * 1.7) * 0.35 + 0.42,
-    r: 2 + (i % 3),
-    color: "rgba(129,140,248,0.07)",
+    r: 2.5 + (i % 3) * 0.8,
+    color: "rgba(129,140,248,0.22)",
   })),
-  { x: 0.35, y: 0.45, r: 3, color: "rgba(244,63,94,0.09)" },
-  { x: 0.72, y: 0.82, r: 3, color: "rgba(244,63,94,0.09)" },
+  { x: 0.35, y: 0.45, r: 3.5, color: "rgba(244,63,94,0.20)" },
+  { x: 0.72, y: 0.82, r: 3.5, color: "rgba(244,63,94,0.20)" },
 ];
 
 function drawPerson(
