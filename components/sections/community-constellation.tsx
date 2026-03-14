@@ -18,17 +18,9 @@ const CONNECTIONS: [number, number][] = [
   [2, 5], [3, 4], [4, 5], [0, 4], [1, 3], [3, 5],
 ];
 
-/* Background dots — scattered star field */
-const BG_DOTS = [
-  ...Array.from({ length: 10 }, (_, i) => ({
-    x: 0.05 + Math.sin(i * 2.3) * 0.4 + 0.45,
-    y: 0.08 + Math.cos(i * 1.7) * 0.35 + 0.42,
-    r: 2.5 + (i % 3) * 0.8,
-    color: "rgba(129,140,248,0.22)",
-  })),
-  { x: 0.35, y: 0.45, r: 3.5, color: "rgba(244,63,94,0.20)" },
-  { x: 0.72, y: 0.82, r: 3.5, color: "rgba(244,63,94,0.20)" },
-];
+/* Each connection has its own pulse period (staggered so they don't sync) */
+const PULSE_PERIODS = CONNECTIONS.map((_, i) => 4000 + i * 700);
+
 
 function drawPerson(
   ctx: CanvasRenderingContext2D,
@@ -53,6 +45,20 @@ function drawPerson(
   ctx.fill();
 }
 
+/* Point on a quadratic bezier at parameter p (0→1) */
+function quadPoint(
+  x0: number, y0: number,
+  cx: number, cy: number,
+  x1: number, y1: number,
+  p: number
+) {
+  const m = 1 - p;
+  return {
+    x: m * m * x0 + 2 * m * p * cx + p * p * x1,
+    y: m * m * y0 + 2 * m * p * cy + p * p * y1,
+  };
+}
+
 export function CommunityConstellation() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,43 +81,33 @@ export function CommunityConstellation() {
     if (!ctx) return;
 
     let animationId: number;
-    let startTime = performance.now();
+    const startTime = performance.now();
+    let w = 0;
+    let h = 0;
 
     function resize() {
-      if (!canvas || !container) return;
-      const rect = container.getBoundingClientRect();
+      const rect = container!.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
+      w = rect.width;
+      h = rect.height;
+      if (w === 0 || h === 0) return;
+      canvas!.width = w * dpr;
+      canvas!.height = h * dpr;
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    resize();
-    window.addEventListener("resize", resize);
+    const ro = new ResizeObserver(() => resize());
+    ro.observe(container);
 
     function render() {
-      if (!canvas || !ctx || !container) return;
-      const rect = container.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
+      if (!ctx || w === 0 || h === 0) {
+        animationId = requestAnimationFrame(render);
+        return;
+      }
       const t = performance.now() - startTime;
 
-      // Background gradient
-      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-      bgGrad.addColorStop(0, "#1e293b");
-      bgGrad.addColorStop(1, "#0f172a");
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, w, h);
-
-      // Background dots
-      for (const dot of BG_DOTS) {
-        ctx.beginPath();
-        ctx.arc(dot.x * w, dot.y * h, dot.r, 0, Math.PI * 2);
-        ctx.fillStyle = dot.color;
-        ctx.fill();
-      }
+      // Clear canvas (transparent — DarkBlock provides the background)
+      ctx.clearRect(0, 0, w, h);
 
       // Compute current positions with brownian wobble
       const positions = PEOPLE.map((p, i) => {
@@ -125,34 +121,58 @@ export function CommunityConstellation() {
         };
       });
 
-      // Draw connections (quadratic curves with wobble)
-      for (const [from, to] of CONNECTIONS) {
+      // Draw connections + traveling light pulses
+      for (let ci = 0; ci < CONNECTIONS.length; ci++) {
+        const [from, to] = CONNECTIONS[ci];
         const p1 = positions[from];
         const p2 = positions[to];
         const mx = (p1.x + p2.x) / 2;
         const my = (p1.y + p2.y) / 2;
         const wobble = reducedMotion ? 0 : Math.sin(t * 0.0003 + from * 1.3 + to * 0.7) * 10;
+        const cpx = mx + wobble;
+        const cpy = my - wobble * 0.6;
 
+        // Base connection line
         ctx.beginPath();
         ctx.moveTo(p1.x, p1.y);
-        ctx.quadraticCurveTo(mx + wobble, my - wobble * 0.6, p2.x, p2.y);
+        ctx.quadraticCurveTo(cpx, cpy, p2.x, p2.y);
         ctx.strokeStyle = p1.color;
-        ctx.globalAlpha = 0.18;
+        ctx.globalAlpha = 0.15;
         ctx.lineWidth = 0.8 + Math.sin(t * 0.0002 + from + to) * 0.1;
         ctx.stroke();
         ctx.globalAlpha = 1;
+
+        // Traveling light pulse
+        if (!reducedMotion) {
+          const period = PULSE_PERIODS[ci];
+          const progress = (t % period) / period;
+
+          const pulse = quadPoint(p1.x, p1.y, cpx, cpy, p2.x, p2.y, progress);
+
+          // Outer glow
+          const glow = ctx.createRadialGradient(pulse.x, pulse.y, 0, pulse.x, pulse.y, 14);
+          glow.addColorStop(0, p1.color + "50");
+          glow.addColorStop(0.5, p1.color + "18");
+          glow.addColorStop(1, "transparent");
+          ctx.fillStyle = glow;
+          ctx.beginPath();
+          ctx.arc(pulse.x, pulse.y, 14, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Bright white core
+          ctx.beginPath();
+          ctx.arc(pulse.x, pulse.y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = p1.color;
+          ctx.globalAlpha = 0.7;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
       }
 
       // Draw people silhouettes
       for (const pos of positions) {
         drawPerson(ctx, pos.x, pos.y, pos.r, pos.color);
       }
-
-      // Bottom text
-      ctx.font = `${Math.max(14, w * 0.018)}px system-ui, -apple-system, sans-serif`;
-      ctx.textAlign = "center";
-      ctx.fillStyle = "rgba(226,232,240,0.3)";
-      ctx.fillText("Votre communauté, connectée", w / 2, h * 0.92);
 
       if (!reducedMotion) {
         animationId = requestAnimationFrame(render);
@@ -163,12 +183,15 @@ export function CommunityConstellation() {
 
     return () => {
       cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", resize);
+      ro.disconnect();
     };
   }, [reducedMotion]);
 
   return (
-    <section className="py-0 bg-slate-50">
+    <section className="pt-16 lg:pt-20 pb-0">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white text-center mb-6">
+        Votre communauté, connectée
+      </h2>
       <div
         ref={containerRef}
         className="relative w-full h-[320px] sm:h-[400px] lg:h-[480px] overflow-hidden rounded-none"
