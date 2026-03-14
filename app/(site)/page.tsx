@@ -22,7 +22,7 @@ export default function HomePage() {
         <div className="relative z-0">
           <DashboardShowcase />
           {/* Gradient fade at the bottom of the dashboard */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 lg:h-40 bg-gradient-to-t from-slate-50 to-transparent pointer-events-none z-10" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 lg:h-40 bg-gradient-to-t from-white to-transparent pointer-events-none z-10" />
         </div>
         <div className="relative z-20 -mt-24 lg:-mt-32">
           <TrustBadges />

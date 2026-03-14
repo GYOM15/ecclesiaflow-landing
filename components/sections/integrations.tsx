@@ -99,7 +99,7 @@ function PaymentMockup() {
 
 export function Integrations() {
   return (
-    <section className="py-20 lg:py-28 bg-slate-50/50" id="integrations">
+    <section className="py-20 lg:py-28 bg-white" id="integrations">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Intégrations"

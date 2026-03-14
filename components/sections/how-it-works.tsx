@@ -31,7 +31,7 @@ const stepStyles = [
 
 export function HowItWorks() {
   return (
-    <section className="relative py-20 lg:py-28 bg-slate-50 overflow-hidden">
+    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
       {/* Subtle wavy background lines */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <svg className="absolute top-0 left-0 w-full h-16" viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none">

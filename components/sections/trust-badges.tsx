@@ -37,7 +37,7 @@ const badges = [
 
 export function TrustBadges() {
   return (
-    <section className="py-14 lg:py-16 bg-slate-50 border-y border-slate-100">
+    <section className="py-14 lg:py-16 bg-white border-y border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           {/* 4-column badge grid */}
