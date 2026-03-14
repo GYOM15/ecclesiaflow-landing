@@ -11,6 +11,7 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { CtaSection } from "@/components/sections/cta-section";
 import { SectionDivider } from "@/components/decorative/section-divider";
+import DarkBlock from "@/components/sections/dark-block";
 
 export default function HomePage() {
   return (
@@ -32,10 +33,13 @@ export default function HomePage() {
 
       <SectionDivider />
       <FeaturesOverview />
-      <SectionDivider />
-      <CommunityConstellation />
-      <SectionDivider />
-      <FeatureDeepDive />
+      <DarkBlock>
+        <CommunityConstellation />
+        <div className="w-full" aria-hidden="true">
+          <div className="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+        </div>
+        <FeatureDeepDive />
+      </DarkBlock>
       <SectionDivider />
       <ImageScatter />
       <SectionDivider />
