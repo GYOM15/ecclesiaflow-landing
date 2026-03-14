@@ -3,6 +3,7 @@ import { PricingCards } from "@/components/sections/pricing-cards";
 import { PricingComparison } from "@/components/sections/pricing-comparison";
 import { PricingFaq } from "@/components/sections/pricing-faq";
 import { CtaSection } from "@/components/sections/cta-section";
+import { SectionDivider } from "@/components/decorative/section-divider";
 
 export const metadata: Metadata = {
   title: "Tarifs",
@@ -14,8 +15,11 @@ export default function PricingPage() {
   return (
     <div className="pt-20">
       <PricingCards />
+      <SectionDivider />
       <PricingComparison />
+      <SectionDivider />
       <PricingFaq />
+      <SectionDivider />
       <CtaSection />
     </div>
   );

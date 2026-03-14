@@ -6,6 +6,7 @@ import { AboutTeam } from "@/components/sections/about-team";
 import { ImageGallery } from "@/components/sections/image-gallery";
 import { AboutVerse } from "@/components/sections/about-verse";
 import { CtaSection } from "@/components/sections/cta-section";
+import { SectionDivider } from "@/components/decorative/section-divider";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -17,11 +18,17 @@ export default function AboutPage() {
   return (
     <>
       <AboutHero />
+      <SectionDivider />
       <AboutStory />
+      <SectionDivider />
       <AboutValues />
+      <SectionDivider />
       <AboutTeam />
+      <SectionDivider />
       <ImageGallery variant="about" />
+      <SectionDivider />
       <AboutVerse />
+      <SectionDivider />
       <CtaSection />
     </>
   );

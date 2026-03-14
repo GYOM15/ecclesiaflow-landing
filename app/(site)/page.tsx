@@ -31,6 +31,7 @@ export default function HomePage() {
 
       <SectionDivider />
       <FeaturesOverview />
+      <SectionDivider />
       <CommunityConstellation />
       <SectionDivider />
       <FeatureDeepDive />

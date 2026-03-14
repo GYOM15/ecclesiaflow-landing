@@ -3,6 +3,7 @@ import { FeaturesHero } from "@/components/sections/features-hero";
 import { FeaturesDetail } from "@/components/sections/features-detail";
 import { FeaturesComparison } from "@/components/sections/features-comparison";
 import { CtaSection } from "@/components/sections/cta-section";
+import { SectionDivider } from "@/components/decorative/section-divider";
 
 export const metadata: Metadata = {
   title: "Fonctionnalités",
@@ -14,8 +15,11 @@ export default function FeaturesPage() {
   return (
     <>
       <FeaturesHero />
+      <SectionDivider />
       <FeaturesDetail />
+      <SectionDivider />
       <FeaturesComparison />
+      <SectionDivider />
       <CtaSection />
     </>
   );
