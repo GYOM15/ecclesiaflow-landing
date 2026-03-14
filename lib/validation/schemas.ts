@@ -13,7 +13,9 @@ export const signUpSchema = z.object({
   address: z
     .string()
     .min(10, "L'adresse doit contenir au moins 10 caractères")
-    .max(200, "L'adresse ne peut pas dépasser 200 caractères"),
+    .max(200, "L'adresse ne peut pas dépasser 200 caractères")
+    .optional()
+    .or(z.literal("")),
   phoneNumber: z
     .string()
     .regex(
@@ -51,7 +53,9 @@ export const socialOnboardingSchema = z.object({
   address: z
     .string()
     .min(10, "L'adresse doit contenir au moins 10 caractères")
-    .max(200, "L'adresse ne peut pas dépasser 200 caractères"),
+    .max(200, "L'adresse ne peut pas dépasser 200 caractères")
+    .optional()
+    .or(z.literal("")),
   phoneNumber: z
     .string()
     .regex(/^\+?[1-9]\d{6,14}$/, "Format de téléphone invalide")
@@ -75,7 +79,9 @@ export const profileSchema = z.object({
   address: z
     .string()
     .min(10, "L'adresse doit contenir au moins 10 caractères")
-    .max(200, "L'adresse ne peut pas dépasser 200 caractères"),
+    .max(200, "L'adresse ne peut pas dépasser 200 caractères")
+    .optional()
+    .or(z.literal("")),
   phoneNumber: z
     .string()
     .regex(

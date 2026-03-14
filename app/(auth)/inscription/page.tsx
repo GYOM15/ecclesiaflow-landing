@@ -46,7 +46,7 @@ export default function InscriptionPage() {
       firstName: data.firstName.trim(),
       lastName: data.lastName.trim(),
       email: data.email.trim().toLowerCase(),
-      address: data.address.trim(),
+      address: data.address?.trim() || undefined,
       phoneNumber: data.phoneNumber?.trim() || undefined,
     });
 
@@ -178,7 +178,7 @@ export default function InscriptionPage() {
 
         <FormField<SignUpFormData>
           name="address"
-          label="Adresse"
+          label="Adresse (optionnel)"
           placeholder="123 Rue de l'Église, Montréal H3A 1B2"
           register={register}
           errors={errors}

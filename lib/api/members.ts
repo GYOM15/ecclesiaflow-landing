@@ -6,7 +6,7 @@ export interface SignUpRequest {
   firstName: string;
   lastName: string;
   email: string;
-  address: string;
+  address?: string;
   phoneNumber?: string;
 }
 
@@ -35,7 +35,7 @@ export interface SocialOnboardingRequest {
   firstName: string;
   lastName: string;
   email: string;
-  address: string;
+  address?: string;
   phoneNumber?: string;
 }
 
