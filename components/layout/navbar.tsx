@@ -13,15 +13,8 @@ import { NAV_LINKS } from "@/lib/constants";
 export function Navbar() {
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated" && !session?.error;
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -30,12 +23,8 @@ export function Navbar() {
   return (
     <>
       <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-          scrolled
-            ? "bg-white/80 backdrop-blur-xl border-slate-200 shadow-[var(--shadow-soft)]"
-            : "bg-white border-slate-200"
-        )}
+        className="absolute top-0 left-0 right-0 z-50 border-b border-slate-200"
+        style={{ background: "linear-gradient(to right, rgba(255,255,255,0.85) 40%, rgba(255,255,255,0.1) 100%)" }}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-18">
@@ -85,18 +74,11 @@ export function Navbar() {
                   </Button>
                 </Link>
               ) : (
-                <>
-                  <Link href="/connexion">
-                    <Button variant="ghost" size="sm">
-                      Connexion
-                    </Button>
-                  </Link>
-                  <Link href="/inscription">
-                    <Button variant="primary" size="sm">
-                      Démarrer gratuitement
-                    </Button>
-                  </Link>
-                </>
+                <Link href="/connexion">
+                  <Button variant="primary" size="sm">
+                    Connexion
+                  </Button>
+                </Link>
               )}
             </div>
 
@@ -158,18 +140,11 @@ export function Navbar() {
                       </Button>
                     </Link>
                   ) : (
-                    <>
-                      <Link href="/connexion" className="block">
-                        <Button variant="outline" size="lg" className="w-full">
-                          Connexion
-                        </Button>
-                      </Link>
-                      <Link href="/inscription" className="block">
-                        <Button variant="primary" size="lg" className="w-full">
-                          Démarrer gratuitement
-                        </Button>
-                      </Link>
-                    </>
+                    <Link href="/connexion" className="block">
+                      <Button variant="primary" size="lg" className="w-full">
+                        Connexion
+                      </Button>
+                    </Link>
                   )}
                 </div>
               </div>
