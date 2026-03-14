@@ -47,6 +47,7 @@ export default function ReactivatePage() {
 
   if (status === "loading" || !authorized) {
     return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-8">
       <AuthCard
         title="Réactivation"
         subtitle="Chargement de votre session..."
@@ -55,10 +56,12 @@ export default function ReactivatePage() {
           <Spinner size="lg" />
         </div>
       </AuthCard>
+      </div>
     );
   }
 
   return (
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-8">
     <AuthCard
       title="Réactivation de votre compte"
       subtitle="Votre compte est en attente de suppression"
@@ -91,5 +94,6 @@ export default function ReactivatePage() {
         )}
       </div>
     </AuthCard>
+    </div>
   );
 }

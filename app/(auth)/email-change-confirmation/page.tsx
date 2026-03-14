@@ -121,6 +121,7 @@ function EmailChangeConfirmationContent() {
 
 export default function EmailChangeConfirmationPage() {
   return (
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-8">
     <AuthCard
       title="Confirmation"
       subtitle="Changement d&apos;adresse email"
@@ -136,5 +137,6 @@ export default function EmailChangeConfirmationPage() {
         <EmailChangeConfirmationContent />
       </Suspense>
     </AuthCard>
+    </div>
   );
 }

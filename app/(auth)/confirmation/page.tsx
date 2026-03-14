@@ -144,6 +144,7 @@ function ConfirmationContent() {
 
 export default function ConfirmationPage() {
   return (
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-8">
     <AuthCard title="Confirmation" subtitle="Vérification de votre compte">
       <Suspense
         fallback={
@@ -156,5 +157,6 @@ export default function ConfirmationPage() {
         <ConfirmationContent />
       </Suspense>
     </AuthCard>
+    </div>
   );
 }

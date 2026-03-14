@@ -72,16 +72,18 @@ function ConnexionContent() {
 
 export default function ConnexionPage() {
   return (
-    <Suspense
-      fallback={
-        <AuthCard title="Connexion" subtitle="Chargement...">
-          <div className="flex flex-col items-center gap-4 py-4">
-            <Spinner size="lg" />
-          </div>
-        </AuthCard>
-      }
-    >
-      <ConnexionContent />
-    </Suspense>
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-8">
+      <Suspense
+        fallback={
+          <AuthCard title="Connexion" subtitle="Chargement...">
+            <div className="flex flex-col items-center gap-4 py-4">
+              <Spinner size="lg" />
+            </div>
+          </AuthCard>
+        }
+      >
+        <ConnexionContent />
+      </Suspense>
+    </div>
   );
 }
