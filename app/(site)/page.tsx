@@ -16,6 +16,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <SectionDivider />
 
       {/* Dashboard behind Trust Badges — layered overlap */}
       <div className="relative">
