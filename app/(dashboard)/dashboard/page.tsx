@@ -1,7 +1,7 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   Users,
   Calendar,
@@ -9,8 +9,20 @@ import {
   CreditCard,
   ArrowRight,
   Church,
+  UserCircle,
+  X,
 } from "lucide-react";
-import { getMyProfile, type SignUpResponse } from "@/lib/api/members";
+import { useMember } from "@/contexts/member-context";
+
+const BANNER_STORAGE_KEY = "profile-banner-dismissed";
+const BANNER_REMIND_DELAY_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+function isBannerDismissed(): boolean {
+  if (typeof window === "undefined") return false;
+  const dismissed = localStorage.getItem(BANNER_STORAGE_KEY);
+  if (!dismissed) return false;
+  return Date.now() - Number(dismissed) < BANNER_REMIND_DELAY_MS;
+}
 
 const STAT_CARDS = [
   { label: "Membres", value: "0", icon: Users, color: "bg-indigo-50 text-indigo-600" },
@@ -27,18 +39,20 @@ const NEXT_STEPS = [
 ];
 
 export default function DashboardPage() {
-  const { data: session } = useSession();
-  const [profile, setProfile] = useState<SignUpResponse | null>(null);
+  const { member } = useMember();
+  const [bannerHidden, setBannerHidden] = useState(true);
 
   useEffect(() => {
-    if (session?.accessToken) {
-      getMyProfile(session.accessToken).then((result) => {
-        if (result.ok) setProfile(result.data);
-      });
-    }
-  }, [session]);
+    setBannerHidden(isBannerDismissed());
+  }, []);
 
-  const firstName = profile?.firstName;
+  const isProfileIncomplete = !member.address || !member.phoneNumber;
+  const showBanner = isProfileIncomplete && !bannerHidden;
+
+  function dismissBanner() {
+    localStorage.setItem(BANNER_STORAGE_KEY, String(Date.now()));
+    setBannerHidden(true);
+  }
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
@@ -50,7 +64,7 @@ export default function DashboardPage() {
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-slate-900">
-              {firstName ? `Bienvenue, ${firstName} !` : "Bienvenue !"}
+              Bienvenue, {member.firstName} !
             </h1>
             <p className="text-slate-500 mt-1">
               Votre espace de gestion EcclesiaFlow est prêt. Commencez par explorer les fonctionnalités disponibles.
@@ -58,6 +72,39 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Profile completion banner */}
+      {showBanner && (
+        <div className="bg-amber-50 rounded-2xl border border-amber-200 p-5">
+          <div className="flex items-center gap-4">
+            <div className="p-2.5 bg-amber-100 rounded-xl shrink-0">
+              <UserCircle className="h-5 w-5 text-amber-600" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-amber-900">
+                Complétez votre profil
+              </p>
+              <p className="text-xs text-amber-700 mt-0.5">
+                Ajoutez votre {!member.address && "adresse"}{!member.address && !member.phoneNumber && " et votre "}{!member.phoneNumber && "numéro de téléphone"} pour faciliter la communication avec votre communauté.
+              </p>
+            </div>
+            <Link
+              href="/dashboard/profil"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-amber-600 px-4 py-2 text-xs font-medium text-white hover:bg-amber-700 transition-colors shrink-0"
+            >
+              Compléter
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <button
+              onClick={dismissBanner}
+              className="p-1.5 rounded-lg text-amber-400 hover:text-amber-600 hover:bg-amber-100 transition-colors shrink-0 cursor-pointer"
+              aria-label="Fermer"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

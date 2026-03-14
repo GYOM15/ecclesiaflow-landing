@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,11 +17,8 @@ import { Alert } from "@/components/ui/alert";
 import { FormField } from "@/components/ui/form-field";
 import { Spinner } from "@/components/ui/spinner";
 import { emailSchema, type EmailFormData } from "@/lib/validation/schemas";
-import {
-  getMyProfile,
-  requestEmailChange,
-  deleteMyAccount,
-} from "@/lib/api/members";
+import { requestEmailChange, deleteMyAccount } from "@/lib/api/members";
+import { useMember } from "@/contexts/member-context";
 
 type SocialProvider = "GOOGLE" | "MICROSOFT" | "FACEBOOK";
 
@@ -33,14 +30,12 @@ const PROVIDER_LABELS: Record<SocialProvider, string> = {
 
 export default function AccountPage() {
   const { data: session } = useSession();
+  const { member } = useMember();
 
-  // Profile state
-  const [currentEmail, setCurrentEmail] = useState<string | null>(null);
-  const [socialProvider, setSocialProvider] = useState<SocialProvider | null>(
-    null
-  );
-  const [hasLocalCredentials, setHasLocalCredentials] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const currentEmail = member.email;
+  const socialProvider = member.socialProvider ?? null;
+  const hasLocalCredentials = member.hasLocalCredentials ?? true;
+  const needsLocalCredentials = socialProvider != null && !hasLocalCredentials;
 
   // Email change state
   const [emailSuccess, setEmailSuccess] = useState<string | null>(null);
@@ -63,20 +58,6 @@ export default function AccountPage() {
   } = useForm<EmailFormData>({
     resolver: zodResolver(emailSchema),
   });
-
-  useEffect(() => {
-    if (!session?.accessToken) return;
-    getMyProfile(session.accessToken).then((result) => {
-      if (result.ok) {
-        setCurrentEmail(result.data.email);
-        setSocialProvider(result.data.socialProvider ?? null);
-        setHasLocalCredentials(result.data.hasLocalCredentials ?? true);
-      }
-      setLoading(false);
-    });
-  }, [session]);
-
-  const needsLocalCredentials = socialProvider != null && !hasLocalCredentials;
 
   async function onEmailSubmit(data: EmailFormData) {
     if (!session?.accessToken || !currentEmail) return;
@@ -134,14 +115,6 @@ export default function AccountPage() {
       setDeleteError(result.error.message || "Une erreur est survenue.");
       setDeleting(false);
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Spinner size="lg" />
-      </div>
-    );
   }
 
   return (

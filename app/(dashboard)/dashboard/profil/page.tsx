@@ -1,24 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User, MapPin, Phone, Save, Loader2 } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { FormField } from "@/components/ui/form-field";
-import { Spinner } from "@/components/ui/spinner";
 import { profileSchema, type ProfileFormData } from "@/lib/validation/schemas";
-import {
-  getMyProfile,
-  updateMyProfile,
-  type SignUpResponse,
-} from "@/lib/api/members";
+import { updateMyProfile } from "@/lib/api/members";
+import { useMember } from "@/contexts/member-context";
 
 export default function ProfilePage() {
   const { data: session } = useSession();
-  const [profile, setProfile] = useState<SignUpResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { member, updateMember } = useMember();
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,23 +24,13 @@ export default function ProfilePage() {
     formState: { errors, isSubmitting, isDirty },
   } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
+    defaultValues: {
+      firstName: member.firstName,
+      lastName: member.lastName,
+      address: member.address || "",
+      phoneNumber: member.phoneNumber || "",
+    },
   });
-
-  useEffect(() => {
-    if (!session?.accessToken) return;
-    getMyProfile(session.accessToken).then((result) => {
-      if (result.ok) {
-        setProfile(result.data);
-        reset({
-          firstName: result.data.firstName,
-          lastName: result.data.lastName,
-          address: result.data.address || "",
-          phoneNumber: result.data.phoneNumber || "",
-        });
-      }
-      setLoading(false);
-    });
-  }, [session, reset]);
 
   async function onSubmit(data: ProfileFormData) {
     if (!session?.accessToken) return;
@@ -55,35 +40,22 @@ export default function ProfilePage() {
     const result = await updateMyProfile(session.accessToken, {
       firstName: data.firstName.trim(),
       lastName: data.lastName.trim(),
-      address: data.address.trim(),
+      address: data.address?.trim() || undefined,
       phoneNumber: data.phoneNumber?.trim() || undefined,
     });
 
     if (result.ok) {
       setSuccess("Profil mis à jour avec succès.");
-      setProfile((prev) =>
-        prev
-          ? {
-              ...prev,
-              firstName: data.firstName,
-              lastName: data.lastName,
-              address: data.address,
-              phoneNumber: data.phoneNumber || undefined,
-            }
-          : prev
-      );
+      updateMember({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        address: data.address || undefined,
+        phoneNumber: data.phoneNumber || undefined,
+      });
       reset(data);
     } else {
       setError(result.error.message || "Une erreur est survenue.");
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Spinner size="lg" />
-      </div>
-    );
   }
 
   return (
@@ -101,7 +73,7 @@ export default function ProfilePage() {
           Adresse email
         </label>
         <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-500">
-          {profile?.email}
+          {member.email}
         </div>
         <p className="text-xs text-slate-400 mt-1.5">
           Pour modifier votre email, rendez-vous dans la section{" "}
@@ -147,7 +119,7 @@ export default function ProfilePage() {
 
           <FormField<ProfileFormData>
             name="address"
-            label="Adresse"
+            label="Adresse (optionnel)"
             placeholder="123 Rue de l'Église, Montréal H3A 1B2"
             register={register}
             errors={errors}
