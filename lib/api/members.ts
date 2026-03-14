@@ -15,6 +15,8 @@ export interface SignUpResponse {
   email: string;
   firstName: string;
   lastName: string;
+  address?: string;
+  phoneNumber?: string;
   confirmed: boolean;
   createdAt: string;
   confirmedAt?: string;
@@ -99,6 +101,8 @@ export interface UpdateProfileResponse {
   email: string;
   firstName: string;
   lastName: string;
+  address?: string;
+  phoneNumber?: string;
 }
 
 export function updateMyProfile(

@@ -39,8 +39,8 @@ export default function ProfilePage() {
         reset({
           firstName: result.data.firstName,
           lastName: result.data.lastName,
-          address: (result.data as any).address || "",
-          phoneNumber: (result.data as any).phoneNumber || "",
+          address: result.data.address || "",
+          phoneNumber: result.data.phoneNumber || "",
         });
       }
       setLoading(false);
@@ -63,7 +63,13 @@ export default function ProfilePage() {
       setSuccess("Profil mis à jour avec succès.");
       setProfile((prev) =>
         prev
-          ? { ...prev, firstName: data.firstName, lastName: data.lastName }
+          ? {
+              ...prev,
+              firstName: data.firstName,
+              lastName: data.lastName,
+              address: data.address,
+              phoneNumber: data.phoneNumber || undefined,
+            }
           : prev
       );
       reset(data);
@@ -99,8 +105,8 @@ export default function ProfilePage() {
         </div>
         <p className="text-xs text-slate-400 mt-1.5">
           Pour modifier votre email, rendez-vous dans la section{" "}
-          <a href="/dashboard/email" className="text-indigo-600 hover:text-indigo-700">
-            Modifier mon email
+          <a href="/dashboard/compte" className="text-indigo-600 hover:text-indigo-700">
+            Mon compte
           </a>
           .
         </p>
