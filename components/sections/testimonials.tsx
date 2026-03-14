@@ -7,10 +7,17 @@ import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { TESTIMONIALS } from "@/lib/constants";
 
 const avatarBgs = [
-  "bg-indigo-100",
-  "bg-teal-100",
-  "bg-amber-100",
-  "bg-indigo-100",
+  "bg-indigo-50",
+  "bg-teal-50",
+  "bg-amber-50",
+  "bg-indigo-50",
+];
+
+const avatarBorders = [
+  "border border-indigo-200",
+  "border border-teal-200",
+  "border border-amber-200",
+  "border border-indigo-200",
 ];
 
 const wavePaths = [
@@ -24,8 +31,20 @@ const rotations = ["rotate-2", "-rotate-1", "rotate-1", "-rotate-2"];
 
 export function Testimonials() {
   return (
-    <section className="py-20 lg:py-28 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 lg:py-28 bg-slate-50 overflow-hidden">
+      {/* Decorative background veils */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg className="absolute -top-10 -right-20 w-[50%] h-[70%] opacity-[0.45]" viewBox="0 0 400 300" fill="none" preserveAspectRatio="none">
+          <path d="M400,0 C300,50 350,150 250,200 C200,230 100,250 0,300 L400,300 Z" fill="#EEF2FF" />
+        </svg>
+        <svg className="absolute -bottom-10 -left-20 w-[45%] h-[60%] opacity-30" viewBox="0 0 400 300" fill="none" preserveAspectRatio="none">
+          <path d="M0,300 C100,250 80,150 180,100 C230,70 350,50 400,0 L0,0 Z" fill="#F0FDFA" />
+        </svg>
+        <svg className="absolute top-[15%] left-[8%] w-16 h-16 opacity-25" viewBox="0 0 64 64" fill="none">
+          <path d="M32 4 C32 4 38 18 38 28 C38 33 35 36 32 36 C29 36 26 33 26 28 C26 18 32 4 32 4Z M4 32 C4 32 18 26 28 26 C33 26 36 29 36 32 C36 35 33 38 28 38 C18 38 4 32 4 32Z M32 60 C32 60 26 46 26 36 C26 31 29 28 32 28 C35 28 38 31 38 36 C38 46 32 60 32 60Z M60 32 C60 32 46 38 36 38 C31 38 28 35 28 32 C28 29 31 26 36 26 C46 26 60 32 60 32Z" fill="#C7D2FE" />
+        </svg>
+      </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Témoignages"
           badgeVariant="amber"
@@ -43,7 +62,7 @@ export function Testimonials() {
                     {/* Text side */}
                     <div className="flex-1 p-3 lg:p-4 flex flex-col justify-between relative z-10">
                       <div>
-                        <Quote className="h-4 w-4 text-slate-200 mb-1.5" />
+                        <Quote className="h-4 w-4 text-indigo-200 mb-1.5" />
                         <div className="flex gap-0.5 mb-1.5">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
@@ -82,7 +101,7 @@ export function Testimonials() {
                       <div className="absolute bottom-3 left-6 w-4 h-4 rounded-full bg-white/20" />
                       {/* Floating avatar card with color */}
                       <div className="relative z-20 flex items-center justify-center h-full p-3 pl-6">
-                        <div className={`${avatarBgs[index]} rounded-lg shadow-md p-2 ${rotations[index]} transition-transform duration-300 group-hover:rotate-0`}>
+                        <div className={`${avatarBgs[index]} ${avatarBorders[index]} rounded-lg shadow-md p-2 ${rotations[index]} transition-transform duration-300 group-hover:rotate-0`}>
                           <Avatar name={testimonial.name} size="md" />
                           <p className="text-[8px] font-medium text-slate-700 text-center mt-1">{testimonial.name.split(" ")[0]}</p>
                         </div>
@@ -101,7 +120,7 @@ export function Testimonials() {
                     {/* Text side */}
                     <div className="flex-1 p-3 lg:p-4 flex flex-col justify-between relative z-10">
                       <div>
-                        <Quote className="h-4 w-4 text-slate-200 mb-1.5" />
+                        <Quote className="h-4 w-4 text-indigo-200 mb-1.5" />
                         <div className="flex gap-0.5 mb-1.5">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
@@ -136,7 +155,7 @@ export function Testimonials() {
                       <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/30" />
                       <div className="absolute bottom-2 left-5 w-3.5 h-3.5 rounded-full bg-white/20" />
                       <div className="relative z-20 flex items-center justify-center h-full p-3 pl-6">
-                        <div className={`${avatarBgs[index + 2]} rounded-lg shadow-md p-2 ${rotations[index + 2]} transition-transform duration-300 group-hover:rotate-0`}>
+                        <div className={`${avatarBgs[index + 2]} ${avatarBorders[index + 2]} rounded-lg shadow-md p-2 ${rotations[index + 2]} transition-transform duration-300 group-hover:rotate-0`}>
                           <Avatar name={testimonial.name} size="md" />
                           <p className="text-[8px] font-medium text-slate-700 text-center mt-1">{testimonial.name.split(" ")[0]}</p>
                         </div>
