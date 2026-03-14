@@ -33,8 +33,8 @@ export function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
           scrolled
-            ? "bg-white/80 backdrop-blur-xl border-slate-200/50 shadow-[var(--shadow-soft)]"
-            : "bg-transparent border-slate-200/30"
+            ? "bg-white/80 backdrop-blur-xl border-slate-200 shadow-[var(--shadow-soft)]"
+            : "bg-white border-slate-200"
         )}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ export function Navbar() {
                     "px-4 py-2 text-sm font-medium rounded-xl transition-colors duration-200",
                     pathname === link.href
                       ? "text-slate-900 bg-slate-100"
-                      : "text-slate-500 hover:text-indigo-600 hover:bg-slate-50"
+                      : "text-slate-900 hover:text-indigo-600 hover:bg-slate-50"
                   )}
                 >
                   {link.label}
