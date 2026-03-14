@@ -4,12 +4,25 @@ import { AnimatedCounter } from "@/components/animation/animated-counter";
 import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { STATS } from "@/lib/constants";
 
-const statColors = [
+const symbolColors = [
   "text-indigo-400",
   "text-teal-400",
   "text-indigo-400",
   "text-teal-400",
 ];
+
+/* Render suffix with only + and % symbols colored */
+function ColoredSuffix({ suffix, colorClass }: { suffix: string; colorClass: string }) {
+  return (
+    <>
+      {suffix.split("").map((char, i) => (
+        <span key={i} className={char === "+" || char === "%" ? colorClass : undefined}>
+          {char}
+        </span>
+      ))}
+    </>
+  );
+}
 
 export function Stats() {
   return (
@@ -53,7 +66,8 @@ export function Stats() {
             {STATS.map((stat, i) => (
               <div key={stat.label} className="text-center">
                 <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} suffixClassName={statColors[i]} />
+                  <AnimatedCounter value={stat.value} />
+                  <ColoredSuffix suffix={stat.suffix} colorClass={symbolColors[i]} />
                 </div>
                 <p className="text-sm text-slate-400 font-medium">{stat.label}</p>
               </div>
