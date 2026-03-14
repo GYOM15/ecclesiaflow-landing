@@ -97,6 +97,7 @@ async function apiRequest<T>(
       // Redirect to reactivation page if account is deactivated
       if (response.status === 403 && data?.errorCode === "ACCOUNT_DEACTIVATED") {
         if (typeof window !== "undefined") {
+          sessionStorage.setItem("account-deactivated", "true");
           window.location.href = "/reactivate";
           // Never resolve — page is navigating away, prevents error flash
           return new Promise<never>(() => {});

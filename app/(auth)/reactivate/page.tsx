@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { AuthCard } from "@/components/auth/auth-card";
@@ -14,6 +14,19 @@ export default function ReactivatePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const flag = sessionStorage.getItem("account-deactivated");
+    if (flag === "true") {
+      setAuthorized(true);
+    } else if (status === "authenticated") {
+      router.replace("/dashboard");
+    } else if (status === "unauthenticated") {
+      router.replace("/connexion");
+    }
+  }, [status, router]);
 
   async function handleReactivate() {
     if (!session?.accessToken) return;
@@ -23,6 +36,7 @@ export default function ReactivatePage() {
     const result = await reactivateMyAccount(session.accessToken);
 
     if (result.ok) {
+      sessionStorage.removeItem("account-deactivated");
       setSuccess(true);
       setTimeout(() => router.push("/dashboard"), 1500);
     } else {
@@ -31,7 +45,7 @@ export default function ReactivatePage() {
     }
   }
 
-  if (status === "loading") {
+  if (status === "loading" || !authorized) {
     return (
       <AuthCard
         title="Réactivation"
@@ -39,28 +53,6 @@ export default function ReactivatePage() {
       >
         <div className="flex flex-col items-center gap-4 py-8">
           <Spinner size="lg" />
-        </div>
-      </AuthCard>
-    );
-  }
-
-  if (status === "unauthenticated") {
-    return (
-      <AuthCard
-        title="Réactivation"
-        subtitle="Connectez-vous pour réactiver votre compte"
-      >
-        <div className="space-y-4">
-          <Alert variant="info">
-            Veuillez vous connecter avec vos identifiants pour réactiver votre
-            compte.
-          </Alert>
-          <a
-            href="/connexion"
-            className="block w-full text-center rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
-          >
-            Se connecter
-          </a>
         </div>
       </AuthCard>
     );
