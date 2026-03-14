@@ -43,7 +43,7 @@ export default function OnboardingPage() {
       firstName: data.firstName.trim(),
       lastName: data.lastName.trim(),
       email: data.email,
-      address: data.address.trim(),
+      address: data.address?.trim() || undefined,
       phoneNumber: data.phoneNumber?.trim() || undefined,
     });
 
@@ -58,6 +58,7 @@ export default function OnboardingPage() {
     <AuthCard
       title="Complétez votre profil"
       subtitle="Quelques informations supplémentaires pour finaliser votre inscription."
+      disableHomeLink
     >
       {error && (
         <Alert variant="error" dismissible className="mb-4">
@@ -91,7 +92,7 @@ export default function OnboardingPage() {
 
         <FormField<SocialOnboardingFormData>
           name="address"
-          label="Adresse"
+          label="Adresse (optionnel)"
           placeholder="123 Rue de l'Église, Montréal H3A 1B2"
           register={register}
           errors={errors}
