@@ -8,7 +8,7 @@ import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 import { Spinner } from "@/components/ui/spinner";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     );
   }
 
-  if (status === "unauthenticated") {
+  if (status === "unauthenticated" || session?.error === "RefreshAccessTokenError") {
     router.push("/connexion");
     return null;
   }

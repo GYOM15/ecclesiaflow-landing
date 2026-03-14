@@ -37,7 +37,7 @@ export default function CredentialsPage() {
 
     if (result.ok) {
       setSuccess("Mot de passe ajouté avec succès. Redirection...");
-      setTimeout(() => router.push("/dashboard/email"), 2000);
+      setTimeout(() => router.push("/dashboard/compte"), 2000);
     } else {
       setError(result.error.message || "Une erreur est survenue.");
     }
