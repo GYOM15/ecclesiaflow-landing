@@ -31,84 +31,13 @@ function MiniCross({ className }: { className?: string }) {
   );
 }
 
-/* ─── Crown of thorns — procedurally generated SVG paths ─── */
-const CROWN_CX = 230;
-const CROWN_CY = 171;
-
-// Outer thorny ring
-const crownOuter = (() => {
-  const r = 90, n = 24;
-  const pts: string[] = [];
-  for (let i = 0; i < n; i++) {
-    const a = (i / n) * Math.PI * 2;
-    const na = ((i + 0.5) / n) * Math.PI * 2;
-    const rv = r + 3 * Math.sin(i * 2.7);
-    const px = CROWN_CX + rv * Math.cos(a);
-    const py = CROWN_CY + rv * Math.sin(a);
-    const tl = (i % 3 === 0) ? 20 : (i % 2 === 0) ? 14 : 10;
-    const ta = a + ((i % 2 === 0) ? 0.06 : -0.05);
-    const tx = CROWN_CX + (rv + tl) * Math.cos(ta);
-    const ty = CROWN_CY + (rv + tl) * Math.sin(ta);
-    const ra = a + 0.09;
-    const rx = CROWN_CX + (rv - 2) * Math.cos(ra);
-    const ry = CROWN_CY + (rv - 2) * Math.sin(ra);
-    const mx = CROWN_CX + rv * Math.cos(na);
-    const my = CROWN_CY + rv * Math.sin(na);
-    if (i === 0) pts.push(`M${px.toFixed(1)},${py.toFixed(1)}`);
-    pts.push(`L${tx.toFixed(1)},${ty.toFixed(1)}`, `L${rx.toFixed(1)},${ry.toFixed(1)}`, `L${mx.toFixed(1)},${my.toFixed(1)}`);
-  }
-  pts.push("Z");
-  return pts.join(" ");
-})();
-
-// Inner thorny ring (smaller, offset)
-const crownInner = (() => {
-  const r = 78, n = 20;
-  const pts: string[] = [];
-  for (let i = 0; i < n; i++) {
-    const a = (i / n) * Math.PI * 2 + 0.16;
-    const na = ((i + 0.5) / n) * Math.PI * 2 + 0.16;
-    const rv = r + 2 * Math.sin(i * 3.1 + 1);
-    const px = CROWN_CX + rv * Math.cos(a);
-    const py = CROWN_CY + rv * Math.sin(a);
-    const tl = (i % 3 === 1) ? 11 : (i % 2 === 1) ? 8 : 5;
-    const ta = a + ((i % 2 === 1) ? -0.07 : 0.05);
-    const tx = CROWN_CX + (rv - tl) * Math.cos(ta);
-    const ty = CROWN_CY + (rv - tl) * Math.sin(ta);
-    const ra = a + 0.1;
-    const rx = CROWN_CX + (rv + 1) * Math.cos(ra);
-    const ry = CROWN_CY + (rv + 1) * Math.sin(ra);
-    const mx = CROWN_CX + rv * Math.cos(na);
-    const my = CROWN_CY + rv * Math.sin(na);
-    if (i === 0) pts.push(`M${px.toFixed(1)},${py.toFixed(1)}`);
-    pts.push(`L${tx.toFixed(1)},${ty.toFixed(1)}`, `L${rx.toFixed(1)},${ry.toFixed(1)}`, `L${mx.toFixed(1)},${my.toFixed(1)}`);
-  }
-  pts.push("Z");
-  return pts.join(" ");
-})();
-
-// Binding lines — woven branch connections
-const bindingLines = (() => {
-  const rI = 79, rO = 89;
-  const lines: string[] = [];
-  for (let i = 0; i < 16; i++) {
-    const a = (i / 16) * Math.PI * 2 + 0.08;
-    const x1 = CROWN_CX + rI * Math.cos(a);
-    const y1 = CROWN_CY + rI * Math.sin(a);
-    const x2 = CROWN_CX + rO * Math.cos(a + 0.1);
-    const y2 = CROWN_CY + rO * Math.sin(a + 0.1);
-    lines.push(`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`);
-  }
-  return lines.join(" ");
-})();
-
 export function Hero() {
   const { handleSignIn } = useSocialSignIn();
   const tickerItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-0 lg:pt-44">
-      {/* CSS keyframe animations — GPU-accelerated for maximum smoothness */}
+    <section className="relative overflow-hidden pt-32 pb-0 lg:pt-44 bg-gradient-to-b from-slate-50 via-indigo-50/40 to-slate-50">
+      {/* CSS keyframe animations */}
       <style>{`
         @keyframes heroFadeUp {
           from { opacity: 0; transform: translate3d(0, 16px, 0); }
@@ -148,55 +77,111 @@ export function Hero() {
       {/* Background: animated subtle orbs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <motion.div
-          className="absolute -top-[15%] right-[5%] w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.04),transparent_70%)] rounded-full blur-3xl"
+          className="absolute -top-[15%] right-[5%] w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.06),transparent_70%)] rounded-full blur-3xl"
           animate={{ x: [0, 20, -10, 0], y: [0, -15, 10, 0], scale: [1, 1.05, 0.97, 1] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute top-[25%] -left-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.03),transparent_70%)] rounded-full blur-3xl"
+          className="absolute top-[25%] -left-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.05),transparent_70%)] rounded-full blur-3xl"
           animate={{ x: [0, 15, -8, 0], y: [0, 10, -12, 0], scale: [1, 0.96, 1.04, 1] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
         <motion.div
-          className="absolute top-[50%] right-[15%] w-[30%] h-[40%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.04),transparent_70%)] rounded-full blur-3xl"
+          className="absolute top-[50%] right-[15%] w-[30%] h-[40%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.07),transparent_70%)] rounded-full blur-3xl"
           animate={{ x: [0, -12, 8, 0], y: [0, -8, 14, 0], scale: [1, 1.03, 0.98, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+        <motion.div
+          className="absolute bottom-[10%] left-[20%] w-[25%] h-[30%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.05),transparent_70%)] rounded-full blur-3xl"
+          animate={{ x: [0, 10, -6, 0], y: [0, -10, 6, 0], scale: [1, 1.04, 0.97, 1] }}
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 6 }}
         />
         <div className="absolute inset-0 opacity-[0.018]" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
       </div>
 
-      {/* Cross with rotating crown of thorns */}
-      <div className="absolute right-[4%] lg:right-[7%] top-[10%] w-[320px] h-[360px] lg:w-[460px] lg:h-[520px] pointer-events-none hidden lg:block" aria-hidden="true">
+      {/* Mountains chain + cross — right side, organic */}
+      <div className="absolute inset-0 pointer-events-none hidden lg:block" aria-hidden="true">
         <svg
-          viewBox="0 0 460 520"
+          viewBox="0 0 1440 580"
           fill="none"
-          className="w-full h-full"
+          preserveAspectRatio="xMidYMax slice"
+          className="absolute bottom-0 left-0 w-full h-full"
         >
-          {/* Cross arms — SQUARE corners */}
-          <rect x="214" y="20" width="32" height="480" fill="#6366F1" opacity="0.055" />
-          <rect x="80" y="155" width="300" height="32" fill="#6366F1" opacity="0.055" />
+          <defs>
+            {/* Soft halo behind the cross */}
+            <radialGradient id="crossHalo" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#818CF8" stopOpacity="0.12" />
+              <stop offset="50%" stopColor="#6366F1" stopOpacity="0.05" />
+              <stop offset="100%" stopColor="#6366F1" stopOpacity="0" />
+            </radialGradient>
+            {/* Fade-out mask for the left edge (keeps right side visible for cross) */}
+            <linearGradient id="fadeLeft" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="white" stopOpacity="0" />
+              <stop offset="30%" stopColor="white" stopOpacity="1" />
+              <stop offset="100%" stopColor="white" stopOpacity="1" />
+            </linearGradient>
+            <mask id="mountainFade">
+              <rect x="0" y="0" width="1440" height="580" fill="url(#fadeLeft)" />
+            </mask>
+          </defs>
 
-          {/* Rotating crown of thorns */}
-          <motion.g
-            style={{ transformOrigin: `${CROWN_CX}px ${CROWN_CY}px` }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          >
-            {/* Outer thorny ring */}
-            <path d={crownOuter} fill="none" stroke="#64748b" strokeWidth="1.5" opacity="0.22" />
-            {/* Inner thorny ring */}
-            <path d={crownInner} fill="none" stroke="#94a3b8" strokeWidth="1" opacity="0.15" />
-            {/* Woven binding lines */}
-            <path d={bindingLines} fill="none" stroke="#94a3b8" strokeWidth="0.8" opacity="0.12" />
-          </motion.g>
+          {/* Halo glow behind cross intersection */}
+          <circle cx="1100" cy="200" r="120" fill="url(#crossHalo)" />
+
+          {/* Mountain chain — multiple peaks, highest summit under the cross */}
+          <g mask="url(#mountainFade)">
+            {/* Back range — broad, soft peaks, indigo-200 */}
+            <path
+              d="M350,580 L380,500 L450,485 L520,475 L570,480 L630,460
+                 L690,465 L750,445 L800,448 L860,425 L920,415 L970,420
+                 L1030,400 L1070,392 L1100,380 L1130,392 L1180,408
+                 L1230,420 L1290,435 L1350,448 L1440,460 L1440,580 Z"
+              fill="#C7D2FE"
+              opacity="0.10"
+            />
+
+            {/* Mid range — defined peaks, main summit under cross, indigo-400 */}
+            <path
+              d="M420,580 L450,520 L520,508 L580,500 L630,505 L700,488
+                 L760,492 L820,475 L870,478 L930,458 L990,448 L1040,442
+                 L1100,430 L1140,440 L1200,450 L1260,460 L1320,468
+                 L1400,475 L1440,480 L1440,580 Z"
+              fill="#818CF8"
+              opacity="0.08"
+            />
+
+            {/* Front range — rolling foothills, indigo-500 */}
+            <path
+              d="M490,580 L510,540 L570,532 L640,525 L690,528 L760,515
+                 L820,518 L880,505 L930,508 L990,492 L1050,485 L1100,478
+                 L1140,484 L1200,492 L1260,498 L1320,504 L1400,510
+                 L1440,515 L1440,580 Z"
+              fill="#6366F1"
+              opacity="0.06"
+            />
+
+            {/* Teal mist at the base of the mountains */}
+            <path
+              d="M550,580 L580,548 L700,540 L820,532 L940,525 L1050,522
+                 L1100,520 L1150,523 L1260,530 L1380,538 L1440,542 L1440,580 Z"
+              fill="#14B8A6"
+              opacity="0.04"
+            />
+          </g>
+
+          {/* Cross — planted at highest peak, right side, square corners */}
+          <rect x="1084" y="110" width="32" height="270" fill="#6366F1" opacity="0.10" />
+          <rect x="990" y="185" width="220" height="28" fill="#6366F1" opacity="0.10" />
         </svg>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Content — padding preserved, width constrained */}
+        {/* Content */}
         <div className="pl-6 lg:pl-16 pb-12 lg:pb-16 max-w-2xl">
           <div className="hero-anim-1">
-            <Badge variant="indigo" dot className="mb-5">Bêta ouverte — Accès anticipé</Badge>
+            <Badge variant="indigo" dot className="mb-5 shadow-sm shadow-indigo-200/50 border-indigo-200">
+              Bêta ouverte — Accès anticipé
+            </Badge>
           </div>
 
           <h1 className="hero-anim-2 text-[1.5rem] sm:text-[1.85rem] lg:text-[2.35rem] font-semibold tracking-[-0.02em] leading-[1.2] text-slate-800 mb-5">
@@ -227,7 +212,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Ticker strip — white bg, dark text, cross logos */}
+      {/* Ticker strip */}
       <div className="hero-anim-ticker">
         <div className="relative bg-white border-t border-slate-200 py-3.5 overflow-hidden">
           <div className="flex animate-marquee whitespace-nowrap">
