@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -9,17 +11,17 @@ import {
   MessageSquare,
   CreditCard,
   UserCog,
-  Mail,
   Shield,
   LogOut,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
+import { Dialog } from "@/components/ui/dialog";
 
 const NAV_ITEMS = [
   { label: "Tableau de bord", href: "/dashboard", icon: LayoutDashboard },
   { label: "Mon profil", href: "/dashboard/profil", icon: UserCog },
-  { label: "Modifier mon email", href: "/dashboard/email", icon: Mail },
   { label: "Mon compte", href: "/dashboard/compte", icon: Shield },
   { label: "Membres", href: "/dashboard/membres", icon: Users, soon: true },
   { label: "Événements", href: "/dashboard/evenements", icon: Calendar, soon: true },
@@ -33,7 +35,27 @@ interface SidebarProps {
 }
 
 export function Sidebar({ open, onClose }: SidebarProps) {
+  const { data: session } = useSession();
   const pathname = usePathname();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    const idToken = session?.idToken;
+
+    // Store id_token in a short-lived cookie so federated-signout
+    // can include it as id_token_hint for Keycloak silent logout
+    if (idToken) {
+      document.cookie = `ef_logout_hint=${encodeURIComponent(idToken)}; path=/; max-age=30; SameSite=Lax`;
+    }
+
+    // Clear NextAuth session (reliable HttpOnly cookie clearing)
+    await signOut({ redirect: false });
+
+    // Redirect to Keycloak logout for full SSO session termination
+    window.location.href = "/api/auth/federated-signout";
+  }
 
   return (
     <>
@@ -111,9 +133,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {/* Logout */}
         <div className="px-3 py-4 border-t border-slate-100">
           <button
-            onClick={() => {
-              window.location.href = "/api/auth/federated-signout";
-            }}
+            onClick={() => setShowLogoutConfirm(true)}
             className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
           >
             <LogOut className="h-5 w-5" />
@@ -121,6 +141,47 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           </button>
         </div>
       </aside>
+
+      {/* Logout confirmation popup */}
+      <Dialog
+        open={showLogoutConfirm}
+        onClose={() => !loggingOut && setShowLogoutConfirm(false)}
+      >
+        <div className="text-center space-y-4">
+          <div className="mx-auto w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+            <LogOut className="h-6 w-6 text-red-600" />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900">
+              Déconnexion
+            </h3>
+            <p className="text-sm text-slate-500 mt-1">
+              Voulez-vous vraiment vous déconnecter ?
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowLogoutConfirm(false)}
+              disabled={loggingOut}
+              className="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
+            >
+              Annuler
+            </button>
+            <button
+              onClick={handleLogout}
+              disabled={loggingOut}
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-red-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loggingOut ? (
+                <Spinner size="sm" className="text-white" />
+              ) : (
+                <LogOut className="h-4 w-4" />
+              )}
+              Se déconnecter
+            </button>
+          </div>
+        </div>
+      </Dialog>
     </>
   );
 }

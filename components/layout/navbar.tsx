@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/lib/constants";
 
 export function Navbar() {
-  const { status } = useSession();
-  const isAuthenticated = status === "authenticated";
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === "authenticated" && !session?.error;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
