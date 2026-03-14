@@ -1,8 +1,8 @@
 import { Hero } from "@/components/sections/hero";
 import { DashboardShowcase } from "@/components/sections/dashboard-showcase";
-import { SocialProof } from "@/components/sections/social-proof";
+import { TrustBadges } from "@/components/sections/trust-badges";
 import { FeaturesOverview } from "@/components/sections/features-overview";
-import { PreviewImage } from "@/components/sections/preview-image";
+import { CommunityConstellation } from "@/components/sections/community-constellation";
 import { FeatureDeepDive } from "@/components/sections/feature-deep-dive";
 import { ImageScatter } from "@/components/sections/image-scatter";
 import { Integrations } from "@/components/sections/integrations";
@@ -17,7 +17,7 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Dashboard behind Social Proof — layered overlap */}
+      {/* Dashboard behind Trust Badges — layered overlap */}
       <div className="relative">
         <div className="relative z-0">
           <DashboardShowcase />
@@ -25,13 +25,13 @@ export default function HomePage() {
           <div className="absolute bottom-0 left-0 right-0 h-32 lg:h-40 bg-gradient-to-t from-slate-50 to-transparent pointer-events-none z-10" />
         </div>
         <div className="relative z-20 -mt-24 lg:-mt-32">
-          <SocialProof />
+          <TrustBadges />
         </div>
       </div>
 
       <SectionDivider />
       <FeaturesOverview />
-      <PreviewImage />
+      <CommunityConstellation />
       <SectionDivider />
       <FeatureDeepDive />
       <SectionDivider />
