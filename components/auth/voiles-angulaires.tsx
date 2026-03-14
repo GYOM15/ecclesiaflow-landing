@@ -21,9 +21,16 @@ const PANELS: Panel[] = [
   { color: "#14B8A6", angle: -20, xOff: 0.85, width: 140, speed: 0.65 }, // teal-500
 ];
 
-const BG_COLOR = "#F8FAFC"; // slate-50
+const DEFAULT_BG_COLOR = "#F8FAFC"; // slate-50
 
-export function VoilesAngulaires() {
+export type { Panel };
+
+interface VoilesAngulairesProps {
+  bgColor?: string;
+  panels?: Panel[];
+}
+
+export function VoilesAngulaires({ bgColor = DEFAULT_BG_COLOR, panels = PANELS }: VoilesAngulairesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReducedMotion = useRef(false);
 
@@ -39,7 +46,7 @@ export function VoilesAngulaires() {
 
     // If reduced motion, draw a static frame and stop
     if (prefersReducedMotion.current) {
-      drawStaticFrame(canvas, ctx);
+      drawStaticFrame(canvas, ctx, bgColor, panels);
       return;
     }
 
@@ -65,11 +72,11 @@ export function VoilesAngulaires() {
       const h = canvas.getBoundingClientRect().height;
 
       // Clear with background
-      ctx.fillStyle = BG_COLOR;
+      ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, w, h);
 
       // Draw each panel
-      PANELS.forEach((panel, i) => {
+      panels.forEach((panel, i) => {
         const x = w * panel.xOff + Math.sin(t * 0.0004 * panel.speed + i * 0.8) * 60;
         const rotation = (panel.angle + Math.sin(t * 0.00025 + i * 1.2) * 2) * (Math.PI / 180);
         const opacity = 0.35 + Math.sin(t * 0.0003 + i * 0.6) * 0.05;
@@ -106,7 +113,7 @@ export function VoilesAngulaires() {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [bgColor, panels]);
 
   return (
     <>
@@ -124,7 +131,7 @@ export function VoilesAngulaires() {
   );
 }
 
-function drawStaticFrame(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+function drawStaticFrame(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, bgColor: string, panels: Panel[]) {
   const dpr = window.devicePixelRatio || 1;
   const rect = canvas.getBoundingClientRect();
   canvas.width = rect.width * dpr;
@@ -134,10 +141,10 @@ function drawStaticFrame(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2
   const w = rect.width;
   const h = rect.height;
 
-  ctx.fillStyle = BG_COLOR;
+  ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, w, h);
 
-  PANELS.forEach((panel) => {
+  panels.forEach((panel) => {
     const x = w * panel.xOff;
     const rotation = panel.angle * (Math.PI / 180);
 
