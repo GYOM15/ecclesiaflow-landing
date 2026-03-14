@@ -140,24 +140,24 @@ export function Hero() {
               opacity="0.10"
             />
 
-            {/* Mid range — defined peaks, main summit under cross, indigo-400 */}
+            {/* Mid range — defined peaks, main summit under cross, teal */}
             <path
               d="M420,580 L450,520 L520,508 L580,500 L630,505 L700,488
                  L760,492 L820,475 L870,478 L930,458 L990,448 L1040,442
                  L1100,430 L1140,440 L1200,450 L1260,460 L1320,468
                  L1400,475 L1440,480 L1440,580 Z"
-              fill="#818CF8"
-              opacity="0.08"
+              fill="#14B8A6"
+              opacity="0.07"
             />
 
-            {/* Front range — rolling foothills, indigo-500 */}
+            {/* Front range — rolling foothills, amber */}
             <path
               d="M490,580 L510,540 L570,532 L640,525 L690,528 L760,515
                  L820,518 L880,505 L930,508 L990,492 L1050,485 L1100,478
                  L1140,484 L1200,492 L1260,498 L1320,504 L1400,510
                  L1440,515 L1440,580 Z"
-              fill="#6366F1"
-              opacity="0.06"
+              fill="#F59E0B"
+              opacity="0.05"
             />
 
             {/* Teal mist at the base of the mountains */}
