@@ -61,7 +61,7 @@ export function AboutStory() {
               </h2>
               <div className="space-y-4 text-slate-500 leading-relaxed">
                 <p>
-                  Tout a commencé dans une petite église de banlieue parisienne.
+                  Tout a commencé dans une petite église de quartier à Montréal.
                   Notre fondateur, Emmanuel, développeur chez Google, était
                   aussi bénévole dans sa communauté. Il voyait chaque semaine
                   les pasteurs et responsables lutter avec des tableurs Excel,
@@ -85,9 +85,9 @@ export function AboutStory() {
               <div className="grid grid-cols-2 gap-3 mt-8">
                 {[
                   { label: "Open source", desc: "Transparence totale" },
-                  { label: "RGPD natif", desc: "Conforme dès le jour 1" },
+                  { label: "Loi 25 natif", desc: "Conforme dès le jour 1" },
                   { label: "Francophone", desc: "Support en français" },
-                  { label: "Cloud souverain", desc: "Hébergement EU" },
+                  { label: "Cloud souverain", desc: "Hébergement Canada" },
                 ].map((item) => (
                   <div key={item.label} className="bg-slate-50 rounded-lg p-3 border border-slate-100">
                     <p className="text-sm font-semibold text-slate-900">{item.label}</p>

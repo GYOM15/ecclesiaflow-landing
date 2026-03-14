@@ -173,42 +173,42 @@ export const TESTIMONIALS: Testimonial[] = [
       "EcclesiaFlow a transformé notre façon de gérer notre communauté de 800 membres. Ce qui prenait des heures se fait maintenant en quelques clics. L'équipe pastorale peut enfin se concentrer sur l'essentiel.",
     name: "Pasteur David Morel",
     role: "Pasteur principal",
-    church: "Église Nouvelle Vie, Paris",
+    church: "Église Nouvelle Vie, Montréal",
   },
   {
     quote:
       "La simplicité d'utilisation est remarquable. Même nos bénévoles les moins à l'aise avec la technologie l'ont adopté en une semaine. Le support client est exceptionnel, toujours à l'écoute.",
     name: "Sarah Nguema",
     role: "Responsable administrative",
-    church: "Centre Chrétien de Bordeaux",
+    church: "Centre Chrétien de Laval",
   },
   {
     quote:
       "Les rapports financiers automatisés nous ont fait économiser un temps considérable. Les reçus fiscaux sont générés en un clic. C'est un investissement qui se rentabilise immédiatement.",
     name: "Jean-Marc Dubois",
     role: "Trésorier",
-    church: "Assemblée de Dieu, Lyon",
+    church: "Assemblée de Dieu, Québec",
   },
   {
     quote:
       "Nous gérons 12 groupes de maison avec EcclesiaFlow. La communication ciblée et le suivi des présences ont considérablement amélioré l'engagement de nos membres dans la vie de l'église.",
     name: "Pasteur Esther Kone",
     role: "Pasteur des groupes",
-    church: "Église Grâce & Vérité, Marseille",
+    church: "Église Grâce & Vérité, Gatineau",
   },
   {
     quote:
       "L'interface est magnifique et intuitive. On sent que c'est conçu par des gens qui comprennent les besoins spécifiques d'une église. C'est bien plus qu'un simple outil de gestion.",
     name: "Thomas Lefèvre",
     role: "Diacre & développeur",
-    church: "Église Protestante, Strasbourg",
+    church: "Église Protestante, Sherbrooke",
   },
   {
     quote:
       "La migration depuis notre ancien système s'est faite en douceur. L'équipe d'EcclesiaFlow nous a accompagnés à chaque étape. Aujourd'hui, impossible de revenir en arrière.",
     name: "Marie-Claire Petit",
     role: "Secrétaire générale",
-    church: "Église Baptiste, Nantes",
+    church: "Église Baptiste, Longueuil",
   },
 ];
 
@@ -352,7 +352,7 @@ export const PRICING_FAQ = [
   {
     question: "Mes données sont-elles sécurisées ?",
     answer:
-      "La sécurité est notre priorité absolue. Toutes les données sont chiffrées en transit et au repos. Nous sommes conformes au RGPD et effectuons des sauvegardes quotidiennes automatiques. Nos serveurs sont hébergés en Europe.",
+      "La sécurité est notre priorité absolue. Toutes les données sont chiffrées en transit et au repos. Nous sommes conformes à la Loi 25 du Québec et effectuons des sauvegardes quotidiennes automatiques. Nos serveurs sont hébergés au Canada.",
   },
   {
     question: "Proposez-vous des tarifs spéciaux pour les petites églises ?",
@@ -577,7 +577,7 @@ export const FEATURE_CATEGORIES: FeatureCategory[] = [
       },
       {
         title: "Reçus fiscaux",
-        description: "Génération automatique des reçus fiscaux conformes à la réglementation française et européenne.",
+        description: "Génération automatique des reçus fiscaux conformes à la réglementation canadienne.",
         icon: CheckCircle2,
       },
       {
@@ -599,7 +599,7 @@ export const FEATURE_CATEGORIES: FeatureCategory[] = [
       },
       {
         title: "Journaux d'audit",
-        description: "Traçabilité complète de toutes les actions. Conformité RGPD et protection des données.",
+        description: "Traçabilité complète de toutes les actions. Conformité Loi 25 et protection des données.",
         icon: Eye,
       },
       {
@@ -655,7 +655,7 @@ export const FEATURES_COMPARISON = [
     spreadsheet: "Manuels",
   },
   {
-    feature: "Conformité RGPD",
+    feature: "Protection des données",
     ecclesiaflow: true,
     traditional: "Partielle",
     spreadsheet: false,
@@ -707,7 +707,7 @@ export const FOOTER_LINKS = {
     { label: "Confidentialité", href: "#" },
     { label: "CGU", href: "#" },
     { label: "Cookies", href: "#" },
-    { label: "RGPD", href: "#" },
+    { label: "Loi 25", href: "#" },
   ],
 };
 

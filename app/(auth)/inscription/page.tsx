@@ -159,7 +159,7 @@ export default function InscriptionPage() {
           <FormField<SignUpFormData>
             name="lastName"
             label="Nom"
-            placeholder="Dupont"
+            placeholder="Tremblay"
             register={register}
             errors={errors}
             icon={<User className="h-4 w-4" />}
@@ -170,7 +170,7 @@ export default function InscriptionPage() {
           name="email"
           label="Adresse email"
           type="email"
-          placeholder="jean.dupont@eglise.fr"
+          placeholder="jean.tremblay@eglise.ca"
           register={register}
           errors={errors}
           icon={<Mail className="h-4 w-4" />}
@@ -179,7 +179,7 @@ export default function InscriptionPage() {
         <FormField<SignUpFormData>
           name="address"
           label="Adresse"
-          placeholder="123 Rue de l'Église, 75001 Paris"
+          placeholder="123 Rue de l'Église, Montréal H3A 1B2"
           register={register}
           errors={errors}
           icon={<MapPin className="h-4 w-4" />}
@@ -189,7 +189,7 @@ export default function InscriptionPage() {
           name="phoneNumber"
           label="Téléphone (optionnel)"
           type="tel"
-          placeholder="+33612345678"
+          placeholder="+15141234567"
           register={register}
           errors={errors}
           icon={<Phone className="h-4 w-4" />}

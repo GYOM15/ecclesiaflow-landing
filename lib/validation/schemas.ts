@@ -18,7 +18,7 @@ export const signUpSchema = z.object({
     .string()
     .regex(
       /^\+?[1-9]\d{6,14}$/,
-      "Format de téléphone invalide (ex: +33612345678)"
+      "Format de téléphone invalide (ex: +15141234567)"
     )
     .optional()
     .or(z.literal("")),
@@ -80,7 +80,7 @@ export const profileSchema = z.object({
     .string()
     .regex(
       /^\+?[1-9]\d{6,14}$/,
-      "Format de téléphone invalide (ex: +33612345678)"
+      "Format de téléphone invalide (ex: +15141234567)"
     )
     .optional()
     .or(z.literal("")),

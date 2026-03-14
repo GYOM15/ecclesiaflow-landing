@@ -92,7 +92,7 @@ export default function OnboardingPage() {
         <FormField<SocialOnboardingFormData>
           name="address"
           label="Adresse"
-          placeholder="123 Rue de l'Église, 75001 Paris"
+          placeholder="123 Rue de l'Église, Montréal H3A 1B2"
           register={register}
           errors={errors}
           icon={<MapPin className="h-4 w-4" />}
@@ -102,7 +102,7 @@ export default function OnboardingPage() {
           name="phoneNumber"
           label="Téléphone (optionnel)"
           type="tel"
-          placeholder="+33 6 12 34 56 78"
+          placeholder="+1 514 123 4567"
           register={register}
           errors={errors}
           icon={<Phone className="h-4 w-4" />}
