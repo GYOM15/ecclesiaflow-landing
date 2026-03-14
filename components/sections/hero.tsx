@@ -36,7 +36,7 @@ export function Hero() {
   const tickerItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-0 lg:pt-44 bg-gradient-to-b from-slate-50 via-indigo-50/40 to-slate-50">
+    <section className="relative overflow-hidden pt-32 pb-0 lg:pt-44 bg-white">
       {/* CSS keyframe animations */}
       <style>{`
         @keyframes heroFadeUp {
@@ -71,6 +71,34 @@ export function Hero() {
           opacity: 0;
           animation: heroFadeIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
           will-change: opacity;
+        }
+        @keyframes mountainBreathe {
+          0%, 100% { transform: translateY(0); }
+          50%      { transform: translateY(var(--breathe-y)); }
+        }
+        @keyframes mistDrift {
+          0%, 100% { transform: translateX(0); }
+          50%      { transform: translateX(25px); }
+        }
+        .mountain-back {
+          animation: mountainBreathe 12s ease-in-out infinite;
+          --breathe-y: -8px;
+        }
+        .mountain-mid {
+          animation: mountainBreathe 9s ease-in-out infinite;
+          --breathe-y: -14px;
+        }
+        .mountain-front {
+          animation: mountainBreathe 7s ease-in-out infinite;
+          --breathe-y: -18px;
+        }
+        .mountain-mist {
+          animation: mistDrift 12s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mountain-back, .mountain-mid, .mountain-front, .mountain-mist {
+            animation: none;
+          }
         }
       `}</style>
 
@@ -132,6 +160,7 @@ export function Hero() {
           <g mask="url(#mountainFade)">
             {/* Back range — broad, soft peaks, indigo-200 */}
             <path
+              className="mountain-back"
               d="M350,580 L380,500 L450,485 L520,475 L570,480 L630,460
                  L690,465 L750,445 L800,448 L860,425 L920,415 L970,420
                  L1030,400 L1070,392 L1100,380 L1130,392 L1180,408
@@ -142,6 +171,7 @@ export function Hero() {
 
             {/* Mid range — defined peaks, main summit under cross, teal */}
             <path
+              className="mountain-mid"
               d="M420,580 L450,520 L520,508 L580,500 L630,505 L700,488
                  L760,492 L820,475 L870,478 L930,458 L990,448 L1040,442
                  L1100,430 L1140,440 L1200,450 L1260,460 L1320,468
@@ -152,6 +182,7 @@ export function Hero() {
 
             {/* Front range — rolling foothills, amber */}
             <path
+              className="mountain-front"
               d="M490,580 L510,540 L570,532 L640,525 L690,528 L760,515
                  L820,518 L880,505 L930,508 L990,492 L1050,485 L1100,478
                  L1140,484 L1200,492 L1260,498 L1320,504 L1400,510
@@ -162,6 +193,7 @@ export function Hero() {
 
             {/* Teal mist at the base of the mountains */}
             <path
+              className="mountain-mist"
               d="M550,580 L580,548 L700,540 L820,532 L940,525 L1050,522
                  L1100,520 L1150,523 L1260,530 L1380,538 L1440,542 L1440,580 Z"
               fill="#14B8A6"
@@ -203,6 +235,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
+              className="border-indigo-200 text-indigo-600 hover:border-indigo-300 hover:bg-indigo-50"
               onClick={() => handleSignIn("google")}
             >
               <GoogleLogo className="h-4 w-4" />
