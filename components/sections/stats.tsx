@@ -1,16 +1,14 @@
 "use client";
 
-import { SectionHeading } from "@/components/ui/section-heading";
 import { AnimatedCounter } from "@/components/animation/animated-counter";
 import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { STATS } from "@/lib/constants";
-import { Church, Users, Server, Star } from "lucide-react";
 
-const statMeta = [
-  { icon: Church, iconBg: "bg-indigo-500/20", iconColor: "text-indigo-300", accent: "border-b-indigo-500" },
-  { icon: Users, iconBg: "bg-teal-500/20", iconColor: "text-teal-300", accent: "border-b-teal-500" },
-  { icon: Server, iconBg: "bg-indigo-500/20", iconColor: "text-indigo-300", accent: "border-b-indigo-500" },
-  { icon: Star, iconBg: "bg-teal-500/20", iconColor: "text-teal-300", accent: "border-b-teal-500" },
+const statColors = [
+  "text-indigo-400",
+  "text-teal-400",
+  "text-indigo-400",
+  "text-teal-400",
 ];
 
 export function Stats() {
@@ -51,21 +49,15 @@ export function Stats() {
         </div>
 
         <ScrollReveal>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-            {STATS.map((stat, i) => {
-              const meta = statMeta[i];
-              return (
-                <div key={stat.label} className={`relative bg-white/[0.06] rounded-xl p-6 lg:p-7 border border-white/[0.08] text-center group hover:bg-white/[0.1] hover:shadow-[0_0_20px_-4px_rgba(99,102,241,0.25)] transition-all duration-500 border-b-[3px] ${meta.accent} cursor-pointer`}>
-                  <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${meta.iconBg} mb-4`}>
-                    <meta.icon className={`h-5 w-5 ${meta.iconColor}`} />
-                  </div>
-                  <div className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white mb-2">
-                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                  </div>
-                  <p className="text-sm text-slate-400 font-medium">{stat.label}</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
+            {STATS.map((stat, i) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} suffixClassName={statColors[i]} />
                 </div>
-              );
-            })}
+                <p className="text-sm text-slate-400 font-medium">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </ScrollReveal>
       </div>
