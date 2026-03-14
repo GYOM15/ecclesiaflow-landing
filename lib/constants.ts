@@ -156,7 +156,6 @@ export const STATS: Stat[] = [
   { value: 10000, suffix: "+", label: "Églises à équiper" },
   { value: 1, suffix: "M+", label: "Membres à connecter" },
   { value: 99, suffix: ".9%", label: "Disponibilité visée" },
-  { value: 5, suffix: "/5", label: "Notre objectif qualité" },
 ];
 
 // ─── Testimonials ────────────────────────────────────────
