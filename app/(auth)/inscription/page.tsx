@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { Mail, MapPin, Phone, User } from "lucide-react";
 import { AuthCard } from "@/components/auth/auth-card";
+import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
 import { SocialButton } from "@/components/auth/social-button";
 import { OrDivider } from "@/components/auth/or-divider";
 import { FormField } from "@/components/ui/form-field";
@@ -79,6 +80,7 @@ export default function InscriptionPage() {
 
   if (pageState === "emailSent") {
     return (
+      <AuthSplitLayout>
       <AuthCard
         title="Vérifiez votre email"
         subtitle={`Nous avons envoyé un lien de confirmation à ${submittedEmail}`}
@@ -99,10 +101,12 @@ export default function InscriptionPage() {
           </button>
         </div>
       </AuthCard>
+      </AuthSplitLayout>
     );
   }
 
   return (
+    <AuthSplitLayout>
     <AuthCard
       title="Créer votre compte"
       subtitle="Rejoignez des milliers d'églises qui utilisent EcclesiaFlow"
@@ -205,5 +209,6 @@ export default function InscriptionPage() {
         </button>
       </form>
     </AuthCard>
+    </AuthSplitLayout>
   );
 }

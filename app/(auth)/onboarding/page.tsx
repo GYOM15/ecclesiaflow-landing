@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MapPin, Phone } from "lucide-react";
 import { AuthCard } from "@/components/auth/auth-card";
+import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
 import { Input } from "@/components/ui/input";
 import { FormField } from "@/components/ui/form-field";
 import { Alert } from "@/components/ui/alert";
@@ -55,6 +56,7 @@ export default function OnboardingPage() {
   }
 
   return (
+    <AuthSplitLayout disableHomeLink>
     <AuthCard
       title="Complétez votre profil"
       subtitle="Quelques informations supplémentaires pour finaliser votre inscription."
@@ -119,5 +121,6 @@ export default function OnboardingPage() {
         </button>
       </form>
     </AuthCard>
+    </AuthSplitLayout>
   );
 }

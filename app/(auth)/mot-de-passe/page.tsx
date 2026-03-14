@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { AuthCard } from "@/components/auth/auth-card";
+import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
 import { PasswordInput } from "@/components/ui/password-input";
 import { PasswordRequirements } from "@/components/auth/password-requirements";
 import { Alert } from "@/components/ui/alert";
@@ -101,16 +102,19 @@ export default function MotDePassePage() {
 
   if (pageState === "noToken") {
     return (
+      <AuthSplitLayout>
       <AuthCard title="Session invalide">
         <Alert variant="warning">
           Aucun token de configuration trouvé. Veuillez suivre le lien dans votre email de confirmation.
         </Alert>
       </AuthCard>
+      </AuthSplitLayout>
     );
   }
 
   if (pageState === "expired") {
     return (
+      <AuthSplitLayout>
       <AuthCard title="Session expirée">
         <div className="space-y-4">
           <Alert variant="warning">
@@ -124,11 +128,13 @@ export default function MotDePassePage() {
           </Link>
         </div>
       </AuthCard>
+      </AuthSplitLayout>
     );
   }
 
   if (pageState === "redirecting") {
     return (
+      <AuthSplitLayout>
       <AuthCard title="Mot de passe défini !">
         <div className="flex flex-col items-center gap-6 py-8">
           <Spinner size="lg" />
@@ -140,10 +146,12 @@ export default function MotDePassePage() {
           </div>
         </div>
       </AuthCard>
+      </AuthSplitLayout>
     );
   }
 
   return (
+    <AuthSplitLayout>
     <AuthCard
       title="Créer votre mot de passe"
       subtitle="Dernière étape ! Choisissez un mot de passe sécurisé."
@@ -181,5 +189,6 @@ export default function MotDePassePage() {
         </button>
       </form>
     </AuthCard>
+    </AuthSplitLayout>
   );
 }
