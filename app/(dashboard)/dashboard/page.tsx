@@ -25,7 +25,7 @@ function isBannerDismissed(): boolean {
 }
 
 const STAT_CARDS = [
-  { label: "Membres", value: "0", icon: Users, color: "bg-indigo-50 text-indigo-600" },
+  { label: "Membres", value: "0", icon: Users, color: "bg-indigo-50 text-indigo-500" },
   { label: "Événements", value: "0", icon: Calendar, color: "bg-teal-50 text-teal-600" },
   { label: "Messages", value: "0", icon: MessageSquare, color: "bg-amber-50 text-amber-600" },
   { label: "Dons", value: "0 $", icon: CreditCard, color: "bg-purple-50 text-purple-600" },

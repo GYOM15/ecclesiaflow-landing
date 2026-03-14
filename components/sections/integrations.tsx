@@ -71,10 +71,10 @@ function PaymentMockup() {
   return (
     <div className="bg-white rounded-xl border border-slate-200/50 p-4 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)]">
       <div className="flex items-center gap-2 mb-3">
-        <div className="w-7 h-7 rounded-lg bg-violet-50 flex items-center justify-center"><CreditCard className="h-3.5 w-3.5 text-violet-500" /></div>
+        <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center"><CreditCard className="h-3.5 w-3.5 text-indigo-500" /></div>
         <span className="text-xs font-semibold text-slate-700">Paiements & Dons</span>
       </div>
-      <div className="bg-gradient-to-br from-violet-500 to-indigo-600 rounded-lg p-3 mb-3 text-white">
+      <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg p-3 mb-3 text-white">
         <p className="text-[8px] uppercase tracking-wider opacity-70 mb-1">Total des dons</p>
         <p className="text-lg font-bold">$12,450</p>
         <div className="flex items-center gap-1 mt-1">
@@ -123,8 +123,8 @@ export function Integrations() {
               </div>
             </div>
             <div className="relative group cursor-pointer">
-              <div className="absolute -inset-3 bg-violet-500/[0.04] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
-              <div className="relative transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_36px_-8px_rgba(139,92,246,0.15)] rounded-xl">
+              <div className="absolute -inset-3 bg-indigo-500/[0.04] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+              <div className="relative transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.15)] rounded-xl">
                 <PaymentMockup />
               </div>
             </div>

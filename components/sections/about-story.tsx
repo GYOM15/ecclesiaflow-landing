@@ -9,18 +9,18 @@ const dotGradients = [
   "from-indigo-500 to-indigo-400",
   "from-teal-500 to-teal-400",
   "from-amber-500 to-amber-400",
-  "from-violet-500 to-violet-400",
-  "from-rose-500 to-rose-400",
+  "from-indigo-500 to-indigo-400",
   "from-teal-500 to-teal-400",
+  "from-amber-500 to-amber-400",
 ];
 
 const ringColors = [
   "ring-indigo-100",
   "ring-teal-100",
   "ring-amber-100",
-  "ring-violet-100",
-  "ring-rose-100",
+  "ring-indigo-100",
   "ring-teal-100",
+  "ring-amber-100",
 ];
 
 /* Color values for the single traveling circuit */
@@ -28,9 +28,9 @@ const circuitColors = [
   "#6366f1", // indigo
   "#14b8a6", // teal
   "#f59e0b", // amber
-  "#8b5cf6", // violet
-  "#f43f5e", // rose
+  "#6366f1", // indigo
   "#14b8a6", // teal
+  "#f59e0b", // amber
 ];
 
 const milestones = [

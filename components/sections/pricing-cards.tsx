@@ -55,7 +55,7 @@ export function PricingCards() {
                 )}
               >
                 {plan.highlighted && (
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-500 rounded-t-xl" />
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-teal-500 to-indigo-500 rounded-t-xl" />
                 )}
                 {plan.badge && (
                   <div className="mb-4">

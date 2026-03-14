@@ -53,8 +53,8 @@ export function FeaturesOverview() {
                     {/* Corner gradient highlight — top-left */}
                     <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-indigo-400/[0.12] via-indigo-300/[0.04] to-transparent rounded-tl-xl pointer-events-none" aria-hidden="true" />
 
-                    {/* Right border corner gradient highlight — indigo to rose */}
-                    <div className="absolute top-0 right-0 w-[2px] h-20 bg-gradient-to-b from-indigo-400/50 via-indigo-400/30 to-rose-400/40 rounded-tr-xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+                    {/* Right border corner gradient highlight — indigo to teal */}
+                    <div className="absolute top-0 right-0 w-[2px] h-20 bg-gradient-to-b from-indigo-400/50 via-indigo-400/30 to-teal-400/40 rounded-tr-xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
                     <div className="absolute top-0 right-0 w-20 h-[2px] bg-gradient-to-l from-indigo-400/50 via-indigo-400/30 to-transparent rounded-tr-xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
 
                     {feature.tag && (

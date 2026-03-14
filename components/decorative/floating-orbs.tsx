@@ -14,7 +14,7 @@ export function FloatingOrbs({
       ? [
           { color: "bg-indigo-200/30", size: "w-72 h-72", pos: "top-0 -right-20" },
           { color: "bg-indigo-100/40", size: "w-96 h-96", pos: "-top-20 -left-32" },
-          { color: "bg-violet-200/20", size: "w-64 h-64", pos: "bottom-20 right-10" },
+          { color: "bg-indigo-200/20", size: "w-64 h-64", pos: "bottom-20 right-10" },
         ]
       : variant === "amber"
         ? [

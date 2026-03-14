@@ -20,15 +20,15 @@ const stats = [
   { label: "Membres actifs", value: "847", change: "+12", icon: Users, accent: "border-l-indigo-500", iconBg: "bg-indigo-50", iconColor: "text-indigo-500" },
   { label: "Présence dim.", value: "623", change: "+5%", icon: BarChart3, accent: "border-l-teal-500", iconBg: "bg-teal-50", iconColor: "text-teal-500" },
   { label: "Nouveaux", value: "34", change: "+18%", icon: TrendingUp, accent: "border-l-amber-500", iconBg: "bg-amber-50", iconColor: "text-amber-500" },
-  { label: "Dons ce mois", value: "$12,450", change: "+8%", icon: CreditCard, accent: "border-l-violet-500", iconBg: "bg-violet-50", iconColor: "text-violet-500" },
+  { label: "Dons ce mois", value: "$12,450", change: "+8%", icon: CreditCard, accent: "border-l-indigo-500", iconBg: "bg-indigo-50", iconColor: "text-indigo-500" },
 ];
 
 const members = [
   { name: "Marie Dupont", group: "Louange · Groupe A", status: "Actif", color: "bg-indigo-500" },
   { name: "Jean-Paul Mbeki", group: "Jeunesse · Groupe C", status: "Actif", color: "bg-teal-500" },
   { name: "Claire Bonnet", group: "Accueil · Groupe B", status: "Nouveau", color: "bg-amber-500" },
-  { name: "Esther Kone", group: "Prière · Groupe A", status: "Actif", color: "bg-violet-500" },
-  { name: "Thomas Martin", group: "Média · Groupe D", status: "Actif", color: "bg-rose-500" },
+  { name: "Esther Kone", group: "Prière · Groupe A", status: "Actif", color: "bg-indigo-500" },
+  { name: "Thomas Martin", group: "Média · Groupe D", status: "Actif", color: "bg-teal-500" },
 ];
 
 const events = [
@@ -160,7 +160,7 @@ export function DashboardMockup() {
                             { label: "Ajouter membre", icon: Users, bg: "bg-indigo-50", color: "text-indigo-600" },
                             { label: "Nouvel événement", icon: Calendar, bg: "bg-teal-50", color: "text-teal-600" },
                             { label: "Envoyer message", icon: MessageSquare, bg: "bg-amber-50", color: "text-amber-600" },
-                            { label: "Voir rapports", icon: BarChart3, bg: "bg-violet-50", color: "text-violet-600" },
+                            { label: "Voir rapports", icon: BarChart3, bg: "bg-indigo-50", color: "text-indigo-500" },
                           ].map((action) => (
                             <div key={action.label} className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100 cursor-pointer">
                               <div className={`w-7 h-7 rounded-lg ${action.bg} flex items-center justify-center`}><action.icon className={`h-3.5 w-3.5 ${action.color}`} /></div>
