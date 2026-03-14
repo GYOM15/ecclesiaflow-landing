@@ -64,11 +64,11 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="votre@email.com"
-                className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-colors"
+                className="flex-1 bg-slate-800 border border-slate-700 rounded px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-colors"
               />
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2.5 rounded text-sm font-medium transition-colors cursor-pointer"
               >
                 S&apos;abonner
                 <ArrowRight className="h-3.5 w-3.5" />

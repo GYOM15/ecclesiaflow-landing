@@ -43,13 +43,12 @@ export function CtaSection() {
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline">
-              Parler à un conseiller
+            <Button size="lg" variant="outline" className="border-indigo-300 text-indigo-600 hover:border-indigo-400 hover:bg-indigo-50">
+              Contactez-nous
             </Button>
           </div>
           <p className="text-sm text-slate-400 mt-5">
-            Aucune carte de crédit requise &middot; Essai gratuit de 14 jours
-            &middot; Annulation à tout moment
+            Essai gratuit de 14 jours &middot; Annulation à tout moment
           </p>
         </ScrollReveal>
       </div>
