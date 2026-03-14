@@ -82,7 +82,7 @@ export default function ReactivatePage() {
             <button
               onClick={handleReactivate}
               disabled={loading}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading && <Spinner size="sm" className="text-white" />}
               Réactiver mon compte

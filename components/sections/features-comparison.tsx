@@ -12,8 +12,8 @@ function CellValue({ value, isEcclesia }: { value: boolean | string; isEcclesia?
   if (value === true) {
     return (
       <div className="flex items-center justify-center">
-        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isEcclesia ? "bg-emerald-50" : "bg-slate-50"}`}>
-          <Check className={`h-4 w-4 ${isEcclesia ? "text-emerald-500" : "text-slate-400"}`} />
+        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isEcclesia ? "bg-teal-50" : "bg-slate-50"}`}>
+          <Check className={`h-4 w-4 ${isEcclesia ? "text-teal-500" : "text-slate-400"}`} />
         </div>
       </div>
     );

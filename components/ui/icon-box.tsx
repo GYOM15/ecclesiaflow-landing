@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
-type IconBoxVariant = "indigo" | "amber" | "slate" | "emerald";
+type IconBoxVariant = "indigo" | "amber" | "slate" | "teal";
 
 interface IconBoxProps {
   icon: LucideIcon;
@@ -14,7 +14,7 @@ const variantStyles: Record<IconBoxVariant, string> = {
   indigo: "bg-indigo-50 text-indigo-500",
   amber: "bg-amber-50 text-amber-600",
   slate: "bg-slate-100 text-slate-500",
-  emerald: "bg-emerald-50 text-emerald-500",
+  teal: "bg-teal-50 text-teal-500",
 };
 
 const sizeStyles = {

@@ -17,7 +17,7 @@ export default function NotFound() {
         <div className="mt-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Retour à l&apos;accueil

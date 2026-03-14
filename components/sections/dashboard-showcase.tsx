@@ -111,7 +111,7 @@ export function DashboardShowcase() {
                         </div>
                         <div className="flex items-end gap-2">
                           <span className="text-lg font-bold text-slate-900">{stat.value}</span>
-                          <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full flex items-center gap-0.5 mb-0.5"><TrendingUp className="h-2.5 w-2.5" />{stat.change}</span>
+                          <span className="text-[10px] font-semibold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded-full flex items-center gap-0.5 mb-0.5"><TrendingUp className="h-2.5 w-2.5" />{stat.change}</span>
                         </div>
                       </div>
                     ))}
@@ -123,7 +123,7 @@ export function DashboardShowcase() {
                       <div className="flex items-center justify-between mb-3">
                         <div>
                           <span className="text-xs font-semibold text-slate-900">Croissance mensuelle</span>
-                          <span className="text-[10px] text-emerald-500 font-medium ml-2">+24%</span>
+                          <span className="text-[10px] text-teal-500 font-medium ml-2">+24%</span>
                         </div>
                         <div className="flex gap-3">
                           {["6M", "1A", "Tout"].map((period, j) => (

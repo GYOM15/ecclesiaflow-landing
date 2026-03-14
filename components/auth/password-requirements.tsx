@@ -29,7 +29,7 @@ export function PasswordRequirements({ password }: PasswordRequirementsProps) {
               key={req.label}
               className={cn(
                 "flex items-center gap-2 text-xs transition-colors",
-                met ? "text-emerald-600" : "text-slate-400"
+                met ? "text-teal-600" : "text-slate-400"
               )}
             >
               {met ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}

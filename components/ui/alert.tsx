@@ -16,8 +16,8 @@ interface AlertProps {
 
 const variantStyles: Record<AlertVariant, { container: string; icon: ReactNode }> = {
   success: {
-    container: "bg-emerald-50 border-emerald-200 text-emerald-800",
-    icon: <CheckCircle2 className="h-4 w-4 text-emerald-500" />,
+    container: "bg-teal-50 border-teal-200 text-teal-800",
+    icon: <CheckCircle2 className="h-4 w-4 text-teal-500" />,
   },
   error: {
     container: "bg-rose-50 border-rose-200 text-rose-800",

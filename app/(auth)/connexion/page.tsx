@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, RotateCcw } from "lucide-react";
@@ -9,7 +9,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Alert } from "@/components/ui/alert";
 import { useSocialSignIn } from "@/lib/hooks/use-social-signin";
 
-export default function ConnexionPage() {
+function ConnexionContent() {
   const searchParams = useSearchParams();
   const authError = searchParams.get("error");
   const { error, handleSignIn, clearError } = useSocialSignIn();
@@ -51,7 +51,7 @@ export default function ConnexionPage() {
                 clearError();
                 handleSignIn();
               }}
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors cursor-pointer"
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors cursor-pointer"
             >
               <RotateCcw className="h-4 w-4" />
               Réessayer
@@ -67,5 +67,21 @@ export default function ConnexionPage() {
         </div>
       </div>
     </AuthCard>
+  );
+}
+
+export default function ConnexionPage() {
+  return (
+    <Suspense
+      fallback={
+        <AuthCard title="Connexion" subtitle="Chargement...">
+          <div className="flex flex-col items-center gap-4 py-4">
+            <Spinner size="lg" />
+          </div>
+        </AuthCard>
+      }
+    >
+      <ConnexionContent />
+    </Suspense>
   );
 }

@@ -18,14 +18,14 @@ const sidebarItems = [
 
 const stats = [
   { label: "Membres actifs", value: "847", change: "+12", icon: Users, accent: "border-l-indigo-500", iconBg: "bg-indigo-50", iconColor: "text-indigo-500" },
-  { label: "Présence dim.", value: "623", change: "+5%", icon: BarChart3, accent: "border-l-emerald-500", iconBg: "bg-emerald-50", iconColor: "text-emerald-500" },
+  { label: "Présence dim.", value: "623", change: "+5%", icon: BarChart3, accent: "border-l-teal-500", iconBg: "bg-teal-50", iconColor: "text-teal-500" },
   { label: "Nouveaux", value: "34", change: "+18%", icon: TrendingUp, accent: "border-l-amber-500", iconBg: "bg-amber-50", iconColor: "text-amber-500" },
   { label: "Dons ce mois", value: "$12,450", change: "+8%", icon: CreditCard, accent: "border-l-violet-500", iconBg: "bg-violet-50", iconColor: "text-violet-500" },
 ];
 
 const members = [
   { name: "Marie Dupont", group: "Louange · Groupe A", status: "Actif", color: "bg-indigo-500" },
-  { name: "Jean-Paul Mbeki", group: "Jeunesse · Groupe C", status: "Actif", color: "bg-emerald-500" },
+  { name: "Jean-Paul Mbeki", group: "Jeunesse · Groupe C", status: "Actif", color: "bg-teal-500" },
   { name: "Claire Bonnet", group: "Accueil · Groupe B", status: "Nouveau", color: "bg-amber-500" },
   { name: "Esther Kone", group: "Prière · Groupe A", status: "Actif", color: "bg-violet-500" },
   { name: "Thomas Martin", group: "Média · Groupe D", status: "Actif", color: "bg-rose-500" },
@@ -33,7 +33,7 @@ const members = [
 
 const events = [
   { name: "Culte dominical", date: "Dim. 10h00", count: 620, color: "bg-indigo-500" },
-  { name: "Groupe de prière", date: "Mer. 19h30", count: 45, color: "bg-emerald-500" },
+  { name: "Groupe de prière", date: "Mer. 19h30", count: 45, color: "bg-teal-500" },
   { name: "Répétition louange", date: "Sam. 14h00", count: 18, color: "bg-amber-500" },
 ];
 
@@ -103,7 +103,7 @@ export function DashboardMockup() {
                         </div>
                         <div className="flex items-end gap-2">
                           <span className="text-xl font-bold text-slate-900">{stat.value}</span>
-                          <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full flex items-center gap-0.5 mb-0.5"><TrendingUp className="h-2.5 w-2.5" />{stat.change}</span>
+                          <span className="text-[10px] font-semibold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded-full flex items-center gap-0.5 mb-0.5"><TrendingUp className="h-2.5 w-2.5" />{stat.change}</span>
                         </div>
                       </div>
                     ))}
@@ -124,7 +124,7 @@ export function DashboardMockup() {
                             <div className={`w-8 h-8 rounded-full ${member.color} flex items-center justify-center text-[10px] font-bold text-white`}>{member.name.split(" ").map((n) => n[0]).join("")}</div>
                             <div><p className="text-xs font-medium text-slate-900">{member.name}</p><p className="text-[10px] text-slate-400">{member.group}</p></div>
                           </div>
-                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${member.status === "Nouveau" ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"}`}>{member.status}</span>
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${member.status === "Nouveau" ? "bg-amber-50 text-amber-600" : "bg-teal-50 text-teal-600"}`}>{member.status}</span>
                         </div>
                       ))}
                     </div>
@@ -158,7 +158,7 @@ export function DashboardMockup() {
                         <div className="grid grid-cols-2 gap-2">
                           {[
                             { label: "Ajouter membre", icon: Users, bg: "bg-indigo-50", color: "text-indigo-600" },
-                            { label: "Nouvel événement", icon: Calendar, bg: "bg-emerald-50", color: "text-emerald-600" },
+                            { label: "Nouvel événement", icon: Calendar, bg: "bg-teal-50", color: "text-teal-600" },
                             { label: "Envoyer message", icon: MessageSquare, bg: "bg-amber-50", color: "text-amber-600" },
                             { label: "Voir rapports", icon: BarChart3, bg: "bg-violet-50", color: "text-violet-600" },
                           ].map((action) => (

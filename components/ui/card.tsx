@@ -8,7 +8,7 @@ interface CardProps {
   className?: string;
   children: React.ReactNode;
   thumbnail?: React.ReactNode;
-  accentColor?: "indigo" | "emerald" | "amber" | "violet" | "rose" | "teal";
+  accentColor?: "indigo" | "teal" | "amber";
 }
 
 const variantStyles: Record<CardVariant, string> = {

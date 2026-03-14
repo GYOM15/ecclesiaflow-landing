@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 const planAccents = [
   { check: "text-slate-400", border: "border-slate-200/60", bg: "bg-white" },
-  { check: "text-emerald-500", border: "border border-indigo-200/60", bg: "bg-gradient-to-b from-indigo-50/20 to-white" },
+  { check: "text-teal-500", border: "border border-indigo-200/60", bg: "bg-gradient-to-b from-indigo-50/20 to-white" },
   { check: "text-indigo-500", border: "border-slate-200/60", bg: "bg-white" },
 ];
 
@@ -108,7 +108,7 @@ export function PricingCards() {
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2.5 text-sm text-slate-600">
                         <div className={cn("w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5",
-                          plan.highlighted ? "bg-emerald-50" : "bg-slate-50"
+                          plan.highlighted ? "bg-teal-50" : "bg-slate-50"
                         )}>
                           <Check className={cn("h-3.5 w-3.5", planAccents[i].check)} />
                         </div>

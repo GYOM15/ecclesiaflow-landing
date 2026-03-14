@@ -74,7 +74,7 @@ function EmailChangeConfirmationContent() {
           </Alert>
           <Link
             href="/connexion"
-            className="block w-full text-center rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
+            className="block w-full text-center rounded-xl bg-indigo-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors"
           >
             Se connecter
           </Link>

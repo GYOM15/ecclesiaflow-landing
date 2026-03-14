@@ -19,7 +19,7 @@ export default function Unauthorized() {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/connexion"
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors"
           >
             <LogIn className="h-4 w-4" />
             Se connecter

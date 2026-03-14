@@ -13,7 +13,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   default: "bg-slate-100 text-slate-600",
   indigo: "bg-indigo-50 text-indigo-600",
   amber: "bg-amber-50 text-amber-700",
-  success: "bg-emerald-50 text-emerald-600",
+  success: "bg-teal-50 text-teal-600",
   outline: "border border-slate-200 text-slate-500",
 };
 

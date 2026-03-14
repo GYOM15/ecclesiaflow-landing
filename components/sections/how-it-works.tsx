@@ -14,11 +14,11 @@ const stepStyles = [
     lightColor: "via-indigo-400",
   },
   {
-    numColor: "text-emerald-500",
-    numColorLabel: "text-emerald-500",
-    ripple: "border-emerald-200",
-    ripple2: "border-emerald-100",
-    lightColor: "via-emerald-400",
+    numColor: "text-teal-500",
+    numColorLabel: "text-teal-500",
+    ripple: "border-teal-200",
+    ripple2: "border-teal-100",
+    lightColor: "via-teal-400",
   },
   {
     numColor: "text-amber-500",

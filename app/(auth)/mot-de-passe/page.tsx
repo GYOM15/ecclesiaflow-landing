@@ -133,7 +133,7 @@ export default function MotDePassePage() {
         <div className="flex flex-col items-center gap-6 py-8">
           <Spinner size="lg" />
           <div className="text-center">
-            <p className="text-sm font-medium text-emerald-600">
+            <p className="text-sm font-medium text-teal-600">
               Mot de passe défini avec succès
             </p>
             <p className="text-xs text-slate-400 mt-1">Connexion en cours...</p>
@@ -174,7 +174,7 @@ export default function MotDePassePage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting && <Spinner size="sm" className="text-white" />}
           Définir le mot de passe

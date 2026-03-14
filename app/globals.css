@@ -13,6 +13,7 @@
   --shadow-diffuse: 0 8px 60px -15px rgb(0 0 0 / 0.12);
   --shadow-glow-indigo: 0 0 40px -10px rgb(99 102 241 / 0.2);
   --shadow-glow-amber: 0 0 40px -10px rgb(245 158 11 / 0.2);
+  --shadow-glow-teal: 0 0 40px -10px rgb(20 184 166 / 0.2);
 
   /* Animations */
   --animate-marquee: marquee 40s linear infinite;

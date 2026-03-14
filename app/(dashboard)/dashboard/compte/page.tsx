@@ -160,7 +160,7 @@ export default function AccountPage() {
               </p>
               <Link
                 href="/dashboard/credentials"
-                className="inline-flex items-center gap-2 mt-3 rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
+                className="inline-flex items-center gap-2 mt-3 rounded-xl bg-indigo-500 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-600 transition-colors"
               >
                 <Lock className="h-4 w-4" />
                 Ajouter un mot de passe
@@ -220,7 +220,7 @@ export default function AccountPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting && <Spinner size="sm" className="text-white" />}
                 Modifier l&apos;email
@@ -247,7 +247,7 @@ export default function AccountPage() {
           <button
             onClick={handleChangePassword}
             disabled={changingPassword}
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {changingPassword ? (
               <Spinner size="sm" className="text-white" />

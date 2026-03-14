@@ -37,7 +37,7 @@ export function Toggle({ options, active, onChange, savingLabel }: ToggleProps) 
         ))}
       </div>
       {savingLabel && active === 1 && (
-        <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
+        <span className="text-xs font-medium text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">
           {savingLabel}
         </span>
       )}

@@ -7,7 +7,7 @@ import { CrossMotif } from "@/components/decorative/cross-motif";
 /* ─── Milestone colors — each step has its own unique color ─── */
 const dotGradients = [
   "from-indigo-500 to-indigo-400",
-  "from-emerald-500 to-emerald-400",
+  "from-teal-500 to-teal-400",
   "from-amber-500 to-amber-400",
   "from-violet-500 to-violet-400",
   "from-rose-500 to-rose-400",
@@ -16,7 +16,7 @@ const dotGradients = [
 
 const ringColors = [
   "ring-indigo-100",
-  "ring-emerald-100",
+  "ring-teal-100",
   "ring-amber-100",
   "ring-violet-100",
   "ring-rose-100",
@@ -26,7 +26,7 @@ const ringColors = [
 /* Color values for the single traveling circuit */
 const circuitColors = [
   "#6366f1", // indigo
-  "#10b981", // emerald
+  "#14b8a6", // teal
   "#f59e0b", // amber
   "#8b5cf6", // violet
   "#f43f5e", // rose

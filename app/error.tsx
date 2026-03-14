@@ -26,7 +26,7 @@ export default function ErrorPage({
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={reset}
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-600 transition-colors cursor-pointer"
           >
             <RotateCcw className="h-4 w-4" />
             Réessayer
