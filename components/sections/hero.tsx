@@ -157,6 +157,11 @@ export function Hero() {
           animate={{ x: [0, 15, -8, 0], y: [0, 10, -12, 0], scale: [1, 0.96, 1.04, 1] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
+        <motion.div
+          className="absolute top-[50%] right-[15%] w-[30%] h-[40%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.04),transparent_70%)] rounded-full blur-3xl"
+          animate={{ x: [0, -12, 8, 0], y: [0, -8, 14, 0], scale: [1, 1.03, 0.98, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
         <div className="absolute inset-0 opacity-[0.018]" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
       </div>
 

@@ -139,9 +139,9 @@ export function Integrations() {
               {INTEGRATIONS.map((integration, i) => {
                 const colors = [
                   "bg-indigo-50 text-indigo-500", "bg-teal-50 text-teal-500",
-                  "bg-amber-50 text-amber-500", "bg-violet-50 text-violet-500",
-                  "bg-teal-50 text-teal-500", "bg-rose-50 text-rose-500",
-                  "bg-blue-50 text-blue-500", "bg-orange-50 text-orange-500",
+                  "bg-amber-50 text-amber-600", "bg-indigo-50 text-indigo-500",
+                  "bg-teal-50 text-teal-500", "bg-amber-50 text-amber-600",
+                  "bg-indigo-50 text-indigo-500", "bg-teal-50 text-teal-500",
                 ];
                 return (
                   <div key={integration.name} className="flex flex-col items-center gap-2 group cursor-pointer">

@@ -10,7 +10,7 @@ const avatarBgs = [
   "bg-indigo-100",
   "bg-teal-100",
   "bg-amber-100",
-  "bg-violet-100",
+  "bg-indigo-100",
 ];
 
 const wavePaths = [

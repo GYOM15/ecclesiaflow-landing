@@ -7,10 +7,10 @@ import { STATS } from "@/lib/constants";
 import { Church, Users, Server, Star } from "lucide-react";
 
 const statMeta = [
-  { icon: Church, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
-  { icon: Users, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
-  { icon: Server, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
-  { icon: Star, iconBg: "bg-white/10", iconColor: "text-slate-300", accent: "border-b-slate-600" },
+  { icon: Church, iconBg: "bg-indigo-500/20", iconColor: "text-indigo-300", accent: "border-b-indigo-500" },
+  { icon: Users, iconBg: "bg-teal-500/20", iconColor: "text-teal-300", accent: "border-b-teal-500" },
+  { icon: Server, iconBg: "bg-indigo-500/20", iconColor: "text-indigo-300", accent: "border-b-indigo-500" },
+  { icon: Star, iconBg: "bg-teal-500/20", iconColor: "text-teal-300", accent: "border-b-teal-500" },
 ];
 
 export function Stats() {
@@ -22,7 +22,7 @@ export function Stats() {
       <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
       {/* Glow orbs */}
       <div className="absolute top-0 right-[20%] w-[40%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.15),transparent_70%)] rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-[10%] w-[30%] h-[40%] bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.08),transparent_70%)] rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-[10%] w-[30%] h-[40%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.12),transparent_70%)] rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">

@@ -7,11 +7,11 @@ import { ScrollReveal } from "@/components/animation/scroll-reveal";
 
 export function CtaSection() {
   return (
-    <section className="relative py-20 lg:py-28 bg-white overflow-hidden -mb-px">
+    <section className="relative py-20 lg:py-28 bg-gradient-to-b from-indigo-50 via-white to-slate-50 overflow-hidden -mb-px">
       {/* Subtle decorative gradients */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 right-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.04),transparent_70%)] rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-[5%] w-[35%] h-[45%] bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.03),transparent_70%)] rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-[5%] w-[35%] h-[45%] bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.04),transparent_70%)] rounded-full blur-3xl" />
         <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
       </div>
 

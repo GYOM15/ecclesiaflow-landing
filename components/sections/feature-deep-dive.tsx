@@ -152,7 +152,7 @@ export function FeatureDeepDive() {
                 <ul className="space-y-3">
                   {feature.bullets.map((bullet) => (
                     <li key={bullet} className="flex items-start gap-3 text-sm text-slate-600">
-                      <CheckCircle2 className="h-5 w-5 text-slate-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="h-5 w-5 text-teal-500 shrink-0 mt-0.5" />
                       <span>{bullet}</span>
                     </li>
                   ))}
