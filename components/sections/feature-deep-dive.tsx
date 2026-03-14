@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils";
 
 function MembersMockup() {
   const members = [
-    { name: "Marie Dupont", role: "Louange · Groupe A", status: "Actif", color: "bg-slate-500", statusBg: "bg-slate-50 text-slate-600" },
-    { name: "Jean-Paul Mbeki", role: "Jeunesse · Groupe C", status: "Actif", color: "bg-slate-600", statusBg: "bg-slate-50 text-slate-600" },
-    { name: "Claire Bonnet", role: "Accueil · Groupe B", status: "Nouveau", color: "bg-slate-400", statusBg: "bg-slate-100 text-slate-500" },
-    { name: "Esther Kone", role: "Prière · Groupe A", status: "Actif", color: "bg-slate-500", statusBg: "bg-slate-50 text-slate-600" },
-    { name: "Thomas Martin", role: "Média · Groupe D", status: "Actif", color: "bg-slate-600", statusBg: "bg-slate-50 text-slate-600" },
+    { name: "Marie Dupont", role: "Louange · Groupe A", status: "Actif", color: "bg-indigo-500", statusBg: "bg-teal-50 text-teal-600" },
+    { name: "Jean-Paul Mbeki", role: "Jeunesse · Groupe C", status: "Actif", color: "bg-teal-500", statusBg: "bg-teal-50 text-teal-600" },
+    { name: "Claire Bonnet", role: "Accueil · Groupe B", status: "Nouveau", color: "bg-amber-500", statusBg: "bg-amber-50 text-amber-600" },
+    { name: "Esther Kone", role: "Prière · Groupe A", status: "Actif", color: "bg-indigo-500", statusBg: "bg-teal-50 text-teal-600" },
+    { name: "Thomas Martin", role: "Média · Groupe D", status: "Actif", color: "bg-teal-500", statusBg: "bg-teal-50 text-teal-600" },
   ];
   return (
     <div className="p-5 sm:p-6">
@@ -44,9 +44,9 @@ function MembersMockup() {
 
 function CommunicationMockup() {
   const campaigns = [
-    { title: "Rappel culte dimanche", sent: "623", rate: "94%", color: "bg-slate-400" },
-    { title: "Invitation retraite", sent: "412", rate: "87%", color: "bg-slate-500" },
-    { title: "Newsletter mensuelle", sent: "847", rate: "78%", color: "bg-slate-400" },
+    { title: "Rappel culte dimanche", sent: "623", rate: "94%", color: "bg-indigo-400" },
+    { title: "Invitation retraite", sent: "412", rate: "87%", color: "bg-teal-400" },
+    { title: "Newsletter mensuelle", sent: "847", rate: "78%", color: "bg-indigo-400" },
   ];
   return (
     <div className="p-5 sm:p-6">
@@ -89,10 +89,10 @@ function CommunicationMockup() {
 
 function EventsMockup() {
   const events = [
-    { title: "Culte dominical", date: "Dim.", time: "10:00", attendees: "~620", color: "bg-slate-500" },
-    { title: "Groupe de prière", date: "Mer.", time: "19:30", attendees: "45", color: "bg-slate-400" },
-    { title: "Répétition louange", date: "Sam.", time: "14:00", attendees: "18", color: "bg-slate-400" },
-    { title: "Retraite jeunesse", date: "15-17", time: "Mars", attendees: "85", color: "bg-slate-500" },
+    { title: "Culte dominical", date: "Dim.", time: "10:00", attendees: "~620", color: "bg-indigo-500" },
+    { title: "Groupe de prière", date: "Mer.", time: "19:30", attendees: "45", color: "bg-teal-500" },
+    { title: "Répétition louange", date: "Sam.", time: "14:00", attendees: "18", color: "bg-amber-500" },
+    { title: "Retraite jeunesse", date: "15-17", time: "Mars", attendees: "85", color: "bg-indigo-500" },
   ];
   return (
     <div className="p-5 sm:p-6">
@@ -183,7 +183,7 @@ export function FeatureDeepDive() {
                     <MockupComponent />
                   </div>
                   {/* Bottom diffusion on mockup */}
-                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-slate-50 to-transparent pointer-events-none rounded-b-2xl" />
+                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-2xl" />
                 </div>
               </ScrollReveal>
             </div>
