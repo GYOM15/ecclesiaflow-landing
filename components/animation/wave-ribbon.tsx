@@ -97,14 +97,25 @@ export default function WaveRibbon({ className = "" }: { className?: string }) {
         const baseOpacity = 0.08 + centerBoost * 0.6;
         const bright = 0.6 + centerBoost * 0.4;
 
+        /* Vertical fade: full opacity in top third, quadratic falloff below */
+        const fadeStart = H * 0.33;
+        const fadeEnd = H * 0.85;
+        const ribbonMidY = ribbonCenterY(0.5);
+        let verticalFade = 1;
+        if (ribbonMidY > fadeStart) {
+          const progress = Math.min((ribbonMidY - fadeStart) / (fadeEnd - fadeStart), 1);
+          verticalFade = 1 - progress * progress;
+        }
+
         const grad = ctx!.createLinearGradient(0, 0, W, 0);
         const [c0, c1, c2, c3] = COLORS;
-        grad.addColorStop(0, `rgba(${Math.round(c0[0] * bright)},${Math.round(c0[1] * bright)},${Math.round(c0[2] * bright)},${baseOpacity * 0.3})`);
-        grad.addColorStop(0.12, `rgba(${Math.round(c0[0] * bright)},${Math.round(c0[1] * bright)},${Math.round(c0[2] * bright)},${baseOpacity * 0.7})`);
-        grad.addColorStop(0.35, `rgba(${Math.round(c1[0] * bright)},${Math.round(c1[1] * bright)},${Math.round(c1[2] * bright)},${baseOpacity})`);
-        grad.addColorStop(0.55, `rgba(${Math.round(c2[0] * bright)},${Math.round(c2[1] * bright)},${Math.round(c2[2] * bright)},${baseOpacity})`);
-        grad.addColorStop(0.8, `rgba(${Math.round(c3[0] * bright)},${Math.round(c3[1] * bright)},${Math.round(c3[2] * bright)},${baseOpacity * 0.8})`);
-        grad.addColorStop(1, `rgba(${Math.round(c3[0] * bright)},${Math.round(c3[1] * bright)},${Math.round(c3[2] * bright)},${baseOpacity * 0.3})`);
+        const vf = verticalFade;
+        grad.addColorStop(0, `rgba(${Math.round(c0[0] * bright)},${Math.round(c0[1] * bright)},${Math.round(c0[2] * bright)},${baseOpacity * 0.3 * vf})`);
+        grad.addColorStop(0.12, `rgba(${Math.round(c0[0] * bright)},${Math.round(c0[1] * bright)},${Math.round(c0[2] * bright)},${baseOpacity * 0.7 * vf})`);
+        grad.addColorStop(0.35, `rgba(${Math.round(c1[0] * bright)},${Math.round(c1[1] * bright)},${Math.round(c1[2] * bright)},${baseOpacity * vf})`);
+        grad.addColorStop(0.55, `rgba(${Math.round(c2[0] * bright)},${Math.round(c2[1] * bright)},${Math.round(c2[2] * bright)},${baseOpacity * vf})`);
+        grad.addColorStop(0.8, `rgba(${Math.round(c3[0] * bright)},${Math.round(c3[1] * bright)},${Math.round(c3[2] * bright)},${baseOpacity * 0.8 * vf})`);
+        grad.addColorStop(1, `rgba(${Math.round(c3[0] * bright)},${Math.round(c3[1] * bright)},${Math.round(c3[2] * bright)},${baseOpacity * 0.3 * vf})`);
 
         ctx!.strokeStyle = grad;
         ctx!.stroke();
