@@ -72,7 +72,7 @@ export function AuthSplitLayout({ children, disableHomeLink }: AuthSplitLayoutPr
       </div>
 
       {/* Right panel — form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white px-6 py-12">
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-slate-50 lg:bg-white px-6 py-12">
         <div className="w-full max-w-md">{children}</div>
       </div>
     </div>
