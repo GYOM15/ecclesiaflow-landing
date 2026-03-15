@@ -116,13 +116,13 @@ export function Integrations() {
                 <SmsMockup />
               </div>
             </div>
-            <div className="relative group cursor-pointer">
+            <div className="relative group cursor-pointer" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)" }}>
               <div className="absolute -inset-3 bg-teal-500/[0.04] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
               <div className="relative transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_36px_-8px_rgba(20,184,166,0.15)] rounded-xl">
                 <CalendarMockup />
               </div>
             </div>
-            <div className="relative group cursor-pointer">
+            <div className="relative group cursor-pointer" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)" }}>
               <div className="absolute -inset-3 bg-indigo-500/[0.04] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
               <div className="relative transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.15)] rounded-xl">
                 <PaymentMockup />
@@ -133,7 +133,7 @@ export function Integrations() {
 
         {/* Icon strip — compact list of all integrations */}
         <ScrollReveal delay={0.15}>
-          <div className="bg-white rounded-xl border border-slate-200 p-6 lg:p-8">
+          <div className="bg-white rounded-xl border border-slate-200 p-6 lg:p-8" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)" }}>
             <p className="text-sm font-semibold text-slate-900 mb-5 text-center">Toutes nos intégrations</p>
             <div className="grid grid-cols-4 sm:grid-cols-8 gap-4">
               {INTEGRATIONS.map((integration, i) => {
