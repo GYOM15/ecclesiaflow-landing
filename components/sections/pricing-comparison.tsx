@@ -7,10 +7,22 @@ import { PRICING_COMPARISON } from "@/lib/constants";
 
 function CellValue({ value }: { value: boolean | string }) {
   if (value === true) {
-    return <Check className="h-5 w-5 text-slate-500 mx-auto" />;
+    return (
+      <div className="flex items-center justify-center">
+        <div className="w-6 h-6 rounded-full flex items-center justify-center bg-teal-50">
+          <Check className="h-4 w-4 text-teal-500" />
+        </div>
+      </div>
+    );
   }
   if (value === false) {
-    return <X className="h-5 w-5 text-slate-300 mx-auto" />;
+    return (
+      <div className="flex items-center justify-center">
+        <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
+          <X className="h-4 w-4 text-red-300" />
+        </div>
+      </div>
+    );
   }
   return <span className="text-sm text-slate-600">{value}</span>;
 }
