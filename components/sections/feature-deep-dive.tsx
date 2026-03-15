@@ -182,8 +182,6 @@ export function FeatureDeepDive() {
                     </div>
                     <MockupComponent />
                   </div>
-                  {/* Bottom diffusion on mockup */}
-                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none rounded-b-2xl" />
                 </div>
               </ScrollReveal>
             </div>
