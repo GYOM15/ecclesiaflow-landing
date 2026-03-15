@@ -11,10 +11,12 @@ import { FormField } from "@/components/ui/form-field";
 import { Spinner } from "@/components/ui/spinner";
 import { passwordSchema, type PasswordFormData } from "@/lib/validation/schemas";
 import { addLocalCredentials } from "@/lib/api/auth";
+import { useMember } from "@/contexts/member-context";
 
 export default function CredentialsPage() {
   const { data: session } = useSession();
   const router = useRouter();
+  const { updateMember } = useMember();
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -36,6 +38,7 @@ export default function CredentialsPage() {
     const result = await addLocalCredentials(session.accessToken, data.password);
 
     if (result.ok) {
+      updateMember({ hasLocalCredentials: true });
       setSuccess("Mot de passe ajouté avec succès. Redirection...");
       setTimeout(() => router.push("/dashboard/compte"), 2000);
     } else {

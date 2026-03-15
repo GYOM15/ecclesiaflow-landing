@@ -20,6 +20,8 @@ export default function CallbackPage() {
     try {
       const result = await getMyProfile(accessToken);
       if (result.ok) {
+        // Reset profile-completion banner so it shows again on each new login
+        localStorage.removeItem("profile-banner-dismissed");
         router.push("/dashboard");
         return;
       }
@@ -42,6 +44,7 @@ export default function CallbackPage() {
         });
 
         if (provision.ok) {
+          localStorage.removeItem("profile-banner-dismissed");
           router.push("/dashboard");
         } else {
           // Fallback to manual onboarding form
@@ -62,8 +65,9 @@ export default function CallbackPage() {
       router.push("/connexion");
       return;
     }
-    // Wait until session is fully populated (user profile + tokens)
-    if (session?.accessToken && session?.user?.email) {
+    // Wait until session has an access token (user.email may be absent
+    // for credentials-based sessions, e.g. Direct Grant after password setup)
+    if (session?.accessToken) {
       checkProfile(session.accessToken);
     }
   }, [session, status, router, checkProfile]);

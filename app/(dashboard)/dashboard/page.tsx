@@ -16,6 +16,9 @@ import { useMember } from "@/contexts/member-context";
 
 const BANNER_STORAGE_KEY = "profile-banner-dismissed";
 const BANNER_REMIND_DELAY_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+// TODO: Migrer le mécanisme de dismiss vers un flag côté serveur
+// (ex: champ `profileBannerDismissedAt: DateTime?` dans l'entité Member en BDD)
+// afin de ne plus dépendre de localStorage qui persiste entre suppressions de compte.
 
 function isBannerDismissed(): boolean {
   if (typeof window === "undefined") return false;
