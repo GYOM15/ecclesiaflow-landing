@@ -21,6 +21,34 @@ export function AboutHero() {
         </div>
       </div>
 
+      {/* Diagonal veil bands — opposite direction from landing page */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        {/* Indigo band */}
+        <div
+          className="absolute origin-top-left"
+          style={{
+            top: "-10%",
+            right: "-5%",
+            width: "160px",
+            height: "150%",
+            background: "linear-gradient(180deg, rgba(99,102,241,0.45) 0%, rgba(99,102,241,0.30) 60%, rgba(99,102,241,0.10) 100%)",
+            transform: "rotate(25deg)",
+          }}
+        />
+        {/* Teal band — overlapping, slightly offset */}
+        <div
+          className="absolute origin-top-left"
+          style={{
+            top: "-10%",
+            right: "0%",
+            width: "120px",
+            height: "150%",
+            background: "linear-gradient(180deg, rgba(20,184,166,0.35) 0%, rgba(20,184,166,0.20) 60%, rgba(20,184,166,0.06) 100%)",
+            transform: "rotate(22deg)",
+          }}
+        />
+      </div>
+
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease }}>
           <Badge variant="amber" dot className="mb-5">
