@@ -1,56 +1,86 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
+import { Users } from "lucide-react";
 
-/* ─── Person silhouette positions (5-pointed star + center) ─── */
+/* ─── 9 silhouettes — positions, sizes, colors ─── */
 const PEOPLE = [
-  { x: 0.49, y: 0.08, color: "#6366f1", r: 0.038 },  // Star top
-  { x: 0.76, y: 0.28, color: "#14b8a6", r: 0.036 },  // Star upper-right
-  { x: 0.66, y: 0.73, color: "#818cf8", r: 0.036 },  // Star lower-right
-  { x: 0.34, y: 0.71, color: "#14b8a6", r: 0.036 },  // Star lower-left
-  { x: 0.24, y: 0.31, color: "#2dd4bf", r: 0.036 },  // Star upper-left
-  { x: 0.50, y: 0.40, color: "#6366f1", r: 0.044 },  // Center (focal)
+  { x: 0.08, y: 0.18, r: 0.072, colL: [94, 234, 212],  col: [20, 184, 166] },
+  { x: 0.30, y: 0.06, r: 0.078, colL: [165, 180, 252], col: [99, 102, 241] },
+  { x: 0.52, y: 0.12, r: 0.085, colL: [94, 234, 212],  col: [20, 184, 166] },
+  { x: 0.80, y: 0.05, r: 0.072, colL: [165, 180, 252], col: [99, 102, 241] },
+  { x: 0.14, y: 0.50, r: 0.09,  colL: [165, 180, 252], col: [99, 102, 241] },
+  { x: 0.42, y: 0.44, r: 0.098, colL: [94, 234, 212],  col: [20, 184, 166] },
+  { x: 0.68, y: 0.40, r: 0.078, colL: [129, 140, 248], col: [99, 102, 241] },
+  { x: 0.90, y: 0.34, r: 0.085, colL: [45, 212, 191],  col: [20, 184, 166] },
+  { x: 0.50, y: 0.80, r: 0.075, colL: [165, 180, 252], col: [99, 102, 241] },
 ];
 
-/* Star pentagram + center connections */
+/* Mobile: hide indices 3, 7, 8 → show 6 silhouettes */
+const MOBILE_HIDDEN = new Set([3, 7, 8]);
+
+/* ─── 20 connections — triangulated mesh ─── */
 const CONNECTIONS: [number, number][] = [
-  [0, 2], [2, 4], [4, 1], [1, 3], [3, 0],  // Star lines
-  [5, 0], [5, 1], [5, 2], [5, 3], [5, 4],   // Center to all
+  // top row
+  [0, 1], [1, 2], [2, 3],
+  // top → middle crossings
+  [0, 4], [1, 4], [1, 5], [2, 5],
+  // top → right crossings
+  [2, 6], [3, 6], [3, 7],
+  // middle row
+  [4, 5], [5, 6], [6, 7],
+  // down connections
+  [5, 8], [6, 8], [4, 8],
+  // long diagonals
+  [0, 5], [2, 7], [1, 6],
+  // right → lowest
+  [7, 8],
 ];
 
-/* Each connection has its own pulse period (staggered so they don't sync) */
-const PULSE_PERIODS = CONNECTIONS.map((_, i) => 4000 + i * 700);
-
-
-function drawPerson(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  r: number,
-  color: string
-) {
-  // Head
-  const headR = r * 0.38;
-  ctx.beginPath();
-  ctx.arc(cx, cy - r * 0.25, headR, 0, Math.PI * 2);
-  ctx.fillStyle = color;
-  ctx.fill();
-
-  // Shoulders
-  const shoulderW = r * 0.9;
-  const shoulderH = r * 0.55;
-  const shoulderY = cy + r * 0.15;
-  ctx.beginPath();
-  ctx.ellipse(cx, shoulderY + shoulderH * 0.3, shoulderW, shoulderH, 0, Math.PI, 0);
-  ctx.fill();
+/* ─── 18 decorative background circles (static, random positions) ─── */
+interface Dot {
+  x: number;
+  y: number;
+  r: number;
+  color: [number, number, number];
+  opacity: number;
 }
 
-/* Point on a quadratic bezier at parameter p (0→1) */
-function quadPoint(
+function generateDots(): Dot[] {
+  const dots: Dot[] = [];
+  const rng = (min: number, max: number, seed: number) => {
+    // Deterministic-ish with seed for SSR consistency fallback
+    const v = Math.abs(Math.sin(seed * 9301 + 49297) % 1);
+    return min + v * (max - min);
+  };
+  let s = 0;
+  const push = (color: [number, number, number]) => {
+    s++;
+    dots.push({
+      x: rng(0.05, 0.95, s * 7.3),
+      y: rng(0.05, 0.95, s * 13.7),
+      r: rng(1.5, 4, s * 3.1),
+      color,
+      opacity: rng(0.04, 0.1, s * 5.9),
+    });
+  };
+
+  // 2 rose
+  for (let i = 0; i < 2; i++) push([251, 113, 133]);
+  // 8 indigo
+  for (let i = 0; i < 8; i++) push([99, 102, 241]);
+  // 8 teal
+  for (let i = 0; i < 8; i++) push([20, 184, 166]);
+
+  return dots;
+}
+
+/* ─── Quadratic bezier point at parameter p ─── */
+function quadAt(
   x0: number, y0: number,
   cx: number, cy: number,
   x1: number, y1: number,
-  p: number
+  p: number,
 ) {
   const m = 1 - p;
   return {
@@ -63,6 +93,8 @@ export function CommunityConstellation() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  const dots = useMemo(() => generateDots(), []);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -82,17 +114,17 @@ export function CommunityConstellation() {
 
     let animationId: number;
     const startTime = performance.now();
-    let w = 0;
-    let h = 0;
+    let W = 0;
+    let H = 0;
 
     function resize() {
       const rect = container!.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      w = rect.width;
-      h = rect.height;
-      if (w === 0 || h === 0) return;
-      canvas!.width = w * dpr;
-      canvas!.height = h * dpr;
+      W = rect.width;
+      H = rect.height;
+      if (W === 0 || H === 0) return;
+      canvas!.width = W * dpr;
+      canvas!.height = H * dpr;
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
@@ -100,78 +132,121 @@ export function CommunityConstellation() {
     ro.observe(container);
 
     function render() {
-      if (!ctx || w === 0 || h === 0) {
+      if (!ctx || W === 0 || H === 0) {
         animationId = requestAnimationFrame(render);
         return;
       }
       const t = performance.now() - startTime;
+      const isMobile = W < 768;
+      const minDim = Math.min(W, H);
 
-      // Clear canvas (transparent — DarkBlock provides the background)
-      ctx.clearRect(0, 0, w, h);
+      ctx.clearRect(0, 0, W, H);
 
-      // Compute current positions with brownian wobble
+      /* ── Background dots ── */
+      for (const dot of dots) {
+        ctx.beginPath();
+        ctx.arc(dot.x * W, dot.y * H, dot.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${dot.color[0]},${dot.color[1]},${dot.color[2]},${dot.opacity})`;
+        ctx.fill();
+      }
+
+      /* ── Compute positions (fixed) ── */
+      const rScale = isMobile ? 0.8 : 1;
       const positions = PEOPLE.map((p, i) => {
-        const wobbleX = reducedMotion ? 0 : Math.sin(t * 0.0004 + i * 1.7) * 8 + Math.sin(t * 0.00025 + i * 2.3) * 5;
-        const wobbleY = reducedMotion ? 0 : Math.cos(t * 0.00035 + i * 2.1) * 8 + Math.cos(t * 0.0002 + i * 1.5) * 5;
+        const s = p.r * minDim * rScale;
         return {
-          x: p.x * w + wobbleX,
-          y: p.y * h + wobbleY,
-          color: p.color,
-          r: p.r * Math.min(w, h),
+          px: p.x * W,
+          py: p.y * H,
+          s,
+          colL: p.colL,
+          col: p.col,
+          hidden: isMobile && MOBILE_HIDDEN.has(i),
         };
       });
 
-      // Draw connections + traveling light pulses
+      /* ── Connections ── */
       for (let ci = 0; ci < CONNECTIONS.length; ci++) {
         const [from, to] = CONNECTIONS[ci];
         const p1 = positions[from];
         const p2 = positions[to];
-        const mx = (p1.x + p2.x) / 2;
-        const my = (p1.y + p2.y) / 2;
-        const wobble = reducedMotion ? 0 : Math.sin(t * 0.0003 + from * 1.3 + to * 0.7) * 10;
+        if (p1.hidden || p2.hidden) continue;
+
+        const mx = (p1.px + p2.px) / 2;
+        const my = (p1.py + p2.py) / 2;
+        const wobble = reducedMotion
+          ? 0
+          : Math.sin(t * 0.0003 + from * 1.3 + to * 0.7) * 8;
         const cpx = mx + wobble;
         const cpy = my - wobble * 0.6;
 
-        // Base connection line
+        // Quadratic curve connection
         ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.quadraticCurveTo(cpx, cpy, p2.x, p2.y);
-        ctx.strokeStyle = p1.color;
-        ctx.globalAlpha = 0.15;
-        ctx.lineWidth = 0.8 + Math.sin(t * 0.0002 + from + to) * 0.1;
+        ctx.moveTo(p1.px, p1.py);
+        ctx.quadraticCurveTo(cpx, cpy, p2.px, p2.py);
+        ctx.strokeStyle = `rgba(${p1.col[0]},${p1.col[1]},${p1.col[2]},0.22)`;
+        ctx.lineWidth = 1.2;
         ctx.stroke();
-        ctx.globalAlpha = 1;
 
-        // Traveling light pulse
+        // Traveling particle (simulates communication)
         if (!reducedMotion) {
-          const period = PULSE_PERIODS[ci];
+          const period = 4000 + ci * 700;
           const progress = (t % period) / period;
 
-          const pulse = quadPoint(p1.x, p1.y, cpx, cpy, p2.x, p2.y, progress);
+          const particle = quadAt(p1.px, p1.py, cpx, cpy, p2.px, p2.py, progress);
 
-          // Outer glow
-          const glow = ctx.createRadialGradient(pulse.x, pulse.y, 0, pulse.x, pulse.y, 14);
-          glow.addColorStop(0, p1.color + "50");
-          glow.addColorStop(0.5, p1.color + "18");
-          glow.addColorStop(1, "transparent");
-          ctx.fillStyle = glow;
+          // Outer glow around particle
+          const glowGrad = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, 12);
+          glowGrad.addColorStop(0, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0.25)`);
+          glowGrad.addColorStop(0.5, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0.08)`);
+          glowGrad.addColorStop(1, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0)`);
+          ctx.fillStyle = glowGrad;
           ctx.beginPath();
-          ctx.arc(pulse.x, pulse.y, 14, 0, Math.PI * 2);
+          ctx.arc(particle.x, particle.y, 12, 0, Math.PI * 2);
           ctx.fill();
 
-          // Bright white core
+          // Bright core
           ctx.beginPath();
-          ctx.arc(pulse.x, pulse.y, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = p1.color;
-          ctx.globalAlpha = 0.7;
+          ctx.arc(particle.x, particle.y, 2.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0.7)`;
           ctx.fill();
-          ctx.globalAlpha = 1;
         }
       }
 
-      // Draw people silhouettes
+      /* ── Silhouettes: glow → shoulders → head ── */
       for (const pos of positions) {
-        drawPerson(ctx, pos.x, pos.y, pos.r, pos.color);
+        if (pos.hidden) continue;
+        const { px, py, s, col, colL } = pos;
+
+        // Glow (drawn behind)
+        const glowR = s * 1.2;
+        const glow = ctx.createRadialGradient(px, py, 0, px, py, glowR);
+        glow.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},0.08)`);
+        glow.addColorStop(0.5, `rgba(${col[0]},${col[1]},${col[2]},0.03)`);
+        glow.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(px, py, glowR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Shoulders (body — darker color, lower opacity)
+        ctx.globalAlpha = 0.55;
+        ctx.fillStyle = `rgb(${col[0]},${col[1]},${col[2]})`;
+        ctx.beginPath();
+        ctx.moveTo(px - s * 0.65, py + s * 0.35);
+        ctx.quadraticCurveTo(px - s * 0.3, py + s * 0.05, px, py + s * 0.08);
+        ctx.quadraticCurveTo(px + s * 0.3, py + s * 0.05, px + s * 0.65, py + s * 0.35);
+        ctx.quadraticCurveTo(px + s * 0.5, py + s * 0.6, px, py + s * 0.55);
+        ctx.quadraticCurveTo(px - s * 0.5, py + s * 0.6, px - s * 0.65, py + s * 0.35);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        // Head (lighter color, slightly higher opacity)
+        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = `rgb(${colL[0]},${colL[1]},${colL[2]})`;
+        ctx.beginPath();
+        ctx.arc(px, py - s * 0.25, s * 0.38, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
       }
 
       if (!reducedMotion) {
@@ -185,16 +260,29 @@ export function CommunityConstellation() {
       cancelAnimationFrame(animationId);
       ro.disconnect();
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, dots]);
 
   return (
-    <section className="pt-16 lg:pt-20 pb-0">
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white text-center mb-6">
-        Votre communauté, connectée
-      </h2>
+    <section className="relative py-16 md:py-24">
+      {/* Badge + Title */}
+      <div className="text-center pt-7 md:pt-10 relative z-10">
+        <div className="inline-flex items-center gap-[5px] px-3.5 py-1 rounded-full text-xs font-medium bg-indigo-500/[0.12] text-indigo-300 border border-indigo-500/[0.18] mb-3.5">
+          <Users className="w-3 h-3" />
+          Communauté
+        </div>
+        <h2 className="text-2xl md:text-[30px] font-bold text-slate-200 leading-tight">
+          Votre communauté connectée
+        </h2>
+        <p className="text-sm text-slate-400 mt-2">
+          Chaque lien renforce votre église.
+        </p>
+      </div>
+
+      {/* Canvas container */}
       <div
         ref={containerRef}
-        className="relative w-full h-[320px] sm:h-[400px] lg:h-[480px] overflow-hidden rounded-none"
+        className="relative mx-auto max-w-6xl mt-12"
+        style={{ height: 500 }}
       >
         <canvas
           ref={canvasRef}
