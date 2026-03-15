@@ -269,7 +269,7 @@ export function CommunityConstellation() {
       <img
         src="/images/couronne-white.png"
         alt=""
-        className="hidden lg:block absolute left-[-8%] top-[18%] w-[750px] h-auto opacity-[0.04] brightness-[3] pointer-events-none select-none"
+        className="hidden lg:block absolute left-[-4%] top-[18%] w-[750px] h-auto opacity-[0.04] brightness-[3] pointer-events-none select-none"
         aria-hidden="true"
       />
 
