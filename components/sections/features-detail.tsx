@@ -148,7 +148,7 @@ export function FeaturesDetail() {
               </ScrollReveal>
 
               <ScrollReveal direction={reversed?"left":"right"} delay={0.15} className={cn(reversed&&"lg:order-1")}>
-                <div className="relative">
+                <div className="relative cursor-pointer" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)" }}>
                   <div className={`absolute -inset-4 rounded-3xl bg-gradient-to-br ${meta.gradient} blur-2xl`} aria-hidden="true"/>
 
                   {/* Gradient border highlight on select mockups */}
