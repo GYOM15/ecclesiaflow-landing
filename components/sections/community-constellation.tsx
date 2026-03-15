@@ -2,20 +2,20 @@
 
 import { useRef, useEffect, useState } from "react";
 
-/* ─── Person silhouette positions ─── */
+/* ─── Person silhouette positions (5-pointed star + center) ─── */
 const PEOPLE = [
-  { x: 0.12, y: 0.22, color: "#6366f1", r: 0.034 },
-  { x: 0.42, y: 0.14, color: "#14b8a6", r: 0.042 },
-  { x: 0.78, y: 0.25, color: "#6366f1", r: 0.038 },
-  { x: 0.25, y: 0.65, color: "#14b8a6", r: 0.044 },
-  { x: 0.60, y: 0.58, color: "#818cf8", r: 0.040 },
-  { x: 0.88, y: 0.70, color: "#2dd4bf", r: 0.032 },
+  { x: 0.49, y: 0.08, color: "#6366f1", r: 0.038 },  // Star top
+  { x: 0.76, y: 0.28, color: "#14b8a6", r: 0.036 },  // Star upper-right
+  { x: 0.66, y: 0.73, color: "#818cf8", r: 0.036 },  // Star lower-right
+  { x: 0.34, y: 0.71, color: "#14b8a6", r: 0.036 },  // Star lower-left
+  { x: 0.24, y: 0.31, color: "#2dd4bf", r: 0.036 },  // Star upper-left
+  { x: 0.50, y: 0.40, color: "#6366f1", r: 0.044 },  // Center (focal)
 ];
 
-/* Triangulated mesh connections (source → target) */
+/* Star pentagram + center connections */
 const CONNECTIONS: [number, number][] = [
-  [0, 1], [1, 2], [0, 3], [1, 4], [2, 4],
-  [2, 5], [3, 4], [4, 5], [0, 4], [1, 3], [3, 5],
+  [0, 2], [2, 4], [4, 1], [1, 3], [3, 0],  // Star lines
+  [5, 0], [5, 1], [5, 2], [5, 3], [5, 4],   // Center to all
 ];
 
 /* Each connection has its own pulse period (staggered so they don't sync) */
