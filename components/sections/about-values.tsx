@@ -6,12 +6,12 @@ import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { VALUES } from "@/lib/constants";
 
 const valueColors = [
-  { iconVariant: "indigo" as const, accent: "border-t-indigo-500" },
-  { iconVariant: "teal" as const, accent: "border-t-teal-500" },
-  { iconVariant: "amber" as const, accent: "border-t-amber-500" },
-  { iconVariant: "indigo" as const, accent: "border-t-indigo-500" },
-  { iconVariant: "teal" as const, accent: "border-t-teal-500" },
-  { iconVariant: "amber" as const, accent: "border-t-amber-500" },
+  { iconVariant: "indigo" as const, accent: "border-t-indigo-400/60", hoverBorder: "hover:border-indigo-200/60" },
+  { iconVariant: "teal" as const, accent: "border-t-teal-400/60", hoverBorder: "hover:border-teal-200/60" },
+  { iconVariant: "amber" as const, accent: "border-t-amber-400/60", hoverBorder: "hover:border-amber-200/60" },
+  { iconVariant: "amber" as const, accent: "border-t-amber-400/60", hoverBorder: "hover:border-amber-200/60" },
+  { iconVariant: "indigo" as const, accent: "border-t-indigo-400/60", hoverBorder: "hover:border-indigo-200/60" },
+  { iconVariant: "teal" as const, accent: "border-t-teal-400/60", hoverBorder: "hover:border-teal-200/60" },
 ];
 
 export function AboutValues() {
@@ -28,7 +28,7 @@ export function AboutValues() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {VALUES.map((value, i) => (
             <ScrollReveal key={value.title} delay={i * 0.08}>
-              <div className={`relative bg-white rounded-xl p-6 border border-slate-200 border-t-[3px] ${valueColors[i].accent} shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] hover:border-indigo-200/60 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-500 h-full overflow-hidden group cursor-pointer`}>
+              <div className={`relative bg-white rounded-xl p-6 border border-slate-200 border-t-2 ${valueColors[i].accent} shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] ${valueColors[i].hoverBorder} hover:shadow-sm hover:-translate-y-0.5 transition-all duration-500 h-full overflow-hidden group cursor-pointer`} style={{ maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)" }}>
                 <IconBox
                   icon={value.icon}
                   variant={valueColors[i].iconVariant}
