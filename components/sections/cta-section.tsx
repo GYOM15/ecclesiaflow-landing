@@ -44,12 +44,9 @@ export function CtaSection() {
               </Button>
             </Link>
             <Button size="lg" variant="outline" className="border-indigo-300 text-indigo-600 hover:border-indigo-400 hover:bg-indigo-50">
-              Contactez-nous
+              Nous contacter
             </Button>
           </div>
-          <p className="text-sm text-slate-400 mt-5">
-            Essai gratuit de 14 jours &middot; Annulation à tout moment
-          </p>
         </ScrollReveal>
       </div>
     </section>
