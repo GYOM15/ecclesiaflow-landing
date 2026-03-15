@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { FloatingOrbs } from "@/components/decorative/floating-orbs";
 
@@ -8,6 +9,11 @@ export function FeaturesHero() {
   return (
     <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
       <FloatingOrbs variant="indigo" className="opacity-50" />
+
+      {/* Crown of thorns watermark */}
+      <div className="hidden lg:block absolute left-[0%] top-[5%] opacity-[0.35] pointer-events-none select-none mix-blend-multiply" aria-hidden="true" style={{ maskImage: "radial-gradient(ellipse 50% 50% at center, black 20%, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse 50% 50% at center, black 20%, transparent 70%)" }}>
+        <Image src="/images/couronne-indigo.png" alt="" width={2048} height={1365} className="w-[700px] h-auto" priority={false} />
+      </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div

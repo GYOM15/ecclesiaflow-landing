@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useMemo } from "react";
+import Image from "next/image";
 import { Users } from "lucide-react";
 
 /* ─── 9 silhouettes — positions, sizes, colors ─── */
@@ -264,6 +265,18 @@ export function CommunityConstellation() {
 
   return (
     <section className="relative py-16 md:py-24">
+      {/* Crown of thorns — decorative background (left side) */}
+      <div className="hidden lg:block absolute left-[-3%] top-[10%] opacity-[0.04] pointer-events-none select-none" aria-hidden="true">
+        <Image
+          src="/images/couronne.png"
+          alt=""
+          width={2048}
+          height={1365}
+          className="w-[750px] h-auto"
+          priority={false}
+        />
+      </div>
+
       {/* Badge + Title */}
       <div className="text-center pt-7 md:pt-10 relative z-10">
         <div className="inline-flex items-center gap-[5px] px-3.5 py-1 rounded-full text-xs font-medium bg-indigo-500/[0.12] text-indigo-300 border border-indigo-500/[0.18] mb-3.5">

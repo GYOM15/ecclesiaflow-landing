@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 // Uniform title color (no gradient)
 
@@ -14,6 +15,10 @@ export function AboutHero() {
         <div className="absolute -top-[20%] right-[10%] w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.04),transparent_70%)] rounded-full blur-3xl" />
         <div className="absolute top-[20%] -left-[5%] w-[35%] h-[45%] bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.03),transparent_70%)] rounded-full blur-3xl" />
         <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
+        {/* Crown of thorns watermark */}
+        <div className="hidden lg:block absolute right-[0%] top-[5%] opacity-[0.35] select-none mix-blend-multiply" style={{ maskImage: "radial-gradient(ellipse 50% 50% at center, black 20%, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse 50% 50% at center, black 20%, transparent 70%)" }}>
+          <Image src="/images/couronne-indigo.png" alt="" width={2048} height={1365} className="w-[700px] h-auto" priority={false} />
+        </div>
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
