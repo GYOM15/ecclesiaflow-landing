@@ -26,6 +26,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Build-time args for Next.js rewrites (baked into standalone output)
+ARG MEMBERS_API_URL=http://members-module:8080
+ARG AUTH_API_URL=http://auth-module:8081
+ENV MEMBERS_API_URL=${MEMBERS_API_URL}
+ENV AUTH_API_URL=${AUTH_API_URL}
+
 # Next.js standalone mode produces a self-contained server
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
