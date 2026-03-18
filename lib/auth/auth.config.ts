@@ -5,7 +5,8 @@ import "@/lib/auth/types";
 
 async function refreshAccessToken(token: any) {
   try {
-    const url = `${process.env.AUTH_KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
+    const baseUrl = process.env.AUTH_KEYCLOAK_INTERNAL_URL || process.env.AUTH_KEYCLOAK_ISSUER;
+    const url = `${baseUrl}/protocol/openid-connect/token`;
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -40,6 +41,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_KEYCLOAK_SECRET!,
       issuer: process.env.AUTH_KEYCLOAK_ISSUER!,
       checks: ["state"],
+      // In Docker, use internal URL for server-to-server token exchange
+      // while keeping the external issuer for browser redirects
+      ...(process.env.AUTH_KEYCLOAK_INTERNAL_URL
+        ? {
+            token: `${process.env.AUTH_KEYCLOAK_INTERNAL_URL}/protocol/openid-connect/token`,
+            userinfo: {
+              url: `${process.env.AUTH_KEYCLOAK_INTERNAL_URL}/protocol/openid-connect/userinfo`,
+            },
+          }
+        : {}),
     }),
     Credentials({
       id: "credentials",
