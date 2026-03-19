@@ -41,10 +41,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_KEYCLOAK_SECRET!,
       issuer: process.env.AUTH_KEYCLOAK_ISSUER!,
       checks: ["state"],
-      // In Docker, use internal URL for server-to-server token exchange
-      // while keeping the external issuer for browser redirects
+      // In Docker, use internal URL for server-to-server communication
+      // while keeping the external issuer for browser redirects and JWT validation
       ...(process.env.AUTH_KEYCLOAK_INTERNAL_URL
         ? {
+            wellKnown: `${process.env.AUTH_KEYCLOAK_INTERNAL_URL}/.well-known/openid-configuration`,
             token: `${process.env.AUTH_KEYCLOAK_INTERNAL_URL}/protocol/openid-connect/token`,
             userinfo: {
               url: `${process.env.AUTH_KEYCLOAK_INTERNAL_URL}/protocol/openid-connect/userinfo`,
