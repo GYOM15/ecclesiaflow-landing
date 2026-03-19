@@ -36,8 +36,8 @@ export const passwordSchema = z
       .regex(/[A-Z]/, "Doit contenir au moins une lettre majuscule")
       .regex(/\d/, "Doit contenir au moins un chiffre")
       .regex(
-        /[@$!%*?&]/,
-        "Doit contenir au moins un caractère spécial (@$!%*?&)"
+        /[@$!%*?&#^~_\-.+=\/\\|]/,
+        "Doit contenir au moins un caractère spécial (@$!%*?&#^~_-.+=)"
       ),
     confirmPassword: z.string(),
   })

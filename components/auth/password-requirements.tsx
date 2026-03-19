@@ -12,7 +12,7 @@ const requirements = [
   { label: "Une lettre minuscule", test: (p: string) => /[a-z]/.test(p) },
   { label: "Une lettre majuscule", test: (p: string) => /[A-Z]/.test(p) },
   { label: "Un chiffre", test: (p: string) => /\d/.test(p) },
-  { label: "Un caractère spécial (@$!%*?&)", test: (p: string) => /[@$!%*?&]/.test(p) },
+  { label: "Un caractère spécial (@$!%*?&#^~_-.+=)", test: (p: string) => /[@$!%*?&#^~_\-.+=\/\\|]/.test(p) },
 ];
 
 export function PasswordRequirements({ password }: PasswordRequirementsProps) {
