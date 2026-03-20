@@ -35,9 +35,9 @@ function GoogleLogo({ className }: { className?: string }) {
 /* Mini cross icon for ticker */
 function MiniCross({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 16 16" fill="currentColor">
-      <rect x="6.5" y="1" width="3" height="14" rx="1.5" />
-      <rect x="1" y="5.5" width="14" height="3" rx="1.5" />
+    <svg className={className} viewBox="0 0 16 16" fill="currentColor" shapeRendering="crispEdges">
+      <rect x="6.5" y="1" width="3" height="14" />
+      <rect x="1" y="5.5" width="14" height="3" />
     </svg>
   );
 }

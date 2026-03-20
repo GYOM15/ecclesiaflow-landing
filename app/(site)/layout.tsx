@@ -17,7 +17,7 @@ export default function MarketingLayout({
       </a>
       <VerticalLine />
       <Navbar />
-      <main id="main-content">{children}</main>
+      <main id="main-content" className="overflow-x-clip">{children}</main>
       <Footer />
     </>
   );

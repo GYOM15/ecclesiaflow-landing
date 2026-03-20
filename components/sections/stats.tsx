@@ -39,10 +39,10 @@ export function Stats() {
         </div>
 
         <ScrollReveal>
-          <div className="grid grid-cols-3 gap-6 lg:gap-10">
+          <div className="grid grid-cols-3 gap-3 sm:gap-6 lg:gap-10">
             {STATS.map((stat, i) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-4xl sm:text-5xl lg:text-6xl font-medium text-white mb-2">
+              <div key={stat.label} className="text-center min-w-0">
+                <div className="text-xl sm:text-5xl lg:text-6xl font-medium text-white mb-2">
                   <AnimatedCounter value={stat.value} />
                   <ColoredSuffix suffix={stat.suffix} colorClass={symbolColors[i]} />
                 </div>

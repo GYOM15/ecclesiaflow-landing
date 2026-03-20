@@ -9,7 +9,7 @@ interface DarkBlockProps {
 
 export default function DarkBlock({ children }: DarkBlockProps) {
   return (
-    <div className="relative overflow-hidden bg-slate-900 border-t border-indigo-500/30">
+    <div className="relative overflow-hidden bg-slate-900">
       <WaveRibbon />
       <div className="relative z-10">
         {children}

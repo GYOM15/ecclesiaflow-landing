@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={inter.variable}>
-      <body className="font-sans antialiased bg-white text-slate-900">
+      <body className="font-sans antialiased bg-white text-slate-900 overflow-x-clip">
         <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>

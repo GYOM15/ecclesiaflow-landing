@@ -46,7 +46,7 @@ const stepStyles = [
 
 export function HowItWorks() {
   return (
-    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
+    <section className="relative py-14 lg:py-28 bg-white overflow-hidden">
       {/* Subtle wavy background lines */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <svg className="absolute top-0 left-0 w-full h-16" viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none">
@@ -75,7 +75,7 @@ export function HowItWorks() {
 
             return (
               <ScrollReveal key={step.step} delay={index * 0.12}>
-                <div className="relative flex gap-6 lg:gap-10">
+                <div className="relative flex gap-4 sm:gap-6 lg:gap-10">
                   {/* Timeline stem */}
                   <div className="flex flex-col items-center shrink-0">
                     {/* Pulsing dot with wave ripples — colored per step */}
@@ -130,8 +130,8 @@ export function HowItWorks() {
                   </div>
 
                   {/* Content card */}
-                  <div className={`flex-1 ${isLast ? "pb-0" : "pb-12"}`}>
-                    <div className={`relative bg-white rounded-xl p-6 lg:p-8 border border-slate-200 ${s.cardAccent} shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] transition-all duration-500 overflow-hidden group/card cursor-pointer`}>
+                  <div className={`flex-1 min-w-0 ${isLast ? "pb-0" : "pb-12"}`}>
+                    <div className={`relative bg-white rounded-xl p-4 sm:p-6 lg:p-8 border border-slate-200 ${s.cardAccent} shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] transition-all duration-500 overflow-hidden group/card cursor-pointer`}>
                       {/* Gradient border highlight on hover — fade in */}
                       <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-indigo-400/40 via-indigo-200/15 to-slate-300/25 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" aria-hidden="true" />
                       <div className="flex items-center gap-3 mb-3">
@@ -161,19 +161,19 @@ export function HowItWorks() {
                           </div>
                         )}
                         {index === 1 && (
-                          <div className="flex items-center gap-3">
-                            <div className="flex gap-1.5">
+                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-3">
+                            <div className="flex gap-1 sm:gap-1.5">
                               {[
                                 { label: "Pasteur", bg: "bg-indigo-50 text-indigo-600" },
                                 { label: "Diacre", bg: "bg-teal-50 text-teal-600" },
                                 { label: "Admin", bg: "bg-indigo-50 text-indigo-600" },
                               ].map((role) => (
-                                <span key={role.label} className={`text-[10px] px-2 py-0.5 rounded-md font-medium ${role.bg}`}>
+                                <span key={role.label} className={`text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-md font-medium ${role.bg}`}>
                                   {role.label}
                                 </span>
                               ))}
                             </div>
-                            <span className="text-xs text-slate-400">Rôles personnalisables</span>
+                            <span className="text-[10px] sm:text-xs text-slate-400">Rôles personnalisables</span>
                           </div>
                         )}
                         {index === 2 && (

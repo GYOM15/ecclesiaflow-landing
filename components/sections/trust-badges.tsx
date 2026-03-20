@@ -45,10 +45,10 @@ export function TrustBadges() {
             {badges.map((badge) => (
               <div
                 key={badge.title}
-                className="flex items-start gap-3 p-4 rounded-xl bg-white border border-slate-200 shadow-[0_1px_4px_-1px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_16px_-4px_rgba(99,102,241,0.12)] transition-all duration-300 hover:-translate-y-0.5 cursor-default"
+                className="flex items-start gap-2.5 p-3 sm:p-4 rounded-xl bg-white border border-slate-200 shadow-[0_1px_4px_-1px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_16px_-4px_rgba(99,102,241,0.12)] transition-all duration-300 hover:-translate-y-0.5 cursor-default"
               >
-                <div className={`w-10 h-10 rounded-xl ${badge.iconBg} flex items-center justify-center shrink-0`}>
-                  <badge.icon className={`h-5 w-5 ${badge.iconColor}`} />
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl ${badge.iconBg} flex items-center justify-center shrink-0`}>
+                  <badge.icon className={`h-4 w-4 sm:h-5 sm:w-5 ${badge.iconColor}`} />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-slate-900">{badge.title}</p>

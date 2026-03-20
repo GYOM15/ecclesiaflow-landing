@@ -50,9 +50,11 @@ export function VoilesAngulaires({ bgColor = DEFAULT_BG_COLOR, panels = PANELS }
       return;
     }
 
-    // Mobile optimizations: fewer panels, lower DPR, throttled to ~30fps
+    // Mobile optimizations: fewer panels, lower DPR, throttled to ~30fps, reduced opacity
     const isMobile = window.innerWidth < 768;
-    const activePanels = isMobile ? panels.filter((_, i) => i % 2 === 0) : panels;
+    const activePanels = isMobile
+      ? panels.filter((_, i) => i % 2 === 0).map(p => ({ ...p, xOff: Math.min(p.xOff + 0.15, 0.95) }))
+      : panels;
     const frameInterval = isMobile ? 33 : 0; // ~30fps on mobile, uncapped on desktop
 
     let animationId: number;
@@ -93,7 +95,8 @@ export function VoilesAngulaires({ bgColor = DEFAULT_BG_COLOR, panels = PANELS }
       activePanels.forEach((panel, i) => {
         const x = w * panel.xOff + Math.sin(t * 0.0004 * panel.speed + i * 0.8) * 60;
         const rotation = (panel.angle + Math.sin(t * 0.00025 + i * 1.2) * 2) * (Math.PI / 180);
-        const opacity = 0.35 + Math.sin(t * 0.0003 + i * 0.6) * 0.05;
+        const baseOpacity = isMobile ? 0.18 : 0.35;
+        const opacity = baseOpacity + Math.sin(t * 0.0003 + i * 0.6) * 0.05;
 
         ctx.save();
         ctx.translate(x, h / 2);

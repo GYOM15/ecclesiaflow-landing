@@ -109,9 +109,9 @@ export function DashboardShowcase() {
                           <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">{stat.label}</p>
                           <div className={`w-6 h-6 rounded-lg ${stat.iconBg} flex items-center justify-center`}><stat.icon className={`h-3 w-3 ${stat.iconColor}`} /></div>
                         </div>
-                        <div className="flex items-end gap-2">
-                          <span className="text-lg font-bold text-slate-900">{stat.value}</span>
-                          <span className="text-[10px] font-semibold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded-full flex items-center gap-0.5 mb-0.5"><TrendingUp className="h-2.5 w-2.5" />{stat.change}</span>
+                        <div className="flex flex-wrap items-end gap-1 sm:gap-2">
+                          <span className="text-base sm:text-lg font-bold text-slate-900">{stat.value}</span>
+                          <span className="text-[9px] sm:text-[10px] font-semibold text-teal-600 bg-teal-50 px-1 sm:px-1.5 py-0.5 rounded-full flex items-center gap-0.5 mb-0.5"><TrendingUp className="h-2.5 w-2.5" />{stat.change}</span>
                         </div>
                       </div>
                     ))}

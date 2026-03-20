@@ -134,7 +134,7 @@ export function FeaturesDetail() {
           const reversed = catIndex % 2 === 1;
           return (
             <div key={cat.id} className={cn("grid lg:grid-cols-2 gap-10 lg:gap-16 items-center")}>
-              <ScrollReveal direction={reversed?"right":"left"} className={cn(reversed&&"lg:order-2")}>
+              <ScrollReveal direction={reversed?"right":"left"} className={cn(reversed&&"lg:order-2", "overflow-hidden")}>
                 <Badge variant={meta.accent} className="mb-4">{cat.label}</Badge>
                 <h3 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight mb-6 leading-snug">{meta.heading}</h3>
                 <div className="grid sm:grid-cols-2 gap-3">
@@ -147,7 +147,7 @@ export function FeaturesDetail() {
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal direction={reversed?"left":"right"} delay={0.15} className={cn(reversed&&"lg:order-1")}>
+              <ScrollReveal direction={reversed?"left":"right"} delay={0.15} className={cn(reversed&&"lg:order-1", "overflow-hidden")}>
                 <div className="relative cursor-pointer" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)" }}>
                   <div className={`absolute -inset-4 rounded-3xl bg-gradient-to-br ${meta.gradient} blur-2xl`} aria-hidden="true"/>
 

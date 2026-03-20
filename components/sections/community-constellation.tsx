@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Users } from "lucide-react";
 
-/* ─── 9 silhouettes — positions, sizes, colors ─── */
-const PEOPLE = [
+/* ─── Desktop: 9 silhouettes — organic spread ─── */
+const PEOPLE_DESKTOP = [
   { x: 0.08, y: 0.18, r: 0.072, colL: [94, 234, 212],  col: [20, 184, 166] },
   { x: 0.30, y: 0.06, r: 0.078, colL: [165, 180, 252], col: [99, 102, 241] },
   { x: 0.52, y: 0.12, r: 0.085, colL: [94, 234, 212],  col: [20, 184, 166] },
@@ -13,28 +13,47 @@ const PEOPLE = [
   { x: 0.42, y: 0.44, r: 0.098, colL: [94, 234, 212],  col: [20, 184, 166] },
   { x: 0.68, y: 0.40, r: 0.078, colL: [129, 140, 248], col: [99, 102, 241] },
   { x: 0.90, y: 0.34, r: 0.085, colL: [45, 212, 191],  col: [20, 184, 166] },
-  { x: 0.50, y: 0.80, r: 0.075, colL: [165, 180, 252], col: [99, 102, 241] },
+  { x: 0.50, y: 0.70, r: 0.075, colL: [165, 180, 252], col: [99, 102, 241] },
 ];
 
-/* Mobile: hide indices 3, 7, 8 → show 6 silhouettes */
-const MOBILE_HIDDEN = new Set([3, 7, 8]);
-
-/* ─── 20 connections — triangulated mesh ─── */
-const CONNECTIONS: [number, number][] = [
-  // top row
+const CONNECTIONS_DESKTOP: [number, number][] = [
   [0, 1], [1, 2], [2, 3],
-  // top → middle crossings
   [0, 4], [1, 4], [1, 5], [2, 5],
-  // top → right crossings
   [2, 6], [3, 6], [3, 7],
-  // middle row
   [4, 5], [5, 6], [6, 7],
-  // down connections
   [5, 8], [6, 8], [4, 8],
-  // long diagonals
   [0, 5], [2, 7], [1, 6],
-  // right → lowest
   [7, 8],
+];
+
+/* ─── Mobile: 7 silhouettes — hexagon + center ─── */
+// Hexagon centered at (0.5, 0.5), radius ~0.35
+const HEX_R = 0.32;
+const HEX_CX = 0.50;
+const HEX_CY = 0.48;
+const PEOPLE_MOBILE = [
+  // Center
+  { x: HEX_CX, y: HEX_CY, r: 0.095, colL: [94, 234, 212], col: [20, 184, 166] },
+  // 6 vertices at 60° intervals (starting from top)
+  ...Array.from({ length: 6 }, (_, i) => {
+    const angle = -Math.PI / 2 + (i * Math.PI * 2) / 6;
+    const teal = i % 2 === 0;
+    return {
+      x: HEX_CX + Math.cos(angle) * HEX_R,
+      y: HEX_CY + Math.sin(angle) * HEX_R * 1.1, // stretch Y slightly for visual balance
+      r: 0.075,
+      colL: teal ? [94, 234, 212] as number[] : [165, 180, 252] as number[],
+      col: teal ? [20, 184, 166] as number[] : [99, 102, 241] as number[],
+    };
+  }),
+];
+
+// Hexagon connections: center to all + ring
+const CONNECTIONS_MOBILE: [number, number][] = [
+  // Center (0) to each vertex (1-6)
+  [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6],
+  // Ring connections
+  [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 1],
 ];
 
 /* ─── 18 decorative background circles (static, random positions) ─── */
@@ -46,34 +65,32 @@ interface Dot {
   opacity: number;
 }
 
-function generateDots(): Dot[] {
-  const dots: Dot[] = [];
-  const rng = (min: number, max: number, seed: number) => {
-    // Deterministic-ish with seed for SSR consistency fallback
-    const v = Math.abs(Math.sin(seed * 9301 + 49297) % 1);
-    return min + v * (max - min);
-  };
-  let s = 0;
-  const push = (color: [number, number, number]) => {
-    s++;
-    dots.push({
-      x: rng(0.05, 0.95, s * 7.3),
-      y: rng(0.05, 0.95, s * 13.7),
-      r: rng(1.5, 4, s * 3.1),
-      color,
-      opacity: rng(0.04, 0.1, s * 5.9),
-    });
-  };
-
-  // 2 rose
-  for (let i = 0; i < 2; i++) push([251, 113, 133]);
-  // 8 indigo
-  for (let i = 0; i < 8; i++) push([99, 102, 241]);
-  // 8 teal
-  for (let i = 0; i < 8; i++) push([20, 184, 166]);
-
-  return dots;
-}
+/* Hand-placed dots for even distribution across the canvas */
+const DOTS: Dot[] = [
+  // Top area
+  { x: 0.12, y: 0.08, r: 2.5, color: [99, 102, 241],  opacity: 0.07 },
+  { x: 0.45, y: 0.05, r: 1.8, color: [20, 184, 166],  opacity: 0.06 },
+  { x: 0.78, y: 0.10, r: 3.0, color: [99, 102, 241],  opacity: 0.05 },
+  { x: 0.92, y: 0.04, r: 2.0, color: [251, 113, 133], opacity: 0.06 },
+  // Upper-mid
+  { x: 0.06, y: 0.30, r: 2.2, color: [20, 184, 166],  opacity: 0.08 },
+  { x: 0.35, y: 0.28, r: 1.6, color: [99, 102, 241],  opacity: 0.05 },
+  { x: 0.62, y: 0.25, r: 2.8, color: [20, 184, 166],  opacity: 0.06 },
+  { x: 0.88, y: 0.22, r: 2.0, color: [99, 102, 241],  opacity: 0.07 },
+  // Center
+  { x: 0.18, y: 0.55, r: 3.2, color: [99, 102, 241],  opacity: 0.05 },
+  { x: 0.55, y: 0.52, r: 1.8, color: [251, 113, 133], opacity: 0.06 },
+  { x: 0.82, y: 0.48, r: 2.5, color: [20, 184, 166],  opacity: 0.07 },
+  // Lower-mid
+  { x: 0.10, y: 0.72, r: 2.0, color: [20, 184, 166],  opacity: 0.06 },
+  { x: 0.40, y: 0.75, r: 2.8, color: [99, 102, 241],  opacity: 0.05 },
+  { x: 0.70, y: 0.68, r: 1.6, color: [20, 184, 166],  opacity: 0.08 },
+  { x: 0.94, y: 0.70, r: 2.2, color: [99, 102, 241],  opacity: 0.06 },
+  // Bottom
+  { x: 0.25, y: 0.90, r: 2.5, color: [20, 184, 166],  opacity: 0.05 },
+  { x: 0.58, y: 0.92, r: 2.0, color: [99, 102, 241],  opacity: 0.07 },
+  { x: 0.85, y: 0.88, r: 3.0, color: [20, 184, 166],  opacity: 0.06 },
+];
 
 /* ─── Quadratic bezier point at parameter p ─── */
 function quadAt(
@@ -94,7 +111,7 @@ export function CommunityConstellation() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
 
-  const dots = useMemo(() => generateDots(), []);
+  const dots = DOTS;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -154,17 +171,24 @@ export function CommunityConstellation() {
 
       ctx.clearRect(0, 0, W, H);
 
-      /* ── Background dots ── */
-      for (const dot of dots) {
+      /* ── Background dots (fewer on mobile, evenly distributed) ── */
+      const mobileDotIndices = [0, 3, 5, 8, 11, 13, 15, 17]; // spread across all areas
+      const activeDots = isMobile ? mobileDotIndices.map(i => dots[i]) : dots;
+      for (let di = 0; di < activeDots.length; di++) {
+        const dot = activeDots[di];
         ctx.beginPath();
         ctx.arc(dot.x * W, dot.y * H, dot.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${dot.color[0]},${dot.color[1]},${dot.color[2]},${dot.opacity})`;
         ctx.fill();
       }
 
-      /* ── Compute positions (fixed) ── */
-      const rScale = isMobile ? 0.8 : 1;
-      const positions = PEOPLE.map((p, i) => {
+      /* ── Pick layout based on screen ── */
+      const people = isMobile ? PEOPLE_MOBILE : PEOPLE_DESKTOP;
+      const connections = isMobile ? CONNECTIONS_MOBILE : CONNECTIONS_DESKTOP;
+
+      /* ── Compute positions ── */
+      const rScale = isMobile ? 0.9 : 1;
+      const positions = people.map((p) => {
         const s = p.r * minDim * rScale;
         return {
           px: p.x * W,
@@ -172,16 +196,14 @@ export function CommunityConstellation() {
           s,
           colL: p.colL,
           col: p.col,
-          hidden: isMobile && MOBILE_HIDDEN.has(i),
         };
       });
 
       /* ── Connections ── */
-      for (let ci = 0; ci < CONNECTIONS.length; ci++) {
-        const [from, to] = CONNECTIONS[ci];
+      for (let ci = 0; ci < connections.length; ci++) {
+        const [from, to] = connections[ci];
         const p1 = positions[from];
         const p2 = positions[to];
-        if (p1.hidden || p2.hidden) continue;
 
         const mx = (p1.px + p2.px) / 2;
         const my = (p1.py + p2.py) / 2;
@@ -228,7 +250,6 @@ export function CommunityConstellation() {
 
       /* ── Silhouettes: glow → shoulders → head ── */
       for (const pos of positions) {
-        if (pos.hidden) continue;
         const { px, py, s, col, colL } = pos;
 
         // Glow (drawn behind)
@@ -274,10 +295,10 @@ export function CommunityConstellation() {
       cancelAnimationFrame(animationId);
       ro.disconnect();
     };
-  }, [reducedMotion, dots]);
+  }, [reducedMotion]);
 
   return (
-    <section className="relative py-16 md:py-24 overflow-hidden">
+    <section className="relative py-10 md:py-24 overflow-hidden">
       {/* Crown of thorns — decorative background (left side) */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -304,7 +325,7 @@ export function CommunityConstellation() {
       {/* Canvas container */}
       <div
         ref={containerRef}
-        className="relative mx-auto max-w-6xl mt-8 md:mt-12 h-[320px] sm:h-[400px] md:h-[500px]"
+        className="relative mx-auto max-w-6xl mt-8 md:mt-12 h-[220px] sm:h-[320px] md:h-[500px]"
       >
         <canvas
           ref={canvasRef}

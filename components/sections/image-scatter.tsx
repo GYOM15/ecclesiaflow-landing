@@ -33,7 +33,8 @@ export function ImageScatter() {
       </div>
 
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative max-w-4xl mx-auto" style={{ minHeight: "520px" }}>
+        {/* ── Desktop: Scattered absolute layout ── */}
+        <div className="relative max-w-4xl mx-auto hidden md:block" style={{ minHeight: "520px" }}>
           {scatterItems.map((item, index) => (
             <motion.div
               key={item.label}
@@ -59,11 +60,9 @@ export function ImageScatter() {
                   alt={item.label}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 50vw, 30vw"
+                  sizes="30vw"
                 />
-                {/* Dark overlay for readability */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
-                {/* Label — top right */}
                 <div className="absolute top-0 right-0 p-3">
                   <span className="text-base font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
                     {item.label}
@@ -72,9 +71,44 @@ export function ImageScatter() {
               </div>
             </motion.div>
           ))}
-
-          {/* Spacer to ensure parent has minimum height */}
           <div className="h-[520px] lg:h-[570px]" aria-hidden="true" />
+        </div>
+
+        {/* ── Mobile: Grid layout ── */}
+        <div className="md:hidden grid grid-cols-2 gap-2.5">
+          {scatterItems.map((item, index) => (
+            <motion.div
+              key={item.label}
+              className={index === scatterItems.length - 1 ? "col-span-2 max-w-[60%] mx-auto" : ""}
+              initial={{ opacity: 0, y: 20 }}
+              animate={
+                isInView
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: 20 }
+              }
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <div className="aspect-[4/3] rounded-xl shadow-md overflow-hidden relative">
+                <Image
+                  src={item.src}
+                  alt={item.label}
+                  fill
+                  className="object-cover"
+                  sizes="50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
+                <div className="absolute top-0 right-0 p-2.5">
+                  <span className="text-sm font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                    {item.label}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

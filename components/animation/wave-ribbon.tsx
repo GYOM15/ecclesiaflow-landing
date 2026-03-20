@@ -7,7 +7,10 @@ import { useEffect, useRef, useCallback } from "react";
  * (teal → indigo → violet → deep indigo)
  */
 
-const NUM = 65;
+const NUM_DESKTOP = 65;
+const NUM_MOBILE = 25;
+const SEGS_DESKTOP = 180;
+const SEGS_MOBILE = 60;
 const COLORS: [number, number, number][] = [
   [45, 212, 191],   // teal-400
   [129, 140, 248],  // indigo-400
@@ -21,10 +24,14 @@ export default function WaveRibbon({ className = "" }: { className?: string }) {
   const wRef = useRef(0);
   const hRef = useRef(0);
 
+  const isMobileRef = useRef(false);
+
   const doResize = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
+    const isMobile = window.innerWidth < 768;
+    isMobileRef.current = isMobile;
+    const dpr = isMobile ? 1 : (window.devicePixelRatio || 1);
     const rect = canvas.getBoundingClientRect();
     wRef.current = rect.width;
     hRef.current = rect.height;
@@ -44,6 +51,7 @@ export default function WaveRibbon({ className = "" }: { className?: string }) {
     if (prefersReducedMotion) return;
 
     doResize();
+    let lastFrameTime = 0;
 
     function ribbonCenterY(sx: number) {
       const H = hRef.current;
@@ -64,17 +72,28 @@ export default function WaveRibbon({ className = "" }: { className?: string }) {
         animRef.current = requestAnimationFrame(frame);
         return;
       }
+
+      const isMobile = isMobileRef.current;
+      // Throttle to ~30fps on mobile
+      if (isMobile && time - lastFrameTime < 33) {
+        animRef.current = requestAnimationFrame(frame);
+        return;
+      }
+      lastFrameTime = time;
+
       ctx!.clearRect(0, 0, W, H);
       const t = time * 0.001;
 
-      for (let i = 0; i < NUM; i++) {
-        const lineT = i / (NUM - 1);
+      const numLines = isMobile ? NUM_MOBILE : NUM_DESKTOP;
+      const segs = isMobile ? SEGS_MOBILE : SEGS_DESKTOP;
+
+      for (let i = 0; i < numLines; i++) {
+        const lineT = i / (numLines - 1);
         const offset = (lineT - 0.5) * 2;
 
         ctx!.beginPath();
         ctx!.lineWidth = 0.8 + (1 - Math.abs(offset)) * 0.5;
 
-        const segs = 180;
         for (let s = 0; s <= segs; s++) {
           const sx = s / segs;
           const x = sx * W * 1.2 - W * 0.1;
