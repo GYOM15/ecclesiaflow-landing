@@ -21,9 +21,9 @@ export function CtaSection() {
           <path d="M0,160 L0,120 L180,70 L320,100 L480,45 L600,80 L720,30 L860,65 L960,40 L1080,75 L1200,50 L1340,90 L1440,60 L1440,160 Z" fill="#C7D2FE" opacity="0.18" />
           <path d="M0,160 L0,130 L240,90 L400,110 L560,75 L720,100 L880,60 L1040,95 L1200,70 L1440,100 L1440,160 Z" fill="#C7D2FE" opacity="0.10" />
         </svg>
-        <svg className="absolute top-8 right-[12%] w-16 h-20" viewBox="0 0 40 50" fill="none">
-          <rect x="17" y="0" width="6" height="50" rx="3" fill="#6366F1" opacity="0.18" />
-          <rect x="4" y="13" width="32" height="6" rx="3" fill="#6366F1" opacity="0.18" />
+        <svg className="absolute top-8 right-[12%] w-16 h-20" viewBox="0 0 40 50" fill="none" shapeRendering="crispEdges">
+          <rect x="17" y="0" width="6" height="50" fill="#6366F1" opacity="0.18" />
+          <rect x="4" y="13" width="32" height="6" fill="#6366F1" opacity="0.18" />
         </svg>
       </div>
 

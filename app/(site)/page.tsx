@@ -34,20 +34,16 @@ export default function HomePage() {
       <SectionDivider />
       <FeaturesOverview />
       <DarkBlock>
-
         <CommunityConstellation />
         <div className="w-full" aria-hidden="true">
           <div className="h-px bg-gradient-to-r from-transparent via-slate-600 to-transparent" />
         </div>
         <FeatureDeepDive />
       </DarkBlock>
-      <SectionDivider />
       <ImageScatter />
       <SectionDivider />
       <Integrations />
-      <SectionDivider />
       <Stats />
-      <SectionDivider />
       <Testimonials />
       <SectionDivider />
       <HowItWorks />

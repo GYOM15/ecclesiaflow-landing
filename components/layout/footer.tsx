@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="relative bg-slate-900 text-white">
       {/* Wave separator */}
-      <div className="absolute -top-px left-0 right-0 overflow-hidden leading-[0]" aria-hidden="true">
+      <div className="absolute -top-[48px] lg:-top-[56px] left-0 right-0 overflow-hidden leading-[0] pointer-events-none" aria-hidden="true">
         <svg viewBox="0 0 1440 54" fill="none" preserveAspectRatio="none" className="w-full h-12 lg:h-14">
           <path d="M0 22C240 44 480 0 720 22C960 44 1200 0 1440 22V54H0V22Z" fill="#0f172a" />
         </svg>
