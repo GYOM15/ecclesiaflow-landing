@@ -61,14 +61,14 @@ export default function ProfilePage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-slate-900">Mon profil</h1>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-slate-900">Mon profil</h1>
         <p className="text-sm text-slate-500 mt-1">
           Modifiez vos informations personnelles.
         </p>
       </div>
 
       {/* Email (read-only) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6">
         <label className="block text-sm font-medium text-slate-700 mb-1.5">
           Adresse email
         </label>
@@ -86,7 +86,7 @@ export default function ProfilePage() {
 
       {/* Profile form */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 space-y-4">
           {success && (
             <Alert variant="success" dismissible onDismiss={() => setSuccess(null)}>
               {success}

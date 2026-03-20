@@ -8,7 +8,7 @@ interface DashboardHeaderProps {
 
 export function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
   return (
-    <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6">
+    <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6">
       <button
         onClick={onMenuClick}
         className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors lg:hidden cursor-pointer"

@@ -92,7 +92,7 @@ export function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Content */}
-        <div className="pl-6 lg:pl-16 pb-12 lg:pb-16 max-w-2xl">
+        <div className="px-2 sm:pl-6 sm:pr-0 lg:pl-16 pb-12 lg:pb-16 max-w-2xl">
           <div className="hero-anim-1">
             <Badge variant="indigo" dot className="mb-5 shadow-sm shadow-indigo-200/50 border-indigo-200">
               Bêta ouverte — Accès anticipé

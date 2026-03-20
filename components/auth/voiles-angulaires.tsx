@@ -50,12 +50,18 @@ export function VoilesAngulaires({ bgColor = DEFAULT_BG_COLOR, panels = PANELS }
       return;
     }
 
+    // Mobile optimizations: fewer panels, lower DPR, throttled to ~30fps
+    const isMobile = window.innerWidth < 768;
+    const activePanels = isMobile ? panels.filter((_, i) => i % 2 === 0) : panels;
+    const frameInterval = isMobile ? 33 : 0; // ~30fps on mobile, uncapped on desktop
+
     let animationId: number;
     let startTime: number | null = null;
+    let lastFrameTime = 0;
 
     function resizeCanvas() {
       if (!canvas) return;
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = isMobile ? 1 : (window.devicePixelRatio || 1);
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
@@ -64,6 +70,14 @@ export function VoilesAngulaires({ bgColor = DEFAULT_BG_COLOR, panels = PANELS }
 
     function animate(timestamp: number) {
       if (!startTime) startTime = timestamp;
+
+      // Throttle on mobile
+      if (frameInterval && timestamp - lastFrameTime < frameInterval) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime = timestamp;
+
       const t = timestamp - startTime;
 
       if (!canvas || !ctx) return;
@@ -76,7 +90,7 @@ export function VoilesAngulaires({ bgColor = DEFAULT_BG_COLOR, panels = PANELS }
       ctx.fillRect(0, 0, w, h);
 
       // Draw each panel
-      panels.forEach((panel, i) => {
+      activePanels.forEach((panel, i) => {
         const x = w * panel.xOff + Math.sin(t * 0.0004 * panel.speed + i * 0.8) * 60;
         const rotation = (panel.angle + Math.sin(t * 0.00025 + i * 1.2) * 2) * (Math.PI / 180);
         const opacity = 0.35 + Math.sin(t * 0.0003 + i * 0.6) * 0.05;
@@ -90,12 +104,14 @@ export function VoilesAngulaires({ bgColor = DEFAULT_BG_COLOR, panels = PANELS }
         ctx.fillStyle = panel.color;
         ctx.fillRect(-panel.width / 2, -h, panel.width, h * 2);
 
-        // Dark edge bands (3px on each side)
-        ctx.fillStyle = "rgba(0,0,0,0.04)";
-        ctx.fillRect(-panel.width / 2, -h, 3, h * 2);
-        ctx.fillRect(-panel.width / 2 + 3, -h, 3, h * 2);
-        ctx.fillRect(panel.width / 2 - 6, -h, 3, h * 2);
-        ctx.fillRect(panel.width / 2 - 3, -h, 3, h * 2);
+        // Skip edge bands on mobile for perf
+        if (!isMobile) {
+          ctx.fillStyle = "rgba(0,0,0,0.04)";
+          ctx.fillRect(-panel.width / 2, -h, 3, h * 2);
+          ctx.fillRect(-panel.width / 2 + 3, -h, 3, h * 2);
+          ctx.fillRect(panel.width / 2 - 6, -h, 3, h * 2);
+          ctx.fillRect(panel.width / 2 - 3, -h, 3, h * 2);
+        }
 
         ctx.restore();
       });

@@ -120,14 +120,14 @@ export default function AccountPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-slate-900">Mon compte</h1>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-slate-900">Mon compte</h1>
         <p className="text-sm text-slate-500 mt-1">
           Gérez votre adresse email, mot de passe et paramètres de compte.
         </p>
       </div>
 
       {/* ─── Section 1: Email ─── */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+      <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 space-y-4">
         <div className="flex items-center gap-2">
           <Mail className="h-5 w-5 text-slate-700" />
           <h2 className="text-lg font-semibold text-slate-900">
@@ -232,7 +232,7 @@ export default function AccountPage() {
 
       {/* ─── Section 2: Password (hidden for SSO users without local credentials) ─── */}
       {hasLocalCredentials && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 space-y-4">
           <div className="flex items-center gap-2">
             <Key className="h-5 w-5 text-slate-700" />
             <h2 className="text-lg font-semibold text-slate-900">
@@ -307,11 +307,11 @@ export default function AccountPage() {
                 className="w-full rounded-xl border border-red-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
                 autoFocus
               />
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={handleDelete}
                   disabled={confirmText !== "SUPPRIMER" || deleting}
-                  className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-red-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-red-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {deleting ? (
                     <Spinner size="sm" className="text-white" />
@@ -326,7 +326,7 @@ export default function AccountPage() {
                     setConfirmText("");
                   }}
                   disabled={deleting}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer text-center"
                 >
                   Annuler
                 </button>

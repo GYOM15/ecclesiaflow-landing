@@ -58,7 +58,7 @@ export function Footer() {
               Recevez nos actualités, guides et conseils pour votre église.
             </p>
             <form
-              className="flex gap-2"
+              className="flex flex-col sm:flex-row gap-2"
               onSubmit={(e) => e.preventDefault()}
             >
               <input
@@ -68,7 +68,7 @@ export function Footer() {
               />
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2.5 rounded text-sm font-medium transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2.5 rounded text-sm font-medium transition-colors cursor-pointer"
               >
                 S&apos;abonner
                 <ArrowRight className="h-3.5 w-3.5" />

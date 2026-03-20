@@ -116,10 +116,13 @@ export function CommunityConstellation() {
     const startTime = performance.now();
     let W = 0;
     let H = 0;
+    let lastFrameTime = 0;
+    const isMobileDevice = window.innerWidth < 768;
+    const frameInterval = isMobileDevice ? 33 : 0; // ~30fps on mobile
 
     function resize() {
       const rect = container!.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = isMobileDevice ? 1 : (window.devicePixelRatio || 1);
       W = rect.width;
       H = rect.height;
       if (W === 0 || H === 0) return;
@@ -136,7 +139,16 @@ export function CommunityConstellation() {
         animationId = requestAnimationFrame(render);
         return;
       }
-      const t = performance.now() - startTime;
+
+      const now = performance.now();
+      // Throttle on mobile
+      if (frameInterval && now - lastFrameTime < frameInterval) {
+        animationId = requestAnimationFrame(render);
+        return;
+      }
+      lastFrameTime = now;
+
+      const t = now - startTime;
       const isMobile = W < 768;
       const minDim = Math.min(W, H);
 
@@ -194,15 +206,17 @@ export function CommunityConstellation() {
 
           const particle = quadAt(p1.px, p1.py, cpx, cpy, p2.px, p2.py, progress);
 
-          // Outer glow around particle
-          const glowGrad = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, 12);
-          glowGrad.addColorStop(0, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0.25)`);
-          glowGrad.addColorStop(0.5, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0.08)`);
-          glowGrad.addColorStop(1, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0)`);
-          ctx.fillStyle = glowGrad;
-          ctx.beginPath();
-          ctx.arc(particle.x, particle.y, 12, 0, Math.PI * 2);
-          ctx.fill();
+          // Outer glow around particle (skip on mobile for perf)
+          if (!isMobile) {
+            const glowGrad = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, 12);
+            glowGrad.addColorStop(0, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0.25)`);
+            glowGrad.addColorStop(0.5, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0.08)`);
+            glowGrad.addColorStop(1, `rgba(${p1.colL[0]},${p1.colL[1]},${p1.colL[2]},0)`);
+            ctx.fillStyle = glowGrad;
+            ctx.beginPath();
+            ctx.arc(particle.x, particle.y, 12, 0, Math.PI * 2);
+            ctx.fill();
+          }
 
           // Bright core
           ctx.beginPath();
@@ -269,7 +283,7 @@ export function CommunityConstellation() {
       <img
         src="/images/couronne-white.png"
         alt=""
-        className="hidden lg:block absolute left-[-4%] top-[18%] w-[750px] h-auto opacity-[0.04] brightness-[3] pointer-events-none select-none"
+        className="absolute left-[-10%] sm:left-[-4%] top-[20%] sm:top-[18%] w-[320px] sm:w-[500px] lg:w-[750px] h-auto opacity-[0.03] sm:opacity-[0.04] brightness-[3] pointer-events-none select-none"
         aria-hidden="true"
       />
 
@@ -290,8 +304,7 @@ export function CommunityConstellation() {
       {/* Canvas container */}
       <div
         ref={containerRef}
-        className="relative mx-auto max-w-6xl mt-12"
-        style={{ height: 500 }}
+        className="relative mx-auto max-w-6xl mt-8 md:mt-12 h-[320px] sm:h-[400px] md:h-[500px]"
       >
         <canvas
           ref={canvasRef}
