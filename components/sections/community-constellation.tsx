@@ -139,7 +139,7 @@ export function CommunityConstellation() {
 
     function resize() {
       const rect = container!.getBoundingClientRect();
-      const dpr = isMobileDevice ? 1 : (window.devicePixelRatio || 1);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = rect.width;
       H = rect.height;
       if (W === 0 || H === 0) return;
@@ -207,7 +207,7 @@ export function CommunityConstellation() {
 
         const mx = (p1.px + p2.px) / 2;
         const my = (p1.py + p2.py) / 2;
-        const wobble = reducedMotion
+        const wobble = (reducedMotion || isMobile)
           ? 0
           : Math.sin(t * 0.0003 + from * 1.3 + to * 0.7) * 8;
         const cpx = mx + wobble;

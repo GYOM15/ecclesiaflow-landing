@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
-/* Prevent iOS overscroll bounce showing white background */
+/* Prevent iOS overscroll bounce */
 html, body {
   overscroll-behavior: none;
+  overflow-x: clip;
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari only — prevent rubber-band bounce */
+  html {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @theme inline {
