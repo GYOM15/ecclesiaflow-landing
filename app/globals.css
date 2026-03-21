@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Prevent iOS overscroll bounce showing white background */
+html, body {
+  overscroll-behavior: none;
+}
+
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #0F172A;

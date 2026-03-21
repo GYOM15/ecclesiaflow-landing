@@ -83,19 +83,23 @@ function EventsMock() {
 function FinanceMock() {
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-2">
         <span className="text-xs font-semibold text-slate-900">Finances</span>
-        <span className="flex items-center gap-0.5 text-[10px] text-slate-500 font-medium"><TrendingUp className="h-3 w-3"/>+8%</span>
+        <span className="flex items-center gap-0.5 text-[10px] text-teal-600 font-medium"><TrendingUp className="h-3 w-3"/>+8%</span>
       </div>
-      <div className="grid grid-cols-2 gap-2 mb-3">
-        <div className="bg-slate-50 rounded-xl p-3 border border-slate-100"><div className="text-sm font-bold text-slate-700">$12,450</div><div className="text-[10px] text-slate-400">Dons</div></div>
-        <div className="bg-slate-50 rounded-xl p-3 border border-slate-100"><div className="text-sm font-bold text-slate-700">$8,200</div><div className="text-[10px] text-slate-400">Dîmes</div></div>
+      <div className="grid grid-cols-3 gap-1.5 mb-2">
+        <div className="bg-slate-50 rounded-xl p-3 text-center border border-slate-100"><div className="text-base font-bold text-indigo-600">$12,450</div><div className="text-[10px] text-slate-400 mt-0.5">Dons</div></div>
+        <div className="bg-slate-50 rounded-xl p-3 text-center border border-slate-100"><div className="text-base font-bold text-teal-600">$8,200</div><div className="text-[10px] text-slate-400 mt-0.5">Dîmes</div></div>
+        <div className="bg-slate-50 rounded-xl p-3 text-center border border-slate-100"><div className="text-base font-bold text-amber-600">$3,100</div><div className="text-[10px] text-slate-400 mt-0.5">Offrandes</div></div>
       </div>
-      <div className="flex items-end gap-1 h-12 mb-1">
-        {[40,55,48,72,60,80,65,85,70,90,75,88].map((h,i)=>(
-          <div key={i} className="flex-1"><div className={`w-full rounded-sm ${i>=10?"bg-indigo-500":i>=8?"bg-teal-400":"bg-indigo-200"}`} style={{height:`${h}%`}}/></div>
-        ))}
-      </div>
+      {[{t:"Culte dominical",v:"$4,230",p:"34%",c:"bg-indigo-500"},{t:"Projet missionnaire",v:"$2,850",p:"23%",c:"bg-teal-500"},{t:"Fonds bâtiment",v:"$1,670",p:"13%",c:"bg-amber-500"}].map(r=>(
+        <div key={r.t} className="flex items-center gap-2 py-1 border-b border-slate-100 last:border-0">
+          <div className={`w-2 h-2 rounded-full ${r.c} shrink-0`}/>
+          <span className="text-[11px] text-slate-700 flex-1">{r.t}</span>
+          <span className="text-[11px] font-semibold text-slate-800">{r.v}</span>
+          <span className="text-[9px] text-slate-400">{r.p}</span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -151,10 +155,6 @@ export function FeaturesDetail() {
                 <div className="relative cursor-pointer" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)" }}>
                   <div className={`absolute -inset-4 rounded-3xl bg-gradient-to-br ${meta.gradient} blur-2xl`} aria-hidden="true"/>
 
-                  {/* Gradient border highlight on select mockups */}
-                  {(catIndex === 0 || catIndex === 3) && (
-                    <div className="absolute -inset-[1.5px] rounded-xl bg-gradient-to-br from-indigo-400/40 via-indigo-200/15 to-slate-300/25 pointer-events-none" aria-hidden="true" />
-                  )}
 
                   <div className="relative bg-white rounded-xl border border-slate-200 shadow-[0_8px_40px_-8px_rgba(0,0,0,0.06),0_4px_20px_-4px_rgba(0,0,0,0.04)] overflow-hidden">
                     <div className="flex items-center gap-1.5 px-4 py-2.5 bg-slate-50 border-b border-slate-200">
