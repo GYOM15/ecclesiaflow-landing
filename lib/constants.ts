@@ -15,14 +15,10 @@ import {
   Smartphone,
   Cloud,
   Lock,
-  ChevronRight,
   CheckCircle2,
-  Star,
-  Church,
   HandHeart,
   Lightbulb,
   Eye,
-  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 

@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ScrollReveal } from "@/components/animation/scroll-reveal";
 import { INTEGRATIONS } from "@/lib/constants";
-import { MessageSquare, Calendar, CreditCard, Mail, Send, Bell, Smartphone, Shield } from "lucide-react";
+import { MessageSquare, Calendar, CreditCard, Send } from "lucide-react";
 
 /* 3 showcase mockups — minimaliste, avec couleurs subtiles */
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Users,
@@ -43,11 +43,7 @@ const NEXT_STEPS = [
 
 export default function DashboardPage() {
   const { member } = useMember();
-  const [bannerHidden, setBannerHidden] = useState(true);
-
-  useEffect(() => {
-    setBannerHidden(isBannerDismissed());
-  }, []);
+  const [bannerHidden, setBannerHidden] = useState(() => isBannerDismissed());
 
   const isProfileIncomplete = !member.address || !member.phoneNumber;
   const showBanner = isProfileIncomplete && !bannerHidden;

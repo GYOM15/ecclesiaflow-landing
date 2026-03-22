@@ -2,7 +2,7 @@
 
 import {
   Users, Calendar, BarChart3, MessageSquare, CreditCard, Settings,
-  Bell, Search, Home, TrendingUp, ChevronRight, CheckCircle2, Heart,
+  Bell, Search, Home, TrendingUp, ChevronRight, CheckCircle2,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/animation/scroll-reveal";
 
