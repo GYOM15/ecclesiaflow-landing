@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AuthCard } from "@/components/auth/auth-card";
@@ -21,15 +21,7 @@ function EmailChangeConfirmationContent() {
   const token = searchParams.get("token");
   const [state, setState] = useState<ConfirmState>({ status: "loading" });
 
-  useEffect(() => {
-    if (!token) {
-      setState({ status: "invalid" });
-      return;
-    }
-    handleConfirmation(token);
-  }, [token]);
-
-  async function handleConfirmation(confirmToken: string) {
+  const handleConfirmation = useCallback(async (confirmToken: string) => {
     const result = await confirmEmailChange(confirmToken);
 
     if (result.ok) {
@@ -53,7 +45,15 @@ function EmailChangeConfirmationContent() {
           });
       }
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    if (!token) {
+      setState({ status: "invalid" });
+      return;
+    }
+    handleConfirmation(token);
+  }, [token, handleConfirmation]);
 
   return (
     <div className="space-y-4">

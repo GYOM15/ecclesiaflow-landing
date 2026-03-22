@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Keycloak from "next-auth/providers/keycloak";
+import type { JWT } from "@auth/core/jwt";
 import "@/lib/auth/types";
 
-async function refreshAccessToken(token: any) {
+async function refreshAccessToken(token: JWT) {
   try {
     const baseUrl = process.env.AUTH_KEYCLOAK_INTERNAL_URL || process.env.AUTH_KEYCLOAK_ISSUER;
     const url = `${baseUrl}/protocol/openid-connect/token`;
@@ -83,7 +84,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account) {
         if (account.provider === "credentials" && user) {
           // Direct Grant: tokens come from the user object returned by authorize()
-          const u = user as any;
+          const u = user as { accessToken: string; refreshToken: string; expiresIn: number };
           token.accessToken = u.accessToken;
           token.refreshToken = u.refreshToken;
           token.expiresAt = Math.floor(Date.now() / 1000) + u.expiresIn;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { AuthCard } from "@/components/auth/auth-card";
@@ -24,15 +24,7 @@ function ConfirmationContent() {
   const [resendEmail, setResendEmail] = useState("");
   const [resendCooldown, setResendCooldown] = useState(0);
 
-  useEffect(() => {
-    if (!token) {
-      setState({ status: "invalid" });
-      return;
-    }
-    handleConfirmation(token);
-  }, [token]);
-
-  async function handleConfirmation(confirmToken: string) {
+  const handleConfirmation = useCallback(async (confirmToken: string) => {
     const result = await confirmEmail(confirmToken);
 
     if (result.ok) {
@@ -57,7 +49,15 @@ function ConfirmationContent() {
           });
       }
     }
-  }
+  }, [router]);
+
+  useEffect(() => {
+    if (!token) {
+      setState({ status: "invalid" });
+      return;
+    }
+    handleConfirmation(token);
+  }, [token, handleConfirmation]);
 
   async function handleResend() {
     if (resendCooldown > 0 || !resendEmail) return;
