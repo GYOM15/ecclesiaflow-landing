@@ -143,7 +143,7 @@ export default function InscriptionPage() {
             </Alert>
           )}
 
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <SocialButton
               provider="google"
               label="Google"
