@@ -50,13 +50,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       document.cookie = `ef_logout_hint=${encodeURIComponent(idToken)}; path=/; max-age=30; SameSite=Lax`;
     }
 
-    // Redirect immediately to federated-signout which handles:
-    // 1. Reading id_token from session/cookie
-    // 2. Clearing all NextAuth cookies
-    // 3. Redirecting to Keycloak logout endpoint
-    // Note: Do NOT await signOut() before — it triggers SessionProvider
-    // re-render which races with this redirect and causes auto-relogin.
-    window.location.href = "/api/auth/federated-signout";
+    // signOut with redirectTo is atomic: clears HttpOnly cookies server-side
+    // then redirects — no re-render race condition.
+    signOut({ redirectTo: "/api/auth/federated-signout" });
   }
 
   return (

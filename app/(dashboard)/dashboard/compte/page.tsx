@@ -109,8 +109,7 @@ export default function AccountPage() {
       if (idToken) {
         document.cookie = `ef_logout_hint=${encodeURIComponent(idToken)}; path=/; max-age=30; SameSite=Lax`;
       }
-      await signOut({ redirect: false });
-      window.location.href = "/api/auth/federated-signout";
+      await signOut({ redirectTo: "/api/auth/federated-signout" });
     } else {
       setDeleteError(result.error.message || "Une erreur est survenue.");
       setDeleting(false);
