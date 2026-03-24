@@ -40,7 +40,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
-  async function handleLogout() {
+  function handleLogout() {
     setLoggingOut(true);
     const idToken = session?.idToken;
 
@@ -50,10 +50,12 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       document.cookie = `ef_logout_hint=${encodeURIComponent(idToken)}; path=/; max-age=30; SameSite=Lax`;
     }
 
-    // Clear NextAuth session (reliable HttpOnly cookie clearing)
-    await signOut({ redirect: false });
-
-    // Redirect to Keycloak logout for full SSO session termination
+    // Redirect immediately to federated-signout which handles:
+    // 1. Reading id_token from session/cookie
+    // 2. Clearing all NextAuth cookies
+    // 3. Redirecting to Keycloak logout endpoint
+    // Note: Do NOT await signOut() before — it triggers SessionProvider
+    // re-render which races with this redirect and causes auto-relogin.
     window.location.href = "/api/auth/federated-signout";
   }
 
